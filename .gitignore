@@ -1,5 +1,6 @@
 config.py
 venv/
+__pycache__/
 SERVER/__pycache__/
 ZALANDO_SCRAPER/__pycache__/
 ZALANDO_SCRAPER/test_vision.py
