@@ -3,9 +3,6 @@
 You will need [Python3](https://www.python.org/downloads/) on your machine.
 
 ```bash
-# Install pip3 and virtualenv
-sudo apt-get install python3-pip
-sudo pip3 install virtualenv
 
 # Set up a Python virtual environment
 python -m venv venv
@@ -19,4 +16,15 @@ pip install -r requirements.txt
 
 # Leave the virtual environment
 deactivate
+```
+
+## Configuration
+Before running the server, you need to create a config.py file in the root directory of the project
+# Create a config.py file with this content
+OPENAI_API_KEY = 'your-api-key'
+
+## Run the server
+```bash
+
+py SERVER/server3.py
 ```
