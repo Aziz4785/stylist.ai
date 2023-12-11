@@ -20,9 +20,11 @@ deactivate
 
 ## Configuration
 Before running the server, you need to create a config.py file in the root directory of the project
+```bash
+
 # Create a config.py file with this content
 OPENAI_API_KEY = 'your-api-key'
-
+```
 ## Run the server
 ```bash
 
