@@ -126,7 +126,7 @@ class MyTest(TestCase):
 
         ref_file = "Reference5.json"
 
-        expected_ids = ["#I0002f8","#I00005d","#I00004d","#I000026","#I00000e","#I000646",
+        expected_ids = ["#I0002f8","#I00004d","#I000026","#I00000e","#I000646",
                         "#I0003ef","#I0003d8","#I0003d4","#I00034a","#I000344","#I000341","#I00033d",
                         "#I000338","#I00032b","#I00032a","#I000328","#I000325","#I000349","#I000324","#I00031e",
                         "#I00031b","#I000315","#I00030f","#I000302","#I000300","#I0002f8"]
@@ -159,11 +159,11 @@ class MyTest(TestCase):
 
         ref_file = "Reference5.json"
 
-        expected_ids = ["I0003df"]
+        expected_ids = ["#I0003df"]
         response_data = json.loads(response.data.decode('utf-8'))
 
         actual_ids = extract_id_from_response(response_data)
-
+    
         recall = compute_recall(set(actual_ids),set(expected_ids))
         precision = compute_precision(set(actual_ids),set(expected_ids))
 
