@@ -30,3 +30,8 @@ OPENAI_API_KEY = 'your-api-key'
 
 py SERVER/server3.py
 ```
+## Run the tests and test report
+```bash
+cd SERVER
+py -m unittest test_app
+```
