@@ -10,8 +10,11 @@ import os
 import nltk
 import sys
 import config
+#import spacy
 from nltk.tokenize import sent_tokenize
 
+# Load spaCy's English language model
+#nlp = spacy.load("en_core_web_sm")
 nltk.download('punkt')
 def extract_Ids_from_text(text):
     """
@@ -89,10 +92,12 @@ def divide_into_tiny_chunks(json_data):
         if("details about that item" in item):
            details = item["details about that item"]
 
-        hashtable[name +" "+brand+ " "+details]=item["id"]
+        hashtable[name +" "+brand]=item["id"]
+        hashtable[details]=item["id"]
+
         for sentence in sentences:
             hashtable[sentence]=item["id"]
-    
+        hashtable[item["visual description"]]=item["id"]
     return hashtable
 
 def ask_embedding_qa_langchain(docsearch,query):
@@ -115,25 +120,43 @@ def ask_embedding_qa_langchain(docsearch,query):
     results = chain.run(input_documents=docs, question=query)
     return results
 
-def get_similar_doc_from_embedding(docsearch,query):
-    docs = docsearch.similarity_search(query,k=10)
+def get_similar_doc_from_embedding(docsearch,query,k=10):
+    docs = docsearch.similarity_search(query,k)
     return docs
 
+
+"""  
+def get_similar_doc_from_embedding(docsearch,query,k):
+    query_parts= separate_sentence(query)
+    docs_main = docsearch.similarity_search(query,k)
+    docs_second = docsearch.similarity_search(query_parts[1],k)
+    return docs_main.extend(docs_second)
+""" 
 def get_Ids_from_hashmap(docs,hashtable):
     # each doc contain a "part" of the baseline of a single item
     #in this function, we get the id of the item corresponding to that "part"
-    ids_set = set()
+    ids_set_gpt4 = set()
+    ids_set_gpt3 = set()
 
+    first_half = docs[:9]
+    second_half = docs[9:]
+
+    counter = 0
     for item in docs:
         content =  remove_outer_quotes(item.page_content)
         content = content.replace("\\n", "\n")
 
         if content in hashtable:
-            ids_set.add(hashtable[content])
+            if(counter<=9):
+                ids_set_gpt4.add(hashtable[content])
+            else:
+                ids_set_gpt3.add(hashtable[content])
         else:
             print(f"ERROR! no id found in hashtable for content: {content}", file=sys.stderr)
 
-    return ids_set
+        counter+=1
+
+    return ids_set_gpt4,ids_set_gpt3
 
 def replace_double_newlines(text):
     return text.replace("\n\n", "\n")
@@ -158,6 +181,9 @@ def get_chatgpt_response(context, question, with_analysis=False):
     # Your OpenAI API key
     openai.api_key = config.OPENAI_API_KEY
 
+    if not isinstance(context, str):
+        context = convert_to_proper_string(context)
+
     analysis = " Return only the corresponding IDs, nothing else"
     if(with_analysis):
         analysis = " Follow this with an analysis of the list and description to ensure the recommendations are highly relevant and specific to the described needs."
@@ -172,15 +198,94 @@ Description:
 
 Begin your response by listing IDs of the specific clothing items that 100% match the description, considering any shade of a specified color as meeting the requirement. {analysis}
 """
-    prompt = custom_template2.format(context=context, question=question, analysis=analysis)
+
+    custom_template3 = """"Here is a list of clothes (each associated with an ID), first identify and list the clothing items from the list that perfectly align with the user input. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
+
+List of Clothes:
+{context}
+
+user input:
+"{question}"
+
+Begin your response by listing IDs of the specific clothing items that 100% match the user input , do not include IDs of clothes that don't match the user input
+"""
+    prompt = custom_template3.format(context=context, question=question, analysis=analysis)
     print("prompt : ")
     print(prompt)
     try:
         response = openai.ChatCompletion.create(
             model="gpt-4",  
+            messages=[{"role": "system", "content": "You specialize in fashion and apparel, offering personalized clothing recommendations based on user input."}, 
+                      {"role": "user", "content": prompt}]
+        )
+        return response.choices[0].message['content']
+    except Exception as e:
+        return str(e)
+    
+def get_all_GPT3_response(context, question, with_analysis=False):
+     # Process every three elements in the context
+    final_response=""
+    for i in range(0, len(context), 2):
+        sublist = context[i:i + 2]  # Get three elements
+        gpt3_response = get_GPT3_response(sublist,question,with_analysis)
+        final_response+=(" "+gpt3_response)
+    return final_response
+
+def get_GPT3_response(context, question, with_analysis=False):
+    # Your OpenAI API key
+    openai.api_key = config.OPENAI_API_KEY
+
+    if not isinstance(context, str):
+        context = convert_to_proper_string(context)
+
+    analysis = " Return only the corresponding IDs, nothing else"
+    if(with_analysis):
+        analysis = " Follow this with an analysis of the list and description to ensure the recommendations are highly relevant and specific to the described needs."
+    
+    custom_template2 = """"Based on the provided description, first identify and list the clothing items from the list that perfectly align with the criteria. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
+
+List of Clothes:
+{context}
+
+Description:
+"{question}"
+
+Begin your response by listing IDs of the specific clothing items that 100% match the description, considering any shade of a specified color as meeting the requirement. {analysis}
+"""
+    custom_template3 = """"From the following list of clothes, each with a unique ID, identify and list only the IDs of the clothing items that precisely meet the specified criteria. It is crucial to exclude any IDs of items that do not match the criteria. Treat any shade of a specified color as meeting the color requirement unless a specific shade is explicitly required. Black and white should not be considered as shades of other colors. Your response should only include the IDs of the items that are a 100% match.
+
+List of Clothes:
+{context}
+
+criteria:
+"{question}"
+
+Please provide a response that strictly lists the IDs of the clothing items meeting this exact criterion, without mentioning or including the IDs of any items that do not.
+"""
+    prompt = custom_template3.format(context=context, question=question, analysis=analysis)
+    print("prompt : ")
+    print(prompt)
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  
             messages=[{"role": "system", "content": "You are a helpful assistant."}, 
                       {"role": "user", "content": prompt}]
         )
         return response.choices[0].message['content']
     except Exception as e:
         return str(e)
+    
+"""
+def separate_sentence(sentence):
+    # Parse the sentence
+    doc = nlp(sentence)
+
+    # Try to find the main noun phrase
+    noun_phrases = list(doc.noun_chunks)
+    if noun_phrases:
+        main_noun_phrase = noun_phrases[0].text
+        rest_of_sentence = sentence.replace(main_noun_phrase, '').strip()
+        return main_noun_phrase, rest_of_sentence
+    else:
+        return sentence, ''
+"""
