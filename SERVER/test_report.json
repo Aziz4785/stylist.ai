@@ -1,20 +1,30 @@
-[
-    {
-        "query": "blue and white shoes",
-        "recall": 0.3333333333333333,
-        "precision": 1.0,
-        "baseline_used": "baseline_data5"
+{
+    "header": {
+        "1": "True Positive: The right clothes showing up when you search.",
+        "2": "False Negative: The right clothes don't show up when they should.",
+        "3": "False Positive: Clothes that you didn't want show up in your search.",
+        "4": "True Negative: Clothes that you didn't want don't show up, which is good.",
+        "5": "Our priority : minimize number of False negative  (hence the use of the recall metric)",
+        "6": "the goal is to have recall >0.7 and precision >0.7"
     },
-    {
-        "query": "something made of 100% polyester",
-        "recall": 0.19230769230769232,
-        "precision": 1.0,
-        "baseline_used": "baseline_data5"
-    },
-    {
-        "query": "a hoodie with something written on the sleeve",
-        "recall": 0.0,
-        "precision": 0,
-        "baseline_used": "baseline_data5"
-    }
-]
+    "test_results": [
+        {
+            "query": "blue and white shoes",
+            "recall": 0.3333333333333333,
+            "precision": 1.0,
+            "baseline_used": "baseline_data5"
+        },
+        {
+            "query": "something made of 100% polyester",
+            "recall": 0.19230769230769232,
+            "precision": 1.0,
+            "baseline_used": "baseline_data5"
+        },
+        {
+            "query": "a hoodie with something written on the sleeve",
+            "recall": 0.0,
+            "precision": 0,
+            "baseline_used": "baseline_data5"
+        }
+    ]
+}

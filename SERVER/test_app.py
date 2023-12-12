@@ -53,8 +53,23 @@ class MyTest(TestCase):
     @classmethod
     def tearDownClass(cls):
         # Save the report to a file after all tests in the class
+
+        description = {
+            "1": "True Positive: The right clothes showing up when you search.",                     
+            "2": "False Negative: The right clothes don't show up when they should.",
+            "3": "False Positive: Clothes that you didn't want show up in your search.",
+            "4": "True Negative: Clothes that you didn't want don't show up, which is good.",
+            "5": "Our priority : minimize number of False negative  (hence the use of the recall metric)",
+            "6": "the goal is to have recall >0.7 and precision >0.7"
+                            
+        }
+
+        report_data = {
+            "header": description,
+            "test_results": cls.test_results
+        }
         with open('test_report.json', 'w') as file:
-            json.dump(cls.test_results, file, indent=4)
+            json.dump(report_data, file, indent=4)
 
     def create_app(self):
         app.config['TESTING'] = True
