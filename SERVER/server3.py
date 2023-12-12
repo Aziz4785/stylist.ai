@@ -10,14 +10,17 @@ import re
 
 from ServerUtil import *
 os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
-script_dir = os.path.dirname(os.path.abspath(__file__))
-reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference5.json')
-baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data5.json')
-
-
 
 app = Flask(__name__)
-baseline = read_json(baseline_path)
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference5.json')
+default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data5.json')
+app.config['BASELINE_PATH'] = default_baseline_path
+
+
+
+baseline = read_json(app.config['BASELINE_PATH'])
 hashtable = divide_into_tiny_chunks(baseline)
 print("creating embedding ...")
 embedding = create_embedding(hashtable.keys())
@@ -36,7 +39,7 @@ def process():
     set_of_ids = get_Ids_from_hashmap(docs,hashtable)
     print("set_of_ids : ")
     print(set_of_ids)
-    correpsonding_items = filter_json_By_Id(baseline_path,set_of_ids)
+    correpsonding_items = filter_json_By_Id(app.config['BASELINE_PATH'],set_of_ids)
     correpsonding_items_string = convert_to_proper_string(correpsonding_items)
     gpt4_answer = get_chatgpt_response(correpsonding_items_string, query, with_analysis=False)
     print("chat gpt answer : ")
