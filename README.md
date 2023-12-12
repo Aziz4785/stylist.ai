@@ -30,8 +30,9 @@ OPENAI_API_KEY = 'your-api-key'
 
 py SERVER/server3.py
 ```
-## Run the tests and test report
+## generate test report
 ```bash
 cd SERVER
 py -m unittest test_app
 ```
+the test report "test_report.json" will be generated in SERVER
