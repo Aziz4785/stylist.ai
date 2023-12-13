@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify , render_template
+from flask import Flask, request, jsonify, render_template
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 
