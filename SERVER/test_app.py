@@ -54,6 +54,12 @@ class MyTest(TestCase):
     def tearDownClass(cls):
         # Save the report to a file after all tests in the class
 
+        total_recall = sum(result['recall'] for result in cls.test_results)
+        total_precision = sum(result['precision'] for result in cls.test_results)
+        average_recall = total_recall / len(cls.test_results) if cls.test_results else 0
+        average_precision = total_precision / len(cls.test_results) if cls.test_results else 0
+
+
         description = {
             "1": "True Positive: The right clothes showing up when you search.",                     
             "2": "False Negative: The right clothes don't show up when they should.",
@@ -66,6 +72,8 @@ class MyTest(TestCase):
 
         report_data = {
             "header": description,
+            "average_recall": average_recall,
+            "average_precision": average_precision,
             "test_results": cls.test_results
         }
         with open('test_report.json', 'w') as file:
@@ -103,9 +111,6 @@ class MyTest(TestCase):
         recall = compute_recall(set(actual_ids),set(expected_ids))
         precision = compute_precision(set(actual_ids),set(expected_ids))
 
-        print("recall : "+str(recall))
-        print("precision : "+str(precision))
-
         MyTest.test_results.append({
             "query": user_input,
             "recall": recall,
@@ -137,9 +142,6 @@ class MyTest(TestCase):
         recall = compute_recall(set(actual_ids),set(expected_ids))
         precision = compute_precision(set(actual_ids),set(expected_ids))
 
-        print("recall : "+str(recall))
-        print("precision : "+str(precision))
-
         MyTest.test_results.append({
             "query": user_input,
             "recall": recall,
@@ -159,7 +161,7 @@ class MyTest(TestCase):
 
         ref_file = "Reference5.json"
 
-        expected_ids = ["#I0003df"]
+        expected_ids = ["#I0003df"]# smth written on the sleeve but not hoodie : #I0003d9 #I0003b7 #I0003a3
         response_data = json.loads(response.data.decode('utf-8'))
 
         actual_ids = extract_id_from_response(response_data)
@@ -167,8 +169,30 @@ class MyTest(TestCase):
         recall = compute_recall(set(actual_ids),set(expected_ids))
         precision = compute_precision(set(actual_ids),set(expected_ids))
 
-        print("recall : "+str(recall))
-        print("precision : "+str(precision))
+        MyTest.test_results.append({
+            "query": user_input,
+            "recall": recall,
+            "precision": precision,
+            "baseline_used": baseline_used
+        })
+
+    def test_process_design1(self):
+        app.config['TESTING'] = True
+        baseline_used="baseline_data5"
+        app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
+
+        user_input = 'a two-tone sweater, where the two colors are separated by a horizontal line throughout the sweater'
+        test_query = {'query': user_input}
+        response = self.client.post('/process', data=test_query)
+        self.assertEqual(response.status_code, 200)
+
+        expected_ids = ["#I0003a3","#I0003e6"]
+        response_data = json.loads(response.data.decode('utf-8'))
+
+        actual_ids = extract_id_from_response(response_data)
+    
+        recall = compute_recall(set(actual_ids),set(expected_ids))
+        precision = compute_precision(set(actual_ids),set(expected_ids))
 
         MyTest.test_results.append({
             "query": user_input,
@@ -176,5 +200,86 @@ class MyTest(TestCase):
             "precision": precision,
             "baseline_used": baseline_used
         })
+
+    def test_process_design2(self):
+        app.config['TESTING'] = True
+        baseline_used="baseline_data5"
+        app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
+
+        user_input = """'I want to buy women's boots that are "covered"""""  #true name is padlock boots
+        test_query = {'query': user_input}
+        response = self.client.post('/process', data=test_query)
+        self.assertEqual(response.status_code, 200)
+
+        expected_ids = ["#I000016","#I00001e","#I000056"]
+        response_data = json.loads(response.data.decode('utf-8'))
+
+        actual_ids = extract_id_from_response(response_data)
+    
+        recall = compute_recall(set(actual_ids),set(expected_ids))
+        precision = compute_precision(set(actual_ids),set(expected_ids))
+
+        MyTest.test_results.append({
+            "query": user_input,
+            "recall": recall,
+            "precision": precision,
+            "baseline_used": baseline_used
+        })
+
+    def test_process_design3(self):
+        #same as test_process_design2 but more detailled
+        app.config['TESTING'] = True
+        baseline_used="baseline_data5"
+        app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
+
+        user_input = """boots that are “dropping” ie the tip of the boot fabric covers/falls on the heel part and covers the heel! trend last year and this year"""  #true name is padlock boots
+        test_query = {'query': user_input}
+        response = self.client.post('/process', data=test_query)
+        self.assertEqual(response.status_code, 200)
+
+        expected_ids = ["#I000016"]
+        response_data = json.loads(response.data.decode('utf-8'))
+
+        actual_ids = extract_id_from_response(response_data)
+    
+        recall = compute_recall(set(actual_ids),set(expected_ids))
+        precision = compute_precision(set(actual_ids),set(expected_ids))
+
+        MyTest.test_results.append({
+            "query": user_input,
+            "recall": recall,
+            "precision": precision,
+            "baseline_used": baseline_used
+        })
+
+    def test_process_content2(self):
+        app.config['TESTING'] = True
+        baseline_used="baseline_data5"
+        app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
+
+        user_input = "an item where the logo of the brand is printed/visible more than one time"  
+        test_query = {'query': user_input}
+        response = self.client.post('/process', data=test_query)
+        self.assertEqual(response.status_code, 200)
+
+        expected_ids = ["#I0003b2"]
+        response_data = json.loads(response.data.decode('utf-8'))
+
+        actual_ids = extract_id_from_response(response_data)
+    
+        recall = compute_recall(set(actual_ids),set(expected_ids))
+        precision = compute_precision(set(actual_ids),set(expected_ids))
+
+        MyTest.test_results.append({
+            "query": user_input,
+            "recall": recall,
+            "precision": precision,
+            "baseline_used": baseline_used
+        })
+
+
+
+
+
 
 

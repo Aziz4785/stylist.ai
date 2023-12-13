@@ -7,23 +7,49 @@
         "5": "Our priority : minimize number of False negative  (hence the use of the recall metric)",
         "6": "the goal is to have recall >0.7 and precision >0.7"
     },
+    "average_recall": 0.6504761904761904,
+    "average_precision": 0.42156862745098034,
     "test_results": [
         {
             "query": "blue and white shoes",
             "recall": 0.6666666666666666,
-            "precision": 0.6666666666666666,
+            "precision": 0.3333333333333333,
             "baseline_used": "baseline_data5"
         },
         {
             "query": "something made of 100% polyester",
-            "recall": 0.76,
+            "recall": 0.72,
             "precision": 1.0,
             "baseline_used": "baseline_data5"
         },
         {
             "query": "a hoodie with something written on the sleeve",
             "recall": 1.0,
-            "precision": 0.5,
+            "precision": 0.3333333333333333,
+            "baseline_used": "baseline_data5"
+        },
+        {
+            "query": "an item where the logo of the brand is printed/visible more than one time",
+            "recall": 0.0,
+            "precision": 0.0,
+            "baseline_used": "baseline_data5"
+        },
+        {
+            "query": "a two-tone sweater, where the two colors are separated by a horizontal line throughout the sweater",
+            "recall": 0.5,
+            "precision": 1.0,
+            "baseline_used": "baseline_data5"
+        },
+        {
+            "query": "'I want to buy women's boots that are \"covered",
+            "recall": 0.6666666666666666,
+            "precision": 0.11764705882352941,
+            "baseline_used": "baseline_data5"
+        },
+        {
+            "query": "boots that are \u201cdropping\u201d ie the tip of the boot fabric covers/falls on the heel part and covers the heel! trend last year and this year",
+            "recall": 1.0,
+            "precision": 0.16666666666666666,
             "baseline_used": "baseline_data5"
         }
     ]
