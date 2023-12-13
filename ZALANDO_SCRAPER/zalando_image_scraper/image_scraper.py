@@ -154,7 +154,7 @@ def add_to_baseline_file(baseline_elem, filename):
     Appends the given element to a JSON file.
 
     :param baseline_elem: The element to be added.
-    :param filename: Name of the JSON file to which the element is added. Default is 'baseline_data.json'.
+    :param filename: Name of the JSON file to which the element is added.
     """
     try:
         # Read the existing data from the file
@@ -173,70 +173,67 @@ def add_to_baseline_file(baseline_elem, filename):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def process_json_file_incr(driver, scrapedText_data, reference_file, baseline_filepath):
+def process_json_file_incr(driver, scraped_textInfos_filepath, reference_file_path, baseline_filepath):
     """
     simulatenously generate The reference and the baseline from the scrapedText_data
     """
 
     item_processed = 0
-    with open(scrapedText_data, 'r', encoding='utf-8') as file:
-        data = json.load(file)
+    with open(scraped_textInfos_filepath, 'r', encoding='utf-8') as file:
+        scraped_textInfos = json.load(file)
 
     try:
         # Check if reference file exists and is not empty
-        if os.path.exists(reference_file) and os.path.getsize(reference_file) > 0:
-            with open(reference_file, 'r+') as file:
-                file.seek(0, os.SEEK_END)    # Go to the end of file
-                file.seek(file.tell() - 1, os.SEEK_SET)  # Move back one position to overwrite the closing bracket ']'
-                if len(data) > 0:
-                    file.write(',')  # Add a comma to separate new data from existing data
+        if os.path.exists(reference_file_path) and os.path.getsize(reference_file_path) > 0:
+            with open(reference_file_path, 'r+') as reference_file:
+                reference_file.seek(0, os.SEEK_END)    # Go to the end of file
+                reference_file.seek(file.tell() - 1, os.SEEK_SET)  # Move back one position to overwrite the closing bracket ']'
+                if len(scraped_textInfos) > 0:
+                    reference_file.write(',')  # Add a comma to separate new data from existing data
 
-                for i, entry in enumerate(data):
-                    if iD_is_in_baseline_file(baseline_filepath, entry["id"]):
+                for i, singleItem_text_info in enumerate(scraped_textInfos):
+                    if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
                         continue
                     else:
                         print("new id")
-                    image_sources = scrap_images_from_link(driver, entry['url'])
-                    baseline_elem = generate_baseline_single_elem(entry, image_sources)
+                    image_sources = scrap_images_from_link(driver, singleItem_text_info['url'])
+                    baseline_elem = generate_baseline_single_elem(singleItem_text_info, image_sources)
                     item_processed += 1
                     add_to_baseline_file(baseline_elem,baseline_filepath)
-                    json_entry = json.dumps({
-                        'id': entry['id'],
-                        'url': entry['url'],
+                    reference_elem = json.dumps({
+                        'id': singleItem_text_info['id'],
+                        'url': singleItem_text_info['url'],
                         'images': image_sources
                     })
-                    file.write(json_entry)
-                    if i < len(data) - 1:
-                        file.write(',\n')
+                    reference_file.write(reference_elem)
+                    if i < len(scraped_textInfos) - 1:
+                        reference_file.write(',\n')
 
-                file.write(']')  # End of JSON array
+                reference_file.write(']')  # End of JSON array
 
         else:
             # File doesn't exist or is empty, write as new
-            with open(reference_file, 'w') as file:
-                file.write('[')  # Start of JSON array
+            with open(reference_file_path, 'w') as reference_file:
+                reference_file.write('[')  # Start of JSON array
 
-                for i, entry in enumerate(data):
-                    if iD_is_in_baseline_file(baseline_filepath, entry["id"]):
+                for i, singleItem_text_info in enumerate(scraped_textInfos):
+                    if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
                         continue
                     else:
                         print("new id")
-                    image_sources = scrap_images_from_link(driver, entry['url'])
-                    baseline_elem = generate_baseline_single_elem(entry, image_sources)
-                    item_processed += 1
+                    image_sources = scrap_images_from_link(driver, singleItem_text_info['url'])
+                    baseline_elem = generate_baseline_single_elem(singleItem_text_info, image_sources)
                     add_to_baseline_file(baseline_elem,baseline_filepath)
-                    json_entry = json.dumps({
-                        'id': entry['id'],
-                        'url': entry['url'],
+                    reference_elem = json.dumps({
+                        'id': singleItem_text_info['id'],
+                        'url': singleItem_text_info['url'],
                         'images': image_sources
                     })
-                    file.write(json_entry)
-                    if i < len(data) - 1:
-                        file.write(',\n')
+                    reference_file.write(reference_elem)
+                    if i < len(scraped_textInfos) - 1:
+                        reference_file.write(',\n')
 
-                file.write(']')  # End of JSON array
-
-        print(" item processed = " + str(item_processed))
+                reference_file.write(']')  # End of JSON array
     finally:
         driver.quit()
 
