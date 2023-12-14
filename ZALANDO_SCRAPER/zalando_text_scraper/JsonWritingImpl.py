@@ -13,12 +13,13 @@ class IncrementalJsonWritingStrategy(JsonWritingStrategy):
         file_exists = os.path.isfile(filename) and os.path.getsize(filename) > 0
 
         with open(filename, 'a+', encoding='utf-8') as json_file:
-            # Move to the end of the file
-            json_file.seek(0, os.SEEK_END)
-
+            
             if not file_exists:
                 json_file.write('[')
             else:
+                # Move to the end of the file
+                json_file.seek(0, os.SEEK_END)
+
                 # If it's not the first entry, add a comma before the next JSON object
                 if not self.is_first_entry:
                     json_file.write(',')
@@ -32,6 +33,7 @@ class IncrementalJsonWritingStrategy(JsonWritingStrategy):
             json_file.write(formatted_json_string)
 
             self.is_first_entry = False
+
 
     def closetab(self,filename):
         with open(filename, 'a') as file:

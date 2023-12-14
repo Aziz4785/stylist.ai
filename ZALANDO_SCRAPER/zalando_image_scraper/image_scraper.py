@@ -13,6 +13,8 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..')))
 import config
 
 # Configure logging
@@ -28,6 +30,12 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
+def encode_image_from_url(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return base64.b64encode(response.content).decode('utf-8')
+    else:
+        return None
 
 def describe_clothing_multi(name, brand, infos_from_site, images):
     """
@@ -35,6 +43,8 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
     """
     images = images[:3]  # max 3 images
     garment = "garment"
+    if(name):
+        garment = name
 
     if name and brand:
         garment = brand + " " + name
@@ -50,7 +60,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
                          "aspects such as the garment's design, style, unique features, and overall appearance. Avoid "
                          "repeating any details about the material composition, care instructions, "
                          "or other information already provided. Aim to capture the essence and distinct qualities of "
-                         "this garment that are visible in the images. Please be concise and generate less than 150 words"}
+                         "this garment that are visible in the images. Please be concise and generate less than 130 words"}
             ]
         }
     ]
@@ -70,7 +80,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
     response = openai.ChatCompletion.create(
         model="gpt-4-vision-preview",
         messages=messages,
-        max_tokens=200,
+        max_tokens=180,
     )
     return response.choices[0].message.content
 
@@ -110,19 +120,25 @@ def scrap_images_from_link(driver, url):
         print(f"Error occurred while searching for images: {e}")
         return []
 
+    try:
+        srcs = [img.get_attribute('src') for img in images]
+        print("Image sources extracted successfully.")
+    except Exception as e:
+        print(f"Error occurred while extracting image sources: {e}")
+
     # Extract the src attributes and encode images
     encoded_images = []
     try:
         for img in images:
-            src = img.get_attribute('src')
-            if src:
-                encoded_image = encode_image(src)
+            img_url = img.get_attribute('src')
+            encoded_image = encode_image_from_url(img_url)
+            if encoded_image:
                 encoded_images.append(encoded_image)
         print("Image sources encoded successfully.")
     except Exception as e:
         print(f"Error occurred while encoding image sources: {e}")
 
-    return encoded_images
+    return srcs,encoded_images
 
 
 def generate_baseline_single_elem(entry, image_sources):
@@ -145,8 +161,8 @@ def generate_baseline_single_elem(entry, image_sources):
     components = [name, brand, composition, details]
     total = " \n ".join([comp for comp in components if comp])
 
-    description = describe_clothing_multi(name, brand, total, image_sources)
-
+    #description = describe_clothing_multi(name, brand, total, image_sources)
+    description = "test description"
     elem = {}
     if id:
         elem["id"] = id
@@ -163,6 +179,10 @@ def generate_baseline_single_elem(entry, image_sources):
 
 
 def iD_is_in_baseline_file(file_path, id_to_check):
+
+    if not os.path.exists(file_path):
+        return False
+    
     with open(file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
@@ -212,17 +232,18 @@ def process_json_file_incr(driver, scraped_textInfos_filepath, reference_file_pa
         if os.path.exists(reference_file_path) and os.path.getsize(reference_file_path) > 0:
             with open(reference_file_path, 'r+') as reference_file:
                 reference_file.seek(0, os.SEEK_END)    # Go to the end of file
-                reference_file.seek(file.tell() - 1, os.SEEK_SET)  # Move back one position to overwrite the closing bracket ']'
+                # Move back one position to overwrite the closing bracket ']'
+                # Using reference_file.tell() instead of file.tell()
+                pos = reference_file.tell() - 1
+                reference_file.seek(pos, os.SEEK_SET)
                 if len(scraped_textInfos) > 0:
                     reference_file.write(',')  # Add a comma to separate new data from existing data
 
                 for i, singleItem_text_info in enumerate(scraped_textInfos):
                     if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
                         continue
-                    else:
-                        print("new id")
-                    image_sources = scrap_images_from_link(driver, singleItem_text_info['url'])
-                    baseline_elem = generate_baseline_single_elem(singleItem_text_info, image_sources)
+                    image_sources,encode_images = scrap_images_from_link(driver, singleItem_text_info['url'])
+                    baseline_elem = generate_baseline_single_elem(singleItem_text_info, encode_images)
                     add_to_baseline_file(baseline_elem,baseline_filepath)
               
                     reference_elem = json.dumps({
@@ -247,8 +268,8 @@ def process_json_file_incr(driver, scraped_textInfos_filepath, reference_file_pa
                     else:
                         print("new id")
                         
-                    image_sources = scrap_images_from_link(driver, singleItem_text_info['url'])
-                    baseline_elem = generate_baseline_single_elem(singleItem_text_info, image_sources)
+                    image_sources,encode_images = scrap_images_from_link(driver, singleItem_text_info['url'])
+                    baseline_elem = generate_baseline_single_elem(singleItem_text_info, encode_images)
                     add_to_baseline_file(baseline_elem,baseline_filepath)
                     reference_elem = json.dumps({
                         'id': singleItem_text_info['id'],
@@ -267,23 +288,23 @@ def process_json_file_incr(driver, scraped_textInfos_filepath, reference_file_pa
 def process_json_files_in_folder(folder_path, output_json_filename, output_baseline_filename):
     for filename in os.listdir(folder_path):
         if filename.endswith('.json'):
-            service = Service(ChromeDriverManager().install())
-            driver = webdriver.Chrome(service=service)
-            try:
-                print("processing " + str(filename) + " ...")
-                json_file_path = os.path.join(folder_path, filename)
-                if (filename == "data_streetwear-homme.json"):
+            if (filename == "data_luxe-homme.json"):
+                service = Service(ChromeDriverManager().install())
+                driver = webdriver.Chrome(service=service)
+                try:
+                    print("processing " + str(filename) + " ...")
+                    json_file_path = os.path.join(folder_path, filename)
                     process_json_file_incr(driver, json_file_path, output_json_filename, output_baseline_filename)
-            finally:
-                driver.quit()
+                finally:
+                    driver.quit()
 
 
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Navigate two levels up and then into the MAIN_DATA directory
-output_reference_path = os.path.join(script_dir, '..', '..', 'MAIN_DATA', 'Reference5.json')
+output_reference_path = os.path.join(script_dir, '..', '..', 'MAIN_DATA', 'Reference6.json')
 
-output_baseline = os.path.join(script_dir, '..', '..', 'MAIN_DATA', 'baseline_data5.json')
+output_baseline = os.path.join(script_dir, '..', '..', 'MAIN_DATA', 'baseline_data6.json')
 
 folder_path_of_scraped_text = os.path.join(script_dir, '..', 'zalando_text_scraper', 'output_json')
 print("Current Working Directory:", os.getcwd())
