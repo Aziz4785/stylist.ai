@@ -37,13 +37,21 @@ def encode_image_from_url(url):
     else:
         return None
 
+import requests
+import openai
+
 def describe_clothing_multi(name, brand, infos_from_site, images):
     """
-    generate a description from 3 images of the same product
+    Generate a description from up to 3 images of the same product.
     """
-    images = images[:3]  # max 3 images
+    # Check if images is not None and is a list
+    if images and isinstance(images, list):
+        images = images[:3]  # Use a maximum of 3 images
+    else:
+        images = []  # If images is None or not a list, use an empty list
+
     garment = "garment"
-    if(name):
+    if name:
         garment = name
 
     if name and brand:
@@ -53,14 +61,10 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
         {
             "role": "user",
             "content": [
-                {"type": "text",
-                 "text": "Please provide a detailed description of the garment shown in these images. The garment's "
-                         "name is ("+garment+"). Alongside your description, "
-                         "consider the following additional information about the item: ("+infos_from_site+"). Focus on"
-                         "aspects such as the garment's design, style, unique features, and overall appearance. Avoid "
-                         "repeating any details about the material composition, care instructions, "
-                         "or other information already provided. Aim to capture the essence and distinct qualities of "
-                         "this garment that are visible in the images. Please be concise and generate less than 130 words"}
+                {
+                    "type": "text",
+                    "text": "Please provide a detailed description of the garment shown in these images. The garment's name is (" + garment + "). Alongside your description, consider the following additional information about the item: (" + infos_from_site + "). Focus on aspects such as the garment's design, style, unique features, and overall appearance. Avoid repeating any details about the material composition, care instructions, or other information already provided. Aim to capture the essence and distinct qualities of this garment that are visible in the images. Please be concise and generate less than 130 words."
+                }
             ]
         }
     ]
@@ -71,7 +75,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
             messages[0]["content"].append({
                 "type": "image_url",
                 "image_url": {
-                "url": img_url,
+                    "url": img_url,
                 }
             })
         else:
@@ -82,7 +86,9 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
         messages=messages,
         max_tokens=180,
     )
+
     return response.choices[0].message.content
+
 
 """
 def scrap_images_from_link(driver, url):
@@ -232,11 +238,8 @@ def add_to_baseline_file(baseline_elem, filename):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, baseline_filepath):
-    """
-    simulatenously generate The reference and the baseline from the scrapedText_data
-    """
 
+def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, baseline_filepath):
     item_processed = 0
     with open(scraped_textInfos_filepath, 'r', encoding='utf-8') as file:
         scraped_textInfos = json.load(file)
@@ -244,65 +247,69 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
     # Check if reference file exists and is not empty
     if os.path.exists(reference_file_path) and os.path.getsize(reference_file_path) > 0:
         with open(reference_file_path, 'r+') as reference_file:
-            reference_file.seek(0, os.SEEK_END)    # Go to the end of file
-            # Move back one position to overwrite the closing bracket ']'
-            # Using reference_file.tell() instead of file.tell()
+            reference_file.seek(0, os.SEEK_END)
             pos = reference_file.tell() - 1
             reference_file.seek(pos, os.SEEK_SET)
             if len(scraped_textInfos) > 0:
-                reference_file.write(',')  # Add a comma to separate new data from existing data
+                reference_file.write(',')
 
             for i, singleItem_text_info in enumerate(scraped_textInfos):
                 if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
                     continue
-                item_processed+=1
+                item_processed += 1
+
+                # Check for 'images' key
+                images = singleItem_text_info.get('images', [])  # Use an empty list if 'images' key is not found
+
                 baseline_elem = generate_baseline_single_elem(singleItem_text_info)
-                add_to_baseline_file(baseline_elem,baseline_filepath)
-            
+                add_to_baseline_file(baseline_elem, baseline_filepath)
+
                 reference_elem = json.dumps({
                     'id': singleItem_text_info['id'],
                     'url': singleItem_text_info['url'],
-                    'images': singleItem_text_info['images']
+                    'images': images  # Use the checked images here
                 })
                 reference_file.write(reference_elem)
                 if i < len(scraped_textInfos) - 1:
                     reference_file.write(',\n')
 
-                if(item_processed%5==0):
-                    print(str(item_processed*100/len(scraped_textInfos)) + " done ")
-            reference_file.write(']')  # End of JSON array
+                if item_processed % 5 == 0:
+                    print(str(item_processed * 100 / len(scraped_textInfos)) + "% done ")
+            reference_file.write(']')
 
     else:
         # File doesn't exist or is empty, write as new
         with open(reference_file_path, 'w') as reference_file:
-            reference_file.write('[')  # Start of JSON array
+            reference_file.write('[')
 
             for i, singleItem_text_info in enumerate(scraped_textInfos):
                 if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
                     continue
-                item_processed+=1
+                item_processed += 1
+
+                # Check for 'images' key
+                images = singleItem_text_info.get('images', [])
+
                 baseline_elem = generate_baseline_single_elem(singleItem_text_info)
-                add_to_baseline_file(baseline_elem,baseline_filepath)
+                add_to_baseline_file(baseline_elem, baseline_filepath)
                 reference_elem = json.dumps({
                     'id': singleItem_text_info['id'],
                     'url': singleItem_text_info['url'],
-                    'images': singleItem_text_info['images']
+                    'images': images
                 })
                 reference_file.write(reference_elem)
                 if i < len(scraped_textInfos) - 1:
                     reference_file.write(',\n')
-                if(item_processed%5==0):
-                    print(str(item_processed*100/len(scraped_textInfos)) + " done ")
-            reference_file.write(']')  # End of JSON array
+                if item_processed % 5 == 0:
+                    print(str(item_processed * 100 / len(scraped_textInfos)) + "% done ")
+            reference_file.write(']')
 
 
 def process_json_files_in_folder(folder_path, output_json_filename, output_baseline_filename):
     for filename in os.listdir(folder_path):
         if filename.endswith('.json'):
-            if (filename == "data_luxe-homme.json" or filename == "data_mode-femme.json" or filename =="data_sport-homme.json"):
-                #service = Service(ChromeDriverManager().install())
-                #driver = webdriver.Chrome(service=service)
-                print("processing " + str(filename) + " ...")
+            if filename in ["data_chaussures-femme.json"]:
+                print("Processing " + str(filename) + " ...")
                 json_file_path = os.path.join(folder_path, filename)
                 process_json_file_incr(json_file_path, output_json_filename, output_baseline_filename)
  
