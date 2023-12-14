@@ -41,6 +41,35 @@ class ProductPageScraper:
 
         return product_Brand
     
+    def extract_images(self,url):
+        """
+        return the list of images of a product page 
+        """
+        try:
+            self.driver.get(url)
+            print("URL successfully opened.")
+        except Exception as e:
+            print(f"Error occurred while opening URL: {e}")
+            return []
+
+        # Find images
+        try:
+            div_class = "_5qdMrS WzZ4iu _01vVuu _6GQ88b WdG8Bv"
+            images = self.driver.find_elements(By.CSS_SELECTOR, f'div.{div_class.replace(" ", ".")} img')
+            print(f"Found {len(images)} images.")
+        except Exception as e:
+            print(f"Error occurred while searching for images: {e}")
+            return []
+
+        srcs=[]
+        try:
+            srcs = [img.get_attribute('src') for img in images]
+            print("Image sources extracted successfully.")
+        except Exception as e:
+            print(f"Error occurred while extracting image sources: {e}")
+
+        return srcs
+    
     def extract_name(self,url):
         product_name=""
         try:
@@ -125,6 +154,10 @@ class ProductPageScraper:
             product_data["more details (fr)"] = product_details_text
             product_data["more details (en)"] = self.translator.translate(product_details_text)
 
+        images = self.extract_images(url)
+        if(len(images)>0):
+            product_data["images"] = images
+
         return product_data
 
 class LuxeProductPageScraper(ProductPageScraper):
@@ -140,6 +173,34 @@ class LuxeProductPageScraper(ProductPageScraper):
         return product_Brand
       
         
+    def extract_images(self,url):
+        """
+        return the list of images of a product page 
+        """
+        try:
+            self.driver.get(url)
+            print("URL successfully opened.")
+        except Exception as e:
+            print(f"Error occurred while opening URL: {e}")
+            return []
+
+        # Find images
+        try:
+            div_class = "I7OI1O C3wGFf L5YdXz _0xLoFW _7ckuOK mROyo1 _5qdMrS"
+            images = self.driver.find_elements(By.CSS_SELECTOR, f'div.{div_class.replace(" ", ".")} img')
+            print(f"Found {len(images)} images.")
+        except Exception as e:
+            print(f"Error occurred while searching for images: {e}")
+            return []
+
+        srcs=[]
+        try:
+            srcs = [img.get_attribute('src') for img in images]
+            print("Image sources extracted successfully.")
+        except Exception as e:
+            print(f"Error occurred while extracting image sources: {e}")
+
+        return srcs
     
     def extract_name(self,url):
         product_name= ""
@@ -149,59 +210,7 @@ class LuxeProductPageScraper(ProductPageScraper):
             pass
 
         return product_name
-   
-class ModeProductPageScraper(ProductPageScraper):
-    def scrap_product_page(self, url):
-        product_data = {"url": url} #object to store in the json
-        self.driver.get(url)
-        time.sleep(2)
 
-        # extract brand
-        try:
-            WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.CLASS_NAME, "FtrEr_"))
-            )
-            product_Brand = self.driver.find_element(By.CLASS_NAME, "FtrEr_").text
-            product_data["brand"] = product_Brand
-        except NoSuchElementException as e:
-            print(f"Product brand not found for URL: {url}. Error: {e}")
-        except Exception as e:
-            print(f"An error occurred while finding product brand for URL: {url}. Error: {e}")
-        except:
-            print(f"Product brand not found for URL: {url}")
-        
-        # extract product name
-        try:
-            product_name = self.driver.find_element(By.XPATH, "//h1[contains(@class, 'sDq_FX')]").text
-            product_data["name"] = product_name
-        except:
-            print(f"Product name not found for URL: {url}")
-
-        # First, handle the overlay if it exists (e.g., cookie consent)
-        if(self.cookies_accepted == False):
-            try:
-                cookie_accept_button = self.driver.find_element(By.ID, "uc-btn-accept-banner")
-                cookie_accept_button.click()
-                self.cookies_accepted=True
-                if self.cookies_accepted:
-                    time.sleep(2)  # Wait for the overlay to disappear
-            except NoSuchElementException:
-                self.cookies_accepted = True
-                pass
-            except Exception as e:
-                pass
-
-        material_and_care_text = self.extract_material_and_care(url)
-        if material_and_care_text:
-            product_data["composition and care (fr)"] = material_and_care_text
-            product_data["composition and care (en)"] = self.translator.translate(material_and_care_text)
-       
-        product_details_text = self.extract_details(url)
-        if product_details_text:
-            product_data["more details (fr)"] = product_details_text
-            product_data["more details (en)"] = self.translator.translate(product_details_text)
-
-        return product_data
 
 class Scraper:
     """
@@ -286,9 +295,8 @@ class Scraper:
 
 
 class ModeScraper(Scraper):
-    def __init__(self, url, json_strategy):
-        super().__init__(url, json_strategy)
-        self.product_page_scraper = ModeProductPageScraper(self.driver)
+    def parse_html(self, html):
+        pass
 
 class LuxeScraper(Scraper):
     def __init__(self, url, json_strategy):
