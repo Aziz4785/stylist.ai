@@ -138,9 +138,6 @@ def get_Ids_from_hashmap(docs,hashtable):
     ids_set_gpt4 = set()
     ids_set_gpt3 = set()
 
-    first_half = docs[:9]
-    second_half = docs[9:]
-
     counter = 0
     for item in docs:
         content =  remove_outer_quotes(item.page_content)
@@ -223,10 +220,10 @@ Begin your response by listing IDs of the specific clothing items that 100% matc
         return str(e)
     
 def get_all_GPT3_response(context, question, with_analysis=False):
-     # Process every three elements in the context
+     # Process every two elements in the context
     final_response=""
     for i in range(0, len(context), 2):
-        sublist = context[i:i + 2]  # Get three elements
+        sublist = context[i:i + 2]  # Get two elements
         gpt3_response = get_GPT3_response(sublist,question,with_analysis)
         final_response+=(" "+gpt3_response)
     return final_response
