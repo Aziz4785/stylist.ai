@@ -7,6 +7,7 @@ def main():
     with open("zalando_links", "r") as file:
         links = file.readlines()
 
+    links=["https://www.zalando.fr/streetwear-homme/","https://www.zalando.fr/luxe-homme/","https://www.zalando.fr/sport-homme/"]
     for link in links:
         print("scraping link "+link)
         scraper = ScraperFactory.create_scraper(link.strip(),IncrementalJsonWritingStrategy())

@@ -16,6 +16,29 @@ def remove_SeeEnvironementSpec(json_file_path):
     with open(json_file_path, 'w', encoding='utf-8') as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
         
+def reduce_image_width(json_file_path):
+    # Parse the JSON data
+    with open(json_file_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    
+    # Iterate through each item in the data
+    for item in data:
+        # Iterate through each image URL in the 'images' array
+        if "images" in item:
+            for i, url in enumerate(item['images']):
+                # Find and replace 'imwidth' value if greater than 200
+                if "imwidth=" in url and int(url.split("imwidth=")[1].split("&")[0]) > 200:
+                    # Split the URL at 'imwidth=' and then at '&' to isolate the value
+                    parts = url.split("imwidth=")
+                    subparts = parts[1].split("&", 1)
+                    # Replace the value with 156
+                    subparts[0] = "156"
+                    # Reconstruct the URL
+                    item['images'][i] = parts[0] + "imwidth=" + "&".join(subparts)
+    
+    with open(json_file_path, 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+
 def remove_reference(json_file_path):
     # Regular expression pattern to match "Reference: " followed by any characters
     # stopping at a space, comma, point, or the end of the string
@@ -62,5 +85,5 @@ def post_process_json_files_in_folder(folder_path, operations):
             print(f"Skipping non-JSON file: {filename}")
 
 folder_path = 'zalando_text_scraper/output_json' 
-operations = [add_incremental_id, remove_reference, remove_SeeEnvironementSpec]
+operations = [add_incremental_id, remove_reference, remove_SeeEnvironementSpec,reduce_image_width]
 post_process_json_files_in_folder(folder_path, operations)
