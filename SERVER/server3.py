@@ -11,20 +11,23 @@ import re
 from ServerUtil import *
 os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 
-app = Flask(__name__)
+
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference5.json')
-default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data5.json')
-app.config['BASELINE_PATH'] = default_baseline_path
+reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference6.json')
+default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data6.json')
 
 
+class MyApp(Flask):
+    def __init__(self, import_name):
+        super(MyApp, self).__init__(import_name)
+        self.config['BASELINE_PATH'] = default_baseline_path
+        self.baseline = read_json(self.config['BASELINE_PATH'])
+        self.hashtable = divide_into_tiny_chunks(self.baseline)
+        self.embedding = create_embedding(self.hashtable.keys())
+        
 
-baseline = read_json(app.config['BASELINE_PATH'])
-hashtable = divide_into_tiny_chunks(baseline)
-print("creating embedding ...")
-embedding = create_embedding(hashtable.keys())
-print("done")
+app = MyApp(__name__)
 
 @app.route('/')
 def index():
@@ -33,10 +36,10 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     query = request.form['query']
-    docs = get_similar_doc_from_embedding(embedding,query,k=20) #get the best k docs
+    docs = get_similar_doc_from_embedding(app.embedding,query,k=20) #get the best k docs
     print("docs : ")
     print(docs)
-    set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs,hashtable)
+    set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs,app.hashtable)
     print("set_of_ids_GPT4 : ")
     print(set_of_ids_GPT4)
     correpsonding_items_gpt4 = filter_json_By_Id(app.config['BASELINE_PATH'],set_of_ids_GPT4)

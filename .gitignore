@@ -6,3 +6,4 @@ ZALANDO_SCRAPER/__pycache__/
 ZALANDO_SCRAPER/test_vision.py
 ZALANDO_SCRAPER/zalando_text_scraper/__pycache__/
 SERVER/test.txt
+.idea/
