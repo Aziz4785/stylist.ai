@@ -62,12 +62,14 @@ def read_json(filename):
         data = json.load(file)
         return data
      
-def create_embedding(json_data):
-    if(json_data is None):
+def create_embedding(baseline_chunks):
+    print("creating embedding ...")
+    if(baseline_chunks is None):
         return None
-    texts = [json.dumps(item, ensure_ascii=False) for item in json_data]
+    texts = [json.dumps(item, ensure_ascii=False) for item in baseline_chunks]
     embeddings = OpenAIEmbeddings()
     docsearch = FAISS.from_texts(texts, embeddings)
+    print("done")
     return docsearch
 
 def extract_sentences(paragraph):
@@ -79,12 +81,15 @@ def divide_into_tiny_chunks(json_data):
     return a hash table where key = (a single sentence from "item description") or (name+brand+details )
     and value = id
     """
+    print("dividing baseline into tiny chunks ...")
     hashtable={}
     for item in json_data:
         brand= ""
         name= ""
         details= ""
-        sentences = extract_sentences(item["visual description"])
+        sentences= []
+        if("visual description" in item):
+            sentences = extract_sentences(item["visual description"])
         if("brand" in  item):
             brand = "brand : "+item["brand"]+", "
         if("name of the product" in item):
@@ -97,7 +102,9 @@ def divide_into_tiny_chunks(json_data):
 
         for sentence in sentences:
             hashtable[sentence]=item["id"]
-        hashtable[item["visual description"]]=item["id"]
+        if("visual description" in item):
+            hashtable[item["visual description"]]=item["id"]
+    print("done")
     return hashtable
 
 def ask_embedding_qa_langchain(docsearch,query):
@@ -121,6 +128,7 @@ def ask_embedding_qa_langchain(docsearch,query):
     return results
 
 def get_similar_doc_from_embedding(docsearch,query,k=10):
+    print("getting "+str(k)+" most similar docs for query : "+str(query))
     docs = docsearch.similarity_search(query,k)
     return docs
 
