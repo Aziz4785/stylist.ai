@@ -33,6 +33,6 @@ py SERVER/server3.py
 ## generate test report
 ```bash
 cd SERVER
-py -m unittest test_app
+py -m unittest test_embedding 
 ```
-the test report "test_report.json" will be generated in SERVER
+the test report "test_embedding_report.json" will be generated in SERVER
