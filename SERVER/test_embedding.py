@@ -46,19 +46,7 @@ class MyTest(TestCase):
         total_precision = sum(result['precision'] for result in cls.test_results)
         average_precision = total_precision / len(cls.test_results) if cls.test_results else 0
 
-
-        description = {
-            "1": "True Positive: The right clothes showing up when you search.",                     
-            "2": "False Negative: The right clothes don't show up when they should.",
-            "3": "False Positive: Clothes that you didn't want show up in your search.",
-            "4": "True Negative: Clothes that you didn't want don't show up, which is good.",
-            "5": "Our priority : minimize number of False negative  (hence the use of the recall metric)",
-            "6": "the goal is to have recall >0.7 and precision >0.7"
-                            
-        }
-
         report_data = {
-            "header": description,
             "average_precision": average_precision,
             "test_results": cls.test_results
         }
@@ -107,7 +95,8 @@ class MyTest(TestCase):
    
         docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
-        expected_ids = ["#I00005c"]
+        expected_ids = ["#I00005c","#I000058","#I00005f","#I000061","#I00006b",
+                        "#I00006c","#I000072","#I00007c","#I000082","#I00008c","#I00008e"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
 
         print("test_process_color1")
@@ -133,7 +122,7 @@ class MyTest(TestCase):
    
         docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
-        expected_ids = ["#I000016","#I000063"]
+        expected_ids = ["#I000016","#I000063","#I000086","#I00008d"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
         print("test_process_color2")
         print("actual ids : ")
@@ -231,7 +220,8 @@ class MyTest(TestCase):
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I000092","#I0000e3","#I0000ed","#I0000f0","#I0000fd",
                         "#I000106","#I0000d8","#I0000d4","#I0000c4","#I000240",
-                        "#I00025a","#I000242","#I0000b1","#I0000c2","#I000097"]
+                        "#I00025a","#I000242","#I0000b1","#I0000c2","#I000097",
+                        "#I000141","#I0000ab"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
 
         print("actual ids : ")
