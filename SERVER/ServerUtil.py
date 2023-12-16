@@ -102,7 +102,7 @@ def divide_into_tiny_chunks(json_data):
         for sentence in sentences:
             hashtable[sentence]=item["id"]
         if("visual description" in item):
-            hashtable[item["visual description"]]=item["id"]
+            hashtable[replace_double_newlines(item["visual description"])]=item["id"]
     print("done")
     return hashtable
 
@@ -144,19 +144,18 @@ def get_Ids_from_hashmap(docs,hashtable):
     #in this function, we get the id of the item corresponding to that "part"
     ids_set_gpt4 = set()
     ids_set_gpt3 = set()
-
+    print("getting ids for docs :")
+    print(docs)
     counter = 0
     for item in docs:
-        content =  remove_outer_quotes(item.page_content)
-        content = content.replace("\\n", "\n")
-
+        content =  item.page_content
         if content in hashtable:
             if(counter<=9):
                 ids_set_gpt4.add(hashtable[content])
             else:
                 ids_set_gpt3.add(hashtable[content])
         else:
-            print(f"ERROR! no id found in hashtable for content: {content}", file=sys.stderr)
+            print(f"ERROR! no id found in hashtable for content: {content}")
 
         counter+=1
 
