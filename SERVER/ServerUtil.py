@@ -276,6 +276,15 @@ Please provide a response that strictly lists the IDs of the clothing items meet
     except Exception as e:
         return str(e)
     
+def get_similar_doc_for_separated_input(app,user_input,k_left=12,k_right=8):
+    separated_user_input = separate_sentence(user_input)
+    if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=k_left)
+        docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=k_right)
+        docs.extend(docs2)
+    else:
+        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=k_left+k_right) #get the best k docs
+    return docs
 
 def separate_sentence(sentence):
     # Parse the sentence
