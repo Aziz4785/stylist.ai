@@ -72,8 +72,15 @@ class MyTest(TestCase):
         app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
 
         user_input = "a garment with a cute drawing on it"
-   
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+            print("final docs: ")
+            print(docs)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I000109"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
@@ -92,8 +99,13 @@ class MyTest(TestCase):
         app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
 
         user_input = "shoes that are white and black and (another color)"
-   
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I00005c","#I000058","#I00005f","#I000061","#I00006b",
                         "#I00006c","#I000072","#I00007c","#I000082","#I00008c","#I00008e"]
@@ -120,7 +132,13 @@ class MyTest(TestCase):
 
         user_input = "green and white shoes"
    
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I000016","#I000063","#I000086","#I00008d"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
@@ -144,7 +162,13 @@ class MyTest(TestCase):
 
         user_input = "a shirt with a red thing on the back"
    
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I000267"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
@@ -167,8 +191,14 @@ class MyTest(TestCase):
         app.config['BASELINE_PATH'] = os.path.join(script_dir, '..',  'MAIN_DATA', f'{baseline_used}.json')
 
         user_input = "an item with the christian cross on it"
-   
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I0000a9"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
@@ -192,7 +222,13 @@ class MyTest(TestCase):
 
         user_input = "a looonng skirt"
    
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I000169"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
@@ -216,7 +252,13 @@ class MyTest(TestCase):
 
         user_input = "something made of cotton and polyester only"
    
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I000092","#I0000e3","#I0000ed","#I0000f0","#I0000fd",
                         "#I000106","#I0000d8","#I0000d4","#I0000c4","#I000240",
@@ -243,7 +285,13 @@ class MyTest(TestCase):
 
         user_input = "something similar to Arsene wenger's coat"
    
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
+        separated_user_input = separate_sentence(user_input)
+        if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=10)
+            docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+            docs.extend(docs2)
+        else:
+            docs = get_similar_doc_from_embedding(app.embedding,user_input,k=20) #get the best k docs
         set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, app.hashtable)
         expected_ids = ["#I00014b"]
         actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)

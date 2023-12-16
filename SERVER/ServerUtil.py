@@ -10,11 +10,11 @@ import os
 import nltk
 import sys
 import config
-#import spacy
+import spacy
 from nltk.tokenize import sent_tokenize
 
 # Load spaCy's English language model
-#nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_sm")
 nltk.download('punkt')
 def extract_Ids_from_text(text):
     """
@@ -144,8 +144,6 @@ def get_Ids_from_hashmap(docs,hashtable):
     #in this function, we get the id of the item corresponding to that "part"
     ids_set_gpt4 = set()
     ids_set_gpt3 = set()
-    print("getting ids for docs :")
-    print(docs)
     counter = 0
     for item in docs:
         content =  item.page_content
@@ -278,7 +276,7 @@ Please provide a response that strictly lists the IDs of the clothing items meet
     except Exception as e:
         return str(e)
     
-"""
+
 def separate_sentence(sentence):
     # Parse the sentence
     doc = nlp(sentence)
@@ -291,4 +289,3 @@ def separate_sentence(sentence):
         return main_noun_phrase, rest_of_sentence
     else:
         return sentence, ''
-"""

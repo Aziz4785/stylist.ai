@@ -1,9 +1,9 @@
 {
-    "average_precision": 0.48512700534759357,
+    "average_precision": 0.5873997326203209,
     "test_results": [
         {
             "query": "shoes that are white and black and (another color)",
-            "precision": 0.45454545454545453,
+            "precision": 0.2727272727272727,
             "baseline_used": "baseline_data6"
         },
         {
@@ -18,7 +18,7 @@
         },
         {
             "query": "a garment with a cute drawing on it",
-            "precision": 0.0,
+            "precision": 1.0,
             "baseline_used": "baseline_data6"
         },
         {
