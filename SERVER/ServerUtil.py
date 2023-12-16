@@ -66,9 +66,8 @@ def create_embedding(baseline_chunks):
     print("creating embedding ...")
     if(baseline_chunks is None):
         return None
-    texts = [json.dumps(item, ensure_ascii=False) for item in baseline_chunks]
     embeddings = OpenAIEmbeddings()
-    docsearch = FAISS.from_texts(texts, embeddings)
+    docsearch = FAISS.from_texts(baseline_chunks, embeddings)
     print("done")
     return docsearch
 

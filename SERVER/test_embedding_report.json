@@ -1,27 +1,19 @@
 {
-    "header": {
-        "1": "True Positive: The right clothes showing up when you search.",
-        "2": "False Negative: The right clothes don't show up when they should.",
-        "3": "False Positive: Clothes that you didn't want show up in your search.",
-        "4": "True Negative: Clothes that you didn't want don't show up, which is good.",
-        "5": "Our priority : minimize number of False negative  (hence the use of the recall metric)",
-        "6": "the goal is to have recall >0.7 and precision >0.7"
-    },
-    "average_precision": 0.45416666666666666,
+    "average_precision": 0.48512700534759357,
     "test_results": [
         {
             "query": "shoes that are white and black and (another color)",
-            "precision": 0.0,
+            "precision": 0.45454545454545453,
             "baseline_used": "baseline_data6"
         },
         {
             "query": "green and white shoes",
-            "precision": 0.5,
+            "precision": 0.25,
             "baseline_used": "baseline_data6"
         },
         {
             "query": "something made of cotton and polyester only",
-            "precision": 0.13333333333333333,
+            "precision": 0.17647058823529413,
             "baseline_used": "baseline_data6"
         },
         {
