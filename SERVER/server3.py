@@ -36,7 +36,13 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     query = request.form['query']
-    docs = get_similar_doc_from_embedding(app.embedding,query,k=20) #get the best k docs
+    separated_user_input = separate_sentence(query)
+    if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+        docs = get_similar_doc_from_embedding(app.embedding,query,k=10)
+        docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
+        docs.extend(docs2)
+    else:
+        docs = get_similar_doc_from_embedding(app.embedding,query,k=20) #get the best k docs
     print("docs : ")
     print(docs)
     set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs,app.hashtable)

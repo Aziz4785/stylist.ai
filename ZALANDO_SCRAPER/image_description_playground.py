@@ -2,23 +2,24 @@ from image_description import *
 
 #this item below is copy pasted from data_mode-femme.json
 item = {
-    "url": "https://www.zalando.fr/pullandbear-mom-jean-droit-mottled-black-puc21n0j6-q11.html",
-    "brand": "PULL&BEAR",
-    "name": "MOM - Jeans fuselé",
-    "composition and care (fr)": "Composition: 100% coton, Matière: Denim",
-    "composition and care (en)": "Composition: 100% cotton, Material: Denim",
-    "more details (fr)": "Taille: Haute, Fermeture: Braguette avec fermeture éclair, Motif / Couleur: Couleur unie, Référence: PUC21N0J6-Q11",
-    "more details (en)": "Waist: High, Closure: Zip fly, Pattern / Color: Solid color, Reference: PUC21N0J6-Q11",
-    "images": [
-        "https://img01.ztat.net/article/spp-media-p1/093b2811e69f4b319a2a9ef45e6886a8/d44c2df7b15f457bb6fad26686153f58.jpg?imwidth=156",
-        "https://img01.ztat.net/article/spp-media-p1/7a352848e62c4c25b8fed4f4a2a24c15/af90edd0de574a42aaa1819f5e8fe5c0.jpg?imwidth=156",
-        "https://img01.ztat.net/article/spp-media-p1/728cfb021faa4320b79a27e6f4e446a3/6e21b9bd3d28419a849f0266dc20723b.jpg?imwidth=156",
-        "https://img01.ztat.net/article/spp-media-p1/b733b57da95d4a5bb6c69821675195ac/08083d4964b24a389e08f910361a16a6.jpg?imwidth=156",
-        "https://img01.ztat.net/article/spp-media-p1/650c0544134041b9852a04c6b45a3e43/c42ee5e812294344930a5c807a8b96fe.jpg?imwidth=156",
-        "https://img01.ztat.net/article/spp-media-p1/a930c5bf58b64c579918ff67e36bdfc6/3b51799dd4f545d39554d7d2655ba9f7.jpg?imwidth=156&filter=packshot",
-        "https://img01.ztat.net/article/spp-media-p1/1f57623102ca4c619b03e5f6f540d9fb/dfd90c96da7c49059cc77173c3b782ad.jpg?imwidth=156"
-    ]
-}
+        "url": "https://www.zalando.fr/puma-rebound-v6-baskets-basses-white-future-pink-black-pu115o0nm-a15.html",
+        "brand": "Puma",
+        "name": "REBOUND - Baskets basses",
+        "composition and care (fr)": "Dessus / Tige: Imitation cuir haute-qualité, Doublure: Textile, Semelle de propreté: Textile, Semelle d'usure: Matière synthétique, Épaisseur de la doublure: Doublure protégeant du froid, Matière: Cuir synthétique",
+        "composition and care (en)": "Upper / Upper: High-quality imitation leather, Lining: Textile, Insole: Textile, Outsole: Synthetic material, Lining thickness: Cold-protecting lining, Material: Synthetic leather",
+        "more details (fr)": "Bout de la chaussure: Rond, Forme du talon: Plateforme, Fermeture: Laçage, Référence: PU115O0NM-A15",
+        "more details (en)": "Shoe toe: Round, Heel shape: Platform, Closure: Lacing, ",
+        "images": [
+            "https://img01.ztat.net/article/spp-media-p1/4cdefe67f6f44838951b9d282091f68e/e1477bebb1ec45da9210affa516edc8b.jpg?imwidth=156",
+            "https://img01.ztat.net/article/spp-media-p1/b7655d72d3ca459f80b38ef6b454b5fc/902019a19f80464ab15b4ddecbddeeac.jpg?imwidth=156",
+            "https://img01.ztat.net/article/spp-media-p1/50307f6b0256408aa8c9d2931cd50e4f/6c49691d48e24b44999f5a3e7573237b.jpg?imwidth=156&filter=packshot",
+            "https://img01.ztat.net/article/spp-media-p1/4b5a9f378c2945d0afce0923b3b2d9fc/ab00831aa09a43f996fb063466390abe.jpg?imwidth=156",
+            "https://img01.ztat.net/article/spp-media-p1/3917eff3ca9146ffae12f0bdb42eaeb0/bfbec8eda6da4666aae50aa18f35a31b.jpg?imwidth=156",
+            "https://img01.ztat.net/article/spp-media-p1/bf1d9b9a516b42b69eac588f1e37ae0c/f1e3ecd0d6244c2c907e61fa74cbd927.jpg?imwidth=156",
+            "https://img01.ztat.net/article/spp-media-p1/47adc6f487b34fc38af27ded727296a0/be6a102dd601487a8282e0f8dfa51017.jpg?imwidth=156"
+        ],
+        "id": "#I00005c"
+    }
 
 baseline_elem = generate_baseline_single_elem(item)
 print(baseline_elem)

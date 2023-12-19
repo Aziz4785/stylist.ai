@@ -10,11 +10,11 @@ import os
 import nltk
 import sys
 import config
-#import spacy
+import spacy
 from nltk.tokenize import sent_tokenize
 
 # Load spaCy's English language model
-#nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_sm")
 nltk.download('punkt')
 def extract_Ids_from_text(text):
     """
@@ -75,6 +75,19 @@ def extract_sentences(paragraph):
     sentences = sent_tokenize(paragraph)
     return sentences
 
+def split_at_third_comma(sentence):
+    """
+    Splits a sentence into two parts at the third comma, if the sentence contains exactly three commas.
+
+    :param sentence: A string (sentence)
+    :return: A tuple of two strings if the sentence has exactly three commas, else the original sentence
+    """
+    if sentence.count(',') == 3:
+        parts = sentence.split(',', 3)
+        return (','.join(parts[:3]) + ',', parts[3])
+    else:
+        return sentence
+    
 def divide_into_tiny_chunks(json_data):
     """
     return a hash table where key = (a single sentence from "item description") or (name+brand+details )
@@ -89,20 +102,71 @@ def divide_into_tiny_chunks(json_data):
         sentences= []
         if("visual description" in item):
             sentences = extract_sentences(item["visual description"])
+            description_without_newlines = replace_double_newlines(item["visual description"])
+            if(description_without_newlines not in hashtable):
+                hashtable[description_without_newlines] = set()
+            hashtable[description_without_newlines].add(item["id"])
+
         if("brand" in  item):
             brand = "brand : "+item["brand"]+", "
         if("name of the product" in item):
             name = item["name of the product"]+", "
         if("details about that item" in item):
-           details = item["details about that item"]
+            details = item["details about that item"]
+            if details not in hashtable:
+                hashtable[details] = set()
+            hashtable[details].add(item["id"])
 
-        hashtable[name +" "+brand]=item["id"]
-        hashtable[details]=item["id"]
+        name_key = name +" "+brand
+        if name_key not in hashtable:
+            hashtable[name_key] = set()
+        
+
+        hashtable[name_key].add(item["id"])
+        
+
+        details_parts = details.split('\n')
+        if(len(details_parts)>=2):
+            part1 = details_parts[0].strip()
+            part2 = details_parts[1].strip()
+            if part1 not in hashtable:
+                hashtable[part1] = set()
+            if part2 not in hashtable:
+                hashtable[part2] = set()
+            hashtable[part1].add(item["id"])
+            hashtable[part2].add(item["id"])
+            composition_parts = part1.split(",")
+            if(len(composition_parts)>=2):
+                composition_part1 = composition_parts[0].strip()
+                composition_part2 = composition_parts[1].strip()
+                if composition_part1 not in hashtable:
+                    hashtable[composition_part1] = set()
+                if composition_part2 not in hashtable:
+                    hashtable[composition_part2] = set()
+                hashtable[composition_part1].add(item["id"])
+                hashtable[composition_part2].add(item["id"])
+        
 
         for sentence in sentences:
-            hashtable[sentence]=item["id"]
-        if("visual description" in item):
-            hashtable[replace_double_newlines(item["visual description"])]=item["id"]
+            #sentence_without_noun = separate_sentence(sentence)[1]
+            if(sentence not in hashtable):
+                hashtable[sentence] = set()
+
+            hashtable[sentence].add(item["id"])
+            if(sentence.count(',')==3):
+                separated_sentence = split_at_third_comma(sentence)
+                part1 = separated_sentence[0]
+                part2 = separated_sentence[1]
+                #if(part1 not in hashtable):
+                   # hashtable[part1] = set()
+                #if(part2 not in hashtable):
+                   # hashtable[part2] = set()
+                #hashtable[part1].add(item["id"])
+                #hashtable[part2].add(item["id"])
+            #if(sentence_without_noun != ''):
+                #hashtable[sentence_without_noun]=item["id"]
+
+        
     print("done")
     return hashtable
 
@@ -121,8 +185,7 @@ def ask_embedding_qa_langchain(docsearch,query):
     Please analyze the list and description carefully to ensure the recommendations are highly relevant and specific to the described needs"""
     chain.llm_chain.prompt.template = custom_template
     docs = docsearch.similarity_search(query,k=10)
-    print(" "+str(len(docs))+" 10 similar embedding found")
-    print(docs)
+
     results = chain.run(input_documents=docs, question=query)
     return results
 
@@ -144,16 +207,14 @@ def get_Ids_from_hashmap(docs,hashtable):
     #in this function, we get the id of the item corresponding to that "part"
     ids_set_gpt4 = set()
     ids_set_gpt3 = set()
-    print("getting ids for docs :")
-    print(docs)
     counter = 0
     for item in docs:
         content =  item.page_content
         if content in hashtable:
             if(counter<=9):
-                ids_set_gpt4.add(hashtable[content])
+                ids_set_gpt4 = ids_set_gpt4.union(hashtable[content])
             else:
-                ids_set_gpt3.add(hashtable[content])
+                ids_set_gpt3 = ids_set_gpt3.union(hashtable[content])
         else:
             print(f"ERROR! no id found in hashtable for content: {content}")
 
@@ -278,7 +339,20 @@ Please provide a response that strictly lists the IDs of the clothing items meet
     except Exception as e:
         return str(e)
     
-"""
+def get_similar_doc_for_separated_input(app,user_input,k_left=12,k_right=8):
+    separated_user_input = separate_sentence(user_input)
+    if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=k_left)
+        print("docs for user input : ")
+        print(docs)
+        docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=k_right)
+        print("docs for : "+separated_user_input[1])
+        print(docs2)
+        docs.extend(docs2)
+    else:
+        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=k_left+k_right) #get the best k docs
+    return docs
+
 def separate_sentence(sentence):
     # Parse the sentence
     doc = nlp(sentence)
@@ -291,4 +365,3 @@ def separate_sentence(sentence):
         return main_noun_phrase, rest_of_sentence
     else:
         return sentence, ''
-"""

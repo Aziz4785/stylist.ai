@@ -49,6 +49,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
         images = images[:3]  # Use a maximum of 3 images
     else:
         images = []  # If images is None or not a list, use an empty list
+        return ""
 
     garment = "garment"
     if name:
@@ -63,7 +64,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
             "content": [
                 {
                     "type": "text",
-                    "text": "Please provide a detailed description of the garment shown in these images. The garment's name is (" + garment + "). Alongside your description, consider the following additional information about the item: (" + infos_from_site + "). Focus on aspects such as the garment's design, style, unique features, and overall appearance. Avoid repeating any details about the material composition, care instructions, or other information already provided. Aim to capture the essence and distinct qualities of this garment that are visible in the images. Please be concise and generate less than 130 words."
+                    "text": "Please provide a detailed description of the garment shown in these images. The garment's name is (" + garment + "). Begin by directly listing its colors, for example: blue, brown, red. Alongside your description, consider the following additional information about the item: (" + infos_from_site + "). Focus on aspects such as the garment's design, style, colors, unique features, and overall appearance. If there is any graphics or text on it please dessribe it. Avoid repeating any details about the material composition, care instructions, or other information already provided. Aim to capture the essence and distinct qualities of this garment that are visible in the images. Please be concise and generate less than 130 words."
                 }
             ]
         }
@@ -80,7 +81,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
             })
         else:
             print(f"Invalid or inaccessible URL: {img_url}")
-
+    
     response = openai.ChatCompletion.create(
         model="gpt-4-vision-preview",
         messages=messages,
@@ -308,7 +309,7 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
 def process_json_files_in_folder(folder_path, output_json_filename, output_baseline_filename):
     for filename in os.listdir(folder_path):
         if filename.endswith('.json'):
-            if filename in ["data_chaussures-femme.json"]:
+            if filename in ["data_luxe-femme.json"]:
                 print("Processing " + str(filename) + " ...")
                 json_file_path = os.path.join(folder_path, filename)
                 process_json_file_incr(json_file_path, output_json_filename, output_baseline_filename)
