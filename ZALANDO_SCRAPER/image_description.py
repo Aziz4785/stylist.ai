@@ -3,11 +3,11 @@ import base64
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 import json
 import requests
 import os
 import logging
+import math
 import openai
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -36,9 +36,6 @@ def encode_image_from_url(url):
         return base64.b64encode(response.content).decode('utf-8')
     else:
         return None
-
-import requests
-import openai
 
 def describe_clothing_multi(name, brand, infos_from_site, images):
     """
@@ -90,63 +87,6 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
 
     return response.choices[0].message.content
 
-
-"""
-def scrap_images_from_link(driver, url):
-
-    return the list of images of a product page 
-
-    try:
-        driver.get(url)
-        print("URL successfully opened.")
-    except Exception as e:
-        print(f"Error occurred while opening URL: {e}")
-        return []
-
-    # Handling cookie acceptance
-    try:
-        print("Looking for cookie accept button...")
-        wait = WebDriverWait(driver, 3)  # Adjust the timeout as needed
-        cookie_accept_button = wait.until(EC.element_to_be_clickable((By.ID, "uc-btn-accept-banner")))
-        cookie_accept_button.click()
-        print("Cookie accept button clicked.")
-    except NoSuchElementException:
-        print("Cookie accept button not found.")
-    except TimeoutException:
-        print("Timed out waiting for cookie accept button.")
-    except Exception as e:
-        print(f"An unexpected error occurred while handling cookies: {e}")
-
-    # Find images
-    try:
-        div_class = "_5qdMrS WzZ4iu _01vVuu _6GQ88b WdG8Bv"
-        print(f"Searching for images with class: {div_class}")
-        images = driver.find_elements(By.CSS_SELECTOR, f'div.{div_class.replace(" ", ".")} img')
-        print(f"Found {len(images)} images.")
-    except Exception as e:
-        print(f"Error occurred while searching for images: {e}")
-        return []
-
-    try:
-        srcs = [img.get_attribute('src') for img in images]
-        print("Image sources extracted successfully.")
-    except Exception as e:
-        print(f"Error occurred while extracting image sources: {e}")
-
-    # Extract the src attributes and encode images
-    encoded_images = []
-    try:
-        for img in images:
-            img_url = img.get_attribute('src')
-            encoded_image = encode_image_from_url(img_url)
-            if encoded_image:
-                encoded_images.append(encoded_image)
-        print("Image sources encoded successfully.")
-    except Exception as e:
-        print(f"Error occurred while encoding image sources: {e}")
-
-    return srcs,encoded_images
-"""
 def encode_imagesURLS(images_urls):
     encoded_images = []
     try:
@@ -251,8 +191,6 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
             reference_file.seek(0, os.SEEK_END)
             pos = reference_file.tell() - 1
             reference_file.seek(pos, os.SEEK_SET)
-            if len(scraped_textInfos) > 0:
-                reference_file.write(',')
 
             for i, singleItem_text_info in enumerate(scraped_textInfos):
                 if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
@@ -270,12 +208,12 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
                     'url': singleItem_text_info['url'],
                     'images': images  # Use the checked images here
                 })
+                reference_file.write(',\n')
                 reference_file.write(reference_elem)
-                if i < len(scraped_textInfos) - 1:
-                    reference_file.write(',\n')
-
+                
                 if item_processed % 5 == 0:
-                    print(str(item_processed * 100 / len(scraped_textInfos)) + "% done ")
+                    print(str(math.ceil(item_processed * 100 / len(scraped_textInfos))) + "% done ")
+
             reference_file.write(']')
 
     else:
@@ -286,8 +224,10 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
             for i, singleItem_text_info in enumerate(scraped_textInfos):
                 if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
                     continue
+                else:
+                    if i>0 and i < len(scraped_textInfos) - 1:
+                        reference_file.write(',\n')
                 item_processed += 1
-
                 # Check for 'images' key
                 images = singleItem_text_info.get('images', [])
 
@@ -299,17 +239,15 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
                     'images': images
                 })
                 reference_file.write(reference_elem)
-                if i < len(scraped_textInfos) - 1:
-                    reference_file.write(',\n')
                 if item_processed % 5 == 0:
-                    print(str(item_processed * 100 / len(scraped_textInfos)) + "% done ")
+                    print(str(math.ceil(item_processed * 100 / len(scraped_textInfos))) + "% done ")
             reference_file.write(']')
 
 
 def process_json_files_in_folder(folder_path, output_json_filename, output_baseline_filename):
     for filename in os.listdir(folder_path):
         if filename.endswith('.json'):
-            if filename in ["data_luxe-femme.json"]:
+            if filename in ["data_mode-femme.json","data_chaussures-homme.json"]:
                 print("Processing " + str(filename) + " ...")
                 json_file_path = os.path.join(folder_path, filename)
                 process_json_file_incr(json_file_path, output_json_filename, output_baseline_filename)
@@ -318,10 +256,10 @@ def process_json_files_in_folder(folder_path, output_json_filename, output_basel
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Navigate two levels up and then into the MAIN_DATA directory
-output_reference_path = os.path.join(script_dir, '..', 'MAIN_DATA', 'Reference6.json')
+output_reference_path = os.path.join(script_dir, '..', 'MAIN_DATA', 'Reference7.json')
 
-output_baseline = os.path.join(script_dir, '..', 'MAIN_DATA', 'baseline_data6.json')
+output_baseline = os.path.join(script_dir, '..', 'MAIN_DATA', 'baseline_data7.json')
 
-folder_path_of_scraped_text = os.path.join(script_dir,'zalando_text_scraper', 'output_json')
+folder_path_of_scraped_text = os.path.join(script_dir,'data_from_site')
 print("Current Working Directory:", os.getcwd())
 process_json_files_in_folder(folder_path_of_scraped_text, output_reference_path, output_baseline)

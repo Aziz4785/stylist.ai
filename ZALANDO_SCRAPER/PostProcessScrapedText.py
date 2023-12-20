@@ -84,6 +84,6 @@ def post_process_json_files_in_folder(folder_path, operations):
         else:
             print(f"Skipping non-JSON file: {filename}")
 
-folder_path = 'zalando_text_scraper/output_json' 
+folder_path = 'data_from_site' 
 operations = [add_incremental_id, remove_reference, remove_SeeEnvironementSpec,reduce_image_width]
 post_process_json_files_in_folder(folder_path, operations)

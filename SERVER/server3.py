@@ -14,8 +14,8 @@ os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference6.json')
-default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data6.json')
+reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference7.json')
+default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data7.json')
 
 
 class MyApp(Flask):
@@ -36,13 +36,7 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     query = request.form['query']
-    separated_user_input = separate_sentence(query)
-    if(separated_user_input[0]!='' and separated_user_input[1]!=''):
-        docs = get_similar_doc_from_embedding(app.embedding,query,k=10)
-        docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=10)
-        docs.extend(docs2)
-    else:
-        docs = get_similar_doc_from_embedding(app.embedding,query,k=20) #get the best k docs
+    docs = get_similar_doc_for_separated_input(app.embedding, query)
     print("docs : ")
     print(docs)
     set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs,app.hashtable)
