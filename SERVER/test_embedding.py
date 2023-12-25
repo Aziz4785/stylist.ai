@@ -4,6 +4,7 @@ from server3 import app  # Import your Flask app
 import json
 import sys
 import os
+from metadata_card import *
 from ServerUtil import *
 script_dir = os.path.dirname(os.path.abspath(__file__))
 """
@@ -67,10 +68,59 @@ class MyTest(TestCase):
         with open('expected_output.json') as file:
             return json.load(file)
     
+    # def run_test_case(self, user_input, expected_ids):
+    #     print()
+    #     print()
+    #     print()
+    #     print("user input : "+user_input)
+    #     input_type = classify_garment_type(user_input) #input_type could be for example "Tops" , or "Bottom" or "unknown" etc..
+    #     print("this input type is : ")
+    #     print(input_type)
+    #     correpsonding_embedding = app.get_corresponding_embedding(input_type)
+    #     separated_user_input = separate_sentence(user_input)
+    #     list_of_docList = get_similar_doc_for_separated_input(self.app,correpsonding_embedding, user_input,separated_user_input)
+    #     #first doclist is for gpt4 and the rest for gpt3
+    #     size_of_sets=[9,11]
+    #     #if(separated_user_input[0] != "" and is_single_word(separated_user_input[0])):
+    #         #size_of_sets=[5,15]
+    #     if(len(list_of_docList)==1):
+    #         size_of_sets=[20]
+    #     set_list = get_Ids_from_hashmap(list_of_docList, self.app.hashtable,size_of_sets)
+    #     print(" the returned list of set from get_Ids_from_hashmap : ")
+    #     print(set_list)
+    #     if(len(set_list)==2):
+    #         actual_ids = set_list[0].union(set_list[1])
+    #     else:
+    #         actual_ids = set_list[0]
+
+    #     precision = compute_precision(set(actual_ids), set(expected_ids))
+
+    #     MyTest.test_results.append({
+    #         "query": user_input,
+    #         "precision": precision,
+    #         "baseline_used": self.baseline_used
+    #     })
+
     def run_test_case(self, user_input, expected_ids):
-        docs = get_similar_doc_for_separated_input(self.app, user_input)
-        set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, self.app.hashtable)
-        actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
+        print()
+        print()
+        print()
+        print("user input : "+user_input)
+        metadata_card = generate_metadata_card_from_query(user_input)
+        print("metadata of the user input : ")
+        print(metadata_card)
+        separated_user_input = separate_sentence(user_input)
+        docs_with_score = get_similar_doc_for_separated_input(self.app,self.app.embedding, user_input,separated_user_input)
+        print("first 5 docs before meta filtering : ")
+        print(docs_with_score[:5])
+        meta_filtered_docs = filter_docs(self.app,docs_with_score,metadata_card)
+        print("first 5 docs after meta filtering : ")
+        print(meta_filtered_docs[:5])
+        actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs)
+        #each elem of actual_ids_pairs looks like this :('#I00026b', 0.39710677)
+        print(" the returned ids from get_topK_uniqueIds_from_docs : ")
+        actual_ids= [pair[0] for pair in actual_ids_pairs]
+        print(actual_ids)
 
         precision = compute_precision(set(actual_ids), set(expected_ids))
 
@@ -118,10 +168,10 @@ class MyTest(TestCase):
 
     def test_process_comp1(self):
         user_input = "something made of cotton and polyester only"
-        expected_ids = ["#I000092","#I0000e3","#I0000ed","#I0000f0","#I0000fd",
-                        "#I000106","#I0000d8","#I0000d4","#I0000c4","#I000240",
-                        "#I00025a","#I000242","#I0000b1","#I0000c2","#I000097",
-                        "#I000141","#I0000ab","#I000109"]
+        expected_ids = ["#I000092","#I0000e3","#I0000ed","#I0000f0","#I0000fd","#I000282","#I000166",
+                        "#I000106","#I0000d8","#I0000d4","#I0000c4","#I000240","#I000275","#I00011a",
+                        "#I00025a","#I000242","#I0000b1","#I0000c2","#I000097","#I000167","#I000127",
+                        "#I000141","#I0000ab","#I000109","#I000276","#I000159","#I000126","#I000245"]
         self.run_test_case(user_input, expected_ids)
 
     def test_process_sameStyle1(self):   

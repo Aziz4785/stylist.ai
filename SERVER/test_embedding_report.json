@@ -1,9 +1,9 @@
 {
-    "average_precision": 0.6833964646464646,
+    "average_precision": 0.8414772727272728,
     "test_results": [
         {
             "query": "shoes that are white and black and (another color)",
-            "precision": 0.2727272727272727,
+            "precision": 0.18181818181818182,
             "baseline_used": "baseline_data6"
         },
         {
@@ -13,7 +13,7 @@
         },
         {
             "query": "something made of cotton and polyester only",
-            "precision": 0.4444444444444444,
+            "precision": 0.8,
             "baseline_used": "baseline_data6"
         },
         {
@@ -23,7 +23,7 @@
         },
         {
             "query": "an item with the christian cross on it",
-            "precision": 0.0,
+            "precision": 1.0,
             "baseline_used": "baseline_data6"
         },
         {

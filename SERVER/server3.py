@@ -19,12 +19,36 @@ default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_d
 
 
 class MyApp(Flask):
+    corresponding_categories = {"Tops" : set(["Tops","Outerwear","Other","unknown"]),
+    "Bottoms": set(["Bottoms","Outerwear","Other","unknown"]),
+    "Outerwear": set(["Outerwear","Tops","Bottoms","Other","unknown"]),
+    "Underwear": set(["Underwear","Bottoms","One-Pieces","Other","unknown"]),
+    "Footwear": set(["Footwear","Bottoms","Other","unknown"]),
+    "Accessories": set(["Accessories","Other","unknown"]),
+    "One-Pieces": set(["One-Pieces","Outerwear","Other","unknown"]),
+    "Other": set(["Tops","Outerwear","Accessories","One-Pieces","Underwear","Footwear","Bottoms","Other","unknown"]),
+    "unknown": set(["Tops","Outerwear","Accessories","One-Pieces","Underwear","Footwear","Bottoms","Other","unknown"])}
+    
     def __init__(self, import_name):
         super(MyApp, self).__init__(import_name)
         self.config['BASELINE_PATH'] = default_baseline_path
         self.baseline = read_json(self.config['BASELINE_PATH'])
-        self.hashtable = divide_into_tiny_chunks(self.baseline)
+        self.hashtable = divide_into_tiny_chunks(self,self.baseline)
         self.embedding = create_embedding(self.hashtable.keys())
+        # New code to create dynamic attributes
+        # for category in self.corresponding_categories:
+        #     hashtable_name = f"hashtable_{category}"
+        #     embedding_name = f"embedding_{category}"
+        #     print("creating  "+str(hashtable_name))
+        #     hashtable_value = divide_into_tiny_chunks(self,self.baseline, category)
+        #     print("creating  "+str(embedding_name))
+        #     embedding_value = create_embedding(hashtable_value.keys())
+        #     setattr(self, hashtable_name, hashtable_value)
+        #     setattr(self, embedding_name, embedding_value)
+        
+    # def get_corresponding_embedding(self, input_type):
+    #     embedding_name = f"embedding_{input_type}"
+    #     return getattr(self, embedding_name, None)
         
 
 app = MyApp(__name__)

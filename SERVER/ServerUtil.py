@@ -8,14 +8,17 @@ import re
 import openai
 import os
 import nltk
+from metadata_card import *
 import sys
 import config
 import spacy
 from nltk.tokenize import sent_tokenize
-
+openai.api_key = config.OPENAI_API_KEY
+os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 # Load spaCy's English language model
 nlp = spacy.load("en_core_web_sm")
 nltk.download('punkt')
+
 def extract_Ids_from_text(text):
     """
     Extract the pattern '#I' followed by exactly 6  alphanumeric characters,
@@ -47,15 +50,6 @@ def filter_json_By_Id(json_name,list_of_ids):
 
     return filtered_json
 
-def mock_process(list_of_ids):
-    json_filename = "Reference4.json"
-    #list_of_ids = ["#I000004", "#I000005" , "#I000006", "#I000007"]
-    with open(json_filename, 'r') as file:
-      data = json.load(file)
-
-    filtered_json = [entry for entry in data if entry['id'] in list_of_ids]
-
-    return filtered_json
 
 def read_json(filename):
      with open(filename, 'r', encoding='utf-8') as file:
@@ -75,123 +69,130 @@ def extract_sentences(paragraph):
     sentences = sent_tokenize(paragraph)
     return sentences
 
-def split_at_third_comma(sentence):
-    """
-    Splits a sentence into two parts at the third comma, if the sentence contains exactly three commas.
+# def split_at_third_comma(sentence):
+#     """
+#     Splits a sentence into two parts at the third comma, if the sentence contains exactly three commas.
 
-    :param sentence: A string (sentence)
-    :return: A tuple of two strings if the sentence has exactly three commas, else the original sentence
+#     :param sentence: A string (sentence)
+#     :return: A tuple of two strings if the sentence has exactly three commas, else the original sentence
+#     """
+#     if sentence.count(',') == 3:
+#         parts = sentence.split(',', 3)
+#         return (','.join(parts[:3]) + ',', parts[3])
+#     else:
+#         return sentence
+
+def find_product_by_id_in_file(file_path, product_id):
     """
-    if sentence.count(',') == 3:
-        parts = sentence.split(',', 3)
-        return (','.join(parts[:3]) + ',', parts[3])
-    else:
-        return sentence
-    
-def divide_into_tiny_chunks(json_data):
+    Find a product in a JSON file by its ID.
+
+    :param file_path: Path to the JSON file.
+    :param product_id: The ID of the product to find.
+    :return: The product with the given ID, or None if not found.
     """
-    return a hash table where key = (a single sentence from "item description") or (name+brand+details )
-    and value = id
-    """
-    print("dividing baseline into tiny chunks ...")
+    try:
+        with open(file_path, 'r',encoding='utf-8') as file:
+            product_list = json.load(file)
+            for product in product_list:
+                if product['id'] == product_id:
+                    return product
+    except FileNotFoundError:
+        print("File not found.")
+    except json.JSONDecodeError:
+        print("Error decoding JSON.")
+    return None
+
+# def filter_embedding_with_metaData(app,metadata_card):
+#     for elem in app.embedding.docstore._dict:
+#         #format of elem : {'807e0c63-13f6-4070-9774-5c6f0fbb9866': Document(page_content='bar', metadata={})}
+#         id_of_elem = app.hashtable[elem.value().page_content]
+#         json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
+
+def divide_into_tiny_chunks(app,json_data,category="unknown"):
+    print("dividing baseline into tiny chunks the category "+str(category)+" ...")
     hashtable={}
     for item in json_data:
-        brand= ""
-        name= ""
-        details= ""
-        sentences= []
-        if("visual description" in item):
-            sentences = extract_sentences(item["visual description"])
-            description_without_newlines = replace_double_newlines(item["visual description"])
-            if(description_without_newlines not in hashtable):
-                hashtable[description_without_newlines] = set()
-            hashtable[description_without_newlines].add(item["id"])
+        if("type" not in item or("type" in item and (item["type"] in app.corresponding_categories[category]) )):
+            brand= ""
+            name= ""
+            details= ""
+            sentences= []
+            if("visual description" in item):
+                sentences = extract_sentences(item["visual description"])
+                description_without_newlines = replace_double_newlines(item["visual description"])
+                if(description_without_newlines not in hashtable):
+                    hashtable[description_without_newlines] = set()
+                hashtable[description_without_newlines].add(item["id"])
 
-        if("brand" in  item):
-            brand = "brand : "+item["brand"]+", "
-        if("name of the product" in item):
-            name = item["name of the product"]+", "
-        if("details about that item" in item):
-            details = item["details about that item"]
-            if details not in hashtable:
-                hashtable[details] = set()
-            hashtable[details].add(item["id"])
+            if("brand" in  item):
+                brand = "brand : "+item["brand"]
+            if("name of the product" in item):
+                name = item["name of the product"]+", "
+            if("details about that item" in item):
+                details = item["details about that item"]
+                if details not in hashtable:
+                    hashtable[details] = set()
+                hashtable[details].add(item["id"])
 
-        name_key = name +" "+brand
-        if name_key not in hashtable:
-            hashtable[name_key] = set()
-        
+            name_key = name +" "+brand
+            if name_key not in hashtable:
+                hashtable[name_key] = set()
+            
 
-        hashtable[name_key].add(item["id"])
-        
+            hashtable[name_key].add(item["id"])
+            
 
-        details_parts = details.split('\n')
-        if(len(details_parts)>=2):
-            part1 = details_parts[0].strip()
-            part2 = details_parts[1].strip()
-            if part1 not in hashtable:
-                hashtable[part1] = set()
-            if part2 not in hashtable:
-                hashtable[part2] = set()
-            hashtable[part1].add(item["id"])
-            hashtable[part2].add(item["id"])
-            composition_parts = part1.split(",")
-            if(len(composition_parts)>=2):
-                composition_part1 = composition_parts[0].strip()
-                composition_part2 = composition_parts[1].strip()
-                if composition_part1 not in hashtable:
-                    hashtable[composition_part1] = set()
-                if composition_part2 not in hashtable:
-                    hashtable[composition_part2] = set()
-                hashtable[composition_part1].add(item["id"])
-                hashtable[composition_part2].add(item["id"])
-        
+            details_parts = details.split('\n')
+            if(len(details_parts)>=2):
+                part1 = details_parts[0].strip()
+                part2 = details_parts[1].strip()
+                if part1 not in hashtable:
+                    hashtable[part1] = set()
+                if part2 not in hashtable:
+                    hashtable[part2] = set()
+                hashtable[part1].add(item["id"])
+                hashtable[part2].add(item["id"])
+                material_index = part1.find("Material:")
+                if material_index != -1:
+                    composition_part1 = part1[:material_index].strip()
+                    composition_part2 = part1[material_index:].strip()
+                    if composition_part1 not in hashtable:
+                        hashtable[composition_part1] = set()
+                    if composition_part2 not in hashtable:
+                        hashtable[composition_part2] = set()
+                    hashtable[composition_part1].add(item["id"])
+                    hashtable[composition_part2].add(item["id"])
 
-        for sentence in sentences:
-            #sentence_without_noun = separate_sentence(sentence)[1]
-            if(sentence not in hashtable):
-                hashtable[sentence] = set()
+            for sentence in sentences:
+                #sentence_without_noun = separate_sentence(sentence)[1] #comment this
+                if(sentence not in hashtable):
+                    hashtable[sentence] = set()
 
-            hashtable[sentence].add(item["id"])
-            if(sentence.count(',')==3):
-                separated_sentence = split_at_third_comma(sentence)
-                part1 = separated_sentence[0]
-                part2 = separated_sentence[1]
-                #if(part1 not in hashtable):
-                   # hashtable[part1] = set()
-                #if(part2 not in hashtable):
-                   # hashtable[part2] = set()
-                #hashtable[part1].add(item["id"])
-                #hashtable[part2].add(item["id"])
-            #if(sentence_without_noun != ''):
-                #hashtable[sentence_without_noun]=item["id"]
+                hashtable[sentence].add(item["id"])
+                #if(sentence.count(',')==3):
+                    #separated_sentence = split_at_third_comma(sentence)
+                    #part1 = separated_sentence[0]
+                    #part2 = separated_sentence[1]
+                    #if(part1 not in hashtable):
+                    # hashtable[part1] = set()
+                    #if(part2 not in hashtable):
+                    # hashtable[part2] = set()
+                    #hashtable[part1].add(item["id"])
+                    #hashtable[part2].add(item["id"])
+                #if(sentence_without_noun != ''):
+                    #if(sentence_without_noun not in hashtable):
+                        #hashtable[sentence_without_noun] = set()
+                    #hashtable[sentence_without_noun].add(item["id"])
 
         
     print("done")
     return hashtable
 
-def ask_embedding_qa_langchain(docsearch,query):
-    chain = load_qa_chain(OpenAI(),
-                      chain_type="stuff") # we are going to stuff all the docs in at once
-    
-    custom_template = """Based on the provided description, identify the clothing items from the list that best align with the criteria. Please include their IDs for easy reference.
-
-    List of Clothes:
-    {context}
-
-    Description:
-    {question}
-
-    Please analyze the list and description carefully to ensure the recommendations are highly relevant and specific to the described needs"""
-    chain.llm_chain.prompt.template = custom_template
-    docs = docsearch.similarity_search(query,k=10)
-
-    results = chain.run(input_documents=docs, question=query)
-    return results
 
 def get_similar_doc_from_embedding(docsearch,query,k=10):
     print("getting "+str(k)+" most similar docs for query : "+str(query))
-    docs = docsearch.similarity_search(query,k)
+    docs = docsearch.similarity_search_with_score(query,k)
+    #docs is a list of (doc, score)
     return docs
 
 
@@ -202,25 +203,34 @@ def get_similar_doc_from_embedding(docsearch,query,k):
     docs_second = docsearch.similarity_search(query_parts[1],k)
     return docs_main.extend(docs_second)
 """ 
-def get_Ids_from_hashmap(docs,hashtable):
-    # each doc contain a "part" of the baseline of a single item
-    #in this function, we get the id of the item corresponding to that "part"
-    ids_set_gpt4 = set()
-    ids_set_gpt3 = set()
-    counter = 0
-    for item in docs:
-        content =  item.page_content
-        if content in hashtable:
-            if(counter<=9):
-                ids_set_gpt4 = ids_set_gpt4.union(hashtable[content])
+def get_Ids_from_hashmap(list_of_docList,hashtable,set_sizes):
+    #list_of_docList = [docs_1, docs_2 ,docs_3 ...] size = n
+    #set_sizes = [a_1, a_2, a_3 ...]  size = n
+    #we will extract the top a_1 UNIQUE Ids from docs_1 , then the top a_2 UNIQUE Ids from docs_2, etc ..
+    #we return [set_1,set_2,set_3 ...set_n] where set_i contains the top a_i Ids from docs_i
+    n = len(set_sizes)
+    assert(len(set_sizes)==len(list_of_docList))
+    list_of_sets = [set() for _ in range(n)]
+    all_Ids =set()
+    if(n==1):
+        print("we need to return list containing only one set of size (+-) 20 ")
+    for i in range(n):
+        for item in list_of_docList[i]:
+            content =  item.page_content
+            if content in hashtable:
+                if(len(list_of_sets[i])<set_sizes[i]):
+                    if(len(hashtable[content])>7):
+                        print("there are more than 7 ids having : "+str(content))
+                    new_ids = hashtable[content].difference(all_Ids)
+                    if(new_ids is not None):
+                        list_of_sets[i] = list_of_sets[i].union(new_ids)
+                else:
+                    print("we stop adding Ids because we reached the maximum")
             else:
-                ids_set_gpt3 = ids_set_gpt3.union(hashtable[content])
-        else:
-            print(f"ERROR! no id found in hashtable for content: {content}")
+                print(f"ERROR! no id found in hashtable for content: {content}")
+        all_Ids.union(list_of_sets[i])
 
-        counter+=1
-
-    return ids_set_gpt4,ids_set_gpt3
+    return list_of_sets
 
 def replace_double_newlines(text):
     return text.replace("\n\n", "\n")
@@ -251,17 +261,6 @@ def get_chatgpt_response(context, question, with_analysis=False):
     analysis = " Return only the corresponding IDs, nothing else"
     if(with_analysis):
         analysis = " Follow this with an analysis of the list and description to ensure the recommendations are highly relevant and specific to the described needs."
-    
-    custom_template2 = """"Based on the provided description, first identify and list the clothing items from the list that perfectly align with the criteria. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
-
-List of Clothes:
-{context}
-
-Description:
-"{question}"
-
-Begin your response by listing IDs of the specific clothing items that 100% match the description, considering any shade of a specified color as meeting the requirement. {analysis}
-"""
 
     custom_template3 = """"Here is a list of clothes (each associated with an ID), first identify and list the clothing items from the list that perfectly align with the user input. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
 
@@ -306,16 +305,6 @@ def get_GPT3_response(context, question, with_analysis=False):
     if(with_analysis):
         analysis = " Follow this with an analysis of the list and description to ensure the recommendations are highly relevant and specific to the described needs."
     
-    custom_template2 = """"Based on the provided description, first identify and list the clothing items from the list that perfectly align with the criteria. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
-
-List of Clothes:
-{context}
-
-Description:
-"{question}"
-
-Begin your response by listing IDs of the specific clothing items that 100% match the description, considering any shade of a specified color as meeting the requirement. {analysis}
-"""
     custom_template3 = """"From the following list of clothes, each with a unique ID, identify and list only the IDs of the clothing items that precisely meet the specified criteria. It is crucial to exclude any IDs of items that do not match the criteria. Treat any shade of a specified color as meeting the color requirement unless a specific shade is explicitly required. Black and white should not be considered as shades of other colors. Your response should only include the IDs of the items that are a 100% match.
 
 List of Clothes:
@@ -339,19 +328,75 @@ Please provide a response that strictly lists the IDs of the clothing items meet
     except Exception as e:
         return str(e)
     
-def get_similar_doc_for_separated_input(app,user_input,k_left=12,k_right=8):
-    separated_user_input = separate_sentence(user_input)
+def is_single_word(s):
+    # Split the string by whitespace
+    words = s.split()
+
+    # Check if the list contains exactly one non-empty word
+    return len(words) == 1 and words[0] != ""
+
+# def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
+    
+#     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
+#         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=30)
+#         print("top 6 docs for "+user_input+ " : ")
+#         print(docs_with_score[:7])
+#         docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=30)
+#         print("top 6 docs for "+separated_user_input[1]+ " : ")
+#         print(docs2_with_score[:7])
+#         return [docs_with_score,docs2_with_score]
+#     else:
+#         print("the input cant be separated ...")
+#         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=30+30) #get the best k docs
+#         return [docs_with_score]
+
+def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
+    
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=k_left)
-        print("docs for user input : ")
-        print(docs)
-        docs2 = get_similar_doc_from_embedding(app.embedding,separated_user_input[1],k=k_right)
-        print("docs for : "+separated_user_input[1])
-        print(docs2)
-        docs.extend(docs2)
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=50)
+        print("top 6 docs for "+user_input+ " : ")
+        print(docs_with_score[:7])
+        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=50)
+        print("top 6 docs for "+separated_user_input[1]+ " : ")
+        print(docs2_with_score[:7])
+        docs_with_score.extend(docs2_with_score)
+        return docs_with_score
     else:
-        docs = get_similar_doc_from_embedding(app.embedding,user_input,k=k_left+k_right) #get the best k docs
-    return docs
+        print("the input cant be separated ...")
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=50+50) #get the best k docs
+        return docs_with_score
+
+def filter_docs(app,docs_with_score,metadata_card):
+    """
+    return docs that match the metadata_card
+    """
+    filtered_docs = []
+    for doc, score in docs_with_score:
+        ids_of_elem = app.hashtable[doc.page_content]
+        for id_of_elem in ids_of_elem:
+            json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
+            if(meta_match(app,json_elem,metadata_card)):
+                filtered_docs.append((doc,score))
+    return filtered_docs
+
+def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=20):
+    sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
+    print("20 first sorted docs : ")
+    print(sorted_docs[:20])
+    res =[]
+    visited_ids=set()
+    for elem,score in sorted_docs:
+        if(len(res)<k):
+            id_set = hashtable[elem.page_content]
+            pair_list = create_list_of_pairs(id_set,score)
+            for pair in pair_list:
+                if(pair[0] not in visited_ids):
+                    res.append(pair)
+                visited_ids.add(pair[0])
+    return res
+        
+def create_list_of_pairs(strings_set, score):
+    return [(string, score) for string in strings_set]
 
 def separate_sentence(sentence):
     # Parse the sentence
