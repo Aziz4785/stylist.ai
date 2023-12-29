@@ -47,7 +47,6 @@ class ProductPageScraper:
         """
         try:
             self.driver.get(url)
-            print("URL successfully opened.")
         except Exception as e:
             print(f"Error occurred while opening URL: {e}")
             return []
@@ -64,7 +63,7 @@ class ProductPageScraper:
         srcs=[]
         try:
             srcs = [img.get_attribute('src') for img in images]
-            print("Image sources extracted successfully.")
+            #print("Image sources extracted successfully.")
         except Exception as e:
             print(f"Error occurred while extracting image sources: {e}")
 
@@ -179,7 +178,6 @@ class LuxeProductPageScraper(ProductPageScraper):
         """
         try:
             self.driver.get(url)
-            print("URL successfully opened.")
         except Exception as e:
             print(f"Error occurred while opening URL: {e}")
             return []
@@ -223,7 +221,7 @@ class Scraper:
         self.json_strategy = json_strategy
         self.product_page_scraper = ProductPageScraper(self.driver)
 
-    def extract_links_from_page(self):
+    def extract_links_from_page(self,only_half=False):
         unique_links = set()
         item_divs = self.driver.find_elements(By.XPATH, "//div[contains(@class, '_5qdMrS w8MdNG cYylcv BaerYO _75qWlu iOzucJ JT3_zV _Qe9k6')]")
         for div in item_divs:
@@ -238,6 +236,12 @@ class Scraper:
                 href = link.get_attribute('href')
                 if href:
                     unique_links.add(href)
+
+        if(only_half):
+            set_to_list = list(unique_links)
+            midpoint = len(set_to_list) // 2
+            first_half = set_to_list[:midpoint]
+            return set(first_half)
         
         return unique_links
     
@@ -263,7 +267,7 @@ class Scraper:
             print(f"Could not find the next page button or reached page {max_pages}, stopping. Error: {e}")
             return False
         
-    def collect_links_from_pages(self, max_pages):
+    def collect_links_from_pages(self, max_pages, half_for_last_page =False):
         all_unique_links = set()
         current_page = 1
 
@@ -272,7 +276,10 @@ class Scraper:
 
         while current_page <= max_pages:
             # Extract links from the current page
-            all_unique_links.update(self.extract_links_from_page())
+            half_for_last_page=False
+            if(current_page==max_pages):
+                half_for_last_page = True
+            all_unique_links.update(self.extract_links_from_page(half_for_last_page))
 
             if not self.cookies_accepted:
                 self.accept_cookies()
@@ -285,8 +292,11 @@ class Scraper:
         print(f"Total unique links extracted: {len(all_unique_links)}")
         return all_unique_links
     
-    def scrape(self, max_pages, filename):
-        all_unique_links = self.collect_links_from_pages(max_pages)
+    def scrape(self, max_pages,half_for_last_page, filename):
+        #if half_for_last is True, max_pages = n, and we have m items per page then
+        # the total nunmber of scraped items will be  ((n-1)*m)+(m/2)
+        #if half_for_last is False, total nbr of items = n*m
+        all_unique_links = self.collect_links_from_pages(max_pages, half_for_last_page = half_for_last_page)
         for i, href in enumerate(all_unique_links):
             product_data = self.product_page_scraper.scrap_product_page(href)
             self.json_strategy.write_json(product_data, filename)

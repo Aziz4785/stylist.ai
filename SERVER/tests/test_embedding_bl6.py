@@ -56,7 +56,7 @@ class MyTest(TestCase):
             "average_precision": average_precision,
             "test_results": cls.test_results
         }
-        with open('test_embedding_report.json', 'w') as file:
+        with open('test_embedding_bl6_report.json', 'w') as file:
             json.dump(report_data, file, indent=4)
 
     def create_app(self):
