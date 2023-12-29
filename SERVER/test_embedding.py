@@ -4,8 +4,12 @@ from server3 import app  # Import your Flask app
 import json
 import sys
 import os
-from metadata_card import *
+from SERVER.META.metadata_card import *
 from ServerUtil import *
+from META.metadata_card import *
+from META.metadata_matching_controller import *
+from META.metadata_extraction import *
+from META.metadata_matching import *
 script_dir = os.path.dirname(os.path.abspath(__file__))
 """
 True Positive: The right clothes showing up when you search.
@@ -106,14 +110,38 @@ class MyTest(TestCase):
         print()
         print()
         print("user input : "+user_input)
-        metadata_card = generate_metadata_card_from_query(user_input)
+        type_extractor = TypeExtractor()
+        composition_extractor = CompositionExtractor()
+        bw_extractor = BlackWhiteExtractor()
+        otherColor_extrator =OtherColorExtractor()
+        type_matcher = TypeMatcher()
+        composition_matcher = CompositionMatcher()
+        bw_matcher = BlackWhiteMatcher()
+        otherColor_matcher = OtherColorMatcher()
+        # Step 2: Create a MetaDataCard with these extractors
+        extractors = {
+            "type": type_extractor,
+            "composition": composition_extractor,
+            "blackwhite": bw_extractor,
+            "otherColor": otherColor_extrator
+        }
+        matchers = {
+            "type": type_matcher,
+            "composition": composition_matcher,
+            "blackwhite": bw_matcher,
+            "otherColor": otherColor_matcher
+        }
+        matching_controller = MetadataMatchingController(matchers)
+
+        metadata_card = MetaDataCard(extractors)
+        metadata_card.generate_from_query(user_input)
         print("metadata of the user input : ")
         print(metadata_card)
         separated_user_input = separate_sentence(user_input)
         docs_with_score = get_similar_doc_for_separated_input(self.app,self.app.embedding, user_input,separated_user_input)
         print("first 5 docs before meta filtering : ")
         print(docs_with_score[:5])
-        meta_filtered_docs = filter_docs(self.app,docs_with_score,metadata_card)
+        meta_filtered_docs = filter_docs(self.app,docs_with_score,metadata_card,matching_controller)
         print("first 5 docs after meta filtering : ")
         print(meta_filtered_docs[:5])
         actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs)
@@ -142,7 +170,7 @@ class MyTest(TestCase):
 
     def test_process_color1(self):
         user_input = "shoes that are white and black and (another color)"
-        expected_ids = ["#I00005c","#I000058","#I00005f","#I000061","#I00006b",
+        expected_ids = ["#I00005c","#I000058","#I00005f","#I000061","#I00006b","#I000087","#I000254",
                         "#I00006c","#I000072","#I00007c","#I000082","#I00008c","#I00008e"]
         self.run_test_case(user_input, expected_ids)
     

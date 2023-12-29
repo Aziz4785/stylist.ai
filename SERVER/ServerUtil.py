@@ -8,7 +8,8 @@ import re
 import openai
 import os
 import nltk
-from metadata_card import *
+from common_variables import *
+from SERVER.META.metadata_card import *
 import sys
 import config
 import spacy
@@ -112,7 +113,7 @@ def divide_into_tiny_chunks(app,json_data,category="unknown"):
     print("dividing baseline into tiny chunks the category "+str(category)+" ...")
     hashtable={}
     for item in json_data:
-        if("type" not in item or("type" in item and (item["type"] in app.corresponding_categories[category]) )):
+        if("type" not in item or("type" in item and (item["type"] in corresponding_categories[category]) )):
             brand= ""
             name= ""
             details= ""
@@ -353,20 +354,20 @@ def is_single_word(s):
 def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
     
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
-        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=50)
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=55)
         print("top 6 docs for "+user_input+ " : ")
         print(docs_with_score[:7])
-        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=50)
+        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=55)
         print("top 6 docs for "+separated_user_input[1]+ " : ")
         print(docs2_with_score[:7])
         docs_with_score.extend(docs2_with_score)
         return docs_with_score
     else:
         print("the input cant be separated ...")
-        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=50+50) #get the best k docs
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=55+55) #get the best k docs
         return docs_with_score
 
-def filter_docs(app,docs_with_score,metadata_card):
+def filter_docs(app,docs_with_score,metadata_card,matching_controller):
     """
     return docs that match the metadata_card
     """
@@ -375,7 +376,7 @@ def filter_docs(app,docs_with_score,metadata_card):
         ids_of_elem = app.hashtable[doc.page_content]
         for id_of_elem in ids_of_elem:
             json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
-            if(meta_match(app,json_elem,metadata_card)):
+            if(matching_controller.meta_match(json_elem, metadata_card)):
                 filtered_docs.append((doc,score))
     return filtered_docs
 

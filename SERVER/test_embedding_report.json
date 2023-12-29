@@ -1,9 +1,9 @@
 {
-    "average_precision": 0.8414772727272728,
+    "average_precision": 0.8829545454545454,
     "test_results": [
         {
             "query": "shoes that are white and black and (another color)",
-            "precision": 0.18181818181818182,
+            "precision": 0.36363636363636365,
             "baseline_used": "baseline_data6"
         },
         {
@@ -13,7 +13,7 @@
         },
         {
             "query": "something made of cotton and polyester only",
-            "precision": 0.8,
+            "precision": 0.95,
             "baseline_used": "baseline_data6"
         },
         {

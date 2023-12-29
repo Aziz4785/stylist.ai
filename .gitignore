@@ -2,6 +2,8 @@ config.py
 venv/
 __pycache__/
 SERVER/__pycache__/
+SERVER/META/__pycache__/
+SERVER/META/tests/__pycache__/
 ZALANDO_SCRAPER/__pycache__/
 ZALANDO_SCRAPER/test_vision.py
 ZALANDO_SCRAPER/zalando_text_scraper/__pycache__/
