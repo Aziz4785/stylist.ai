@@ -4,7 +4,6 @@ import os
 from openai import OpenAI
 import json
 import re
-import together
 from .metadata_generator_util import *
 
 from abc import ABC, abstractmethod
@@ -15,28 +14,12 @@ baseline_path = os.path.join(script_dir, '..', '..', 'MAIN_DATA', 'baseline_data
 
 class Config:
     @staticmethod
-    def get_OPENAI_api_key():
+    def get_api_key():
         return config.OPENAI_API_KEY
-    def get_MISTRAL_api_key():
-        return config.TOGETHER_API_KEY
-
-class MistralClient:
-    def __init__(self):
-        together.api_key = Config.get_MISTRAL_api_key()
-    def query(self, prompt):
-        output = together.Complete.create(
-            prompt = prompt, 
-            model = "mistralai/Mixtral-8x7B-Instruct-v0.1", 
-            max_tokens = 50,
-            temperature = 0.7,
-            top_p = 1,
-            stop = ['<human>']
-            )
-        return output['output']['choices'][0]['text'].lower()
 
 class OpenAIClient:
     def __init__(self):
-        self.api_key = Config.get_OPENAI_api_key()
+        self.api_key = Config.get_api_key()
         self.client = openai.OpenAI(api_key=self.api_key)
 
     def query(self, prompt, model="gpt-3.5-turbo", max_tokens=60):
@@ -108,13 +91,15 @@ class BWClassifier(ClassifierService):
         self.api_client = api_client
 
     def classify(self, description):
-        messages=[
-            {"role": "system", "content": "You are a smart assistant. hen given a description of a garment, determine if it contains the colors black and/or white. Respond with 'Black: Yes', 'White: Yes', 'Black: No', 'White: No', or 'Unknown' for each color. If there is no indication or if you are not sure, return 'Unknown'. Your response should be in a format that is easy to parse using Python."},
-            {"role": "user", "content": "Here is a garment description: " +description}
-            ]
+  
+        prompt_template = """You are a smart assistant. When given a description of a garment, determine if it contains the colors black and/or white. Respond with 'Black: Yes', 'White: Yes', 'Black: No', 'White: No', or 'Unknown' for each color. If there is no indication or if you are not sure, return 'Unknown'. Your response should be in a format that is easy to parse using Python.
+                            Here is a garment description: {description} """
+
+        prompt = prompt_template.format(description=description)
         
-        response = self.api_client.chat_query(messages,temperature=0.7,top_p=1)
-        raw_answer = response.choices[0].message.content.lower().strip()
+        response = self.api_client.query(prompt)
+        raw_answer = response.choices[0].text.lower().strip()
+
         return extract_blackwhite(raw_answer)
 
 class CompositionClassifier(ClassifierService):
@@ -185,68 +170,47 @@ class OtherColorClassifier(ClassifierService):
 
     def classify(self, description):
   
-        # messages=[
-        #     {"role": "system", "content": "You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the garment description describes a garment only with colors black and white, repsond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'."},
-        #     {"role": "user","content": "description of the garment : a pair of shoes that masterfully blend black and white elements to create a stylish and eye-catching design. The base of the shoes is white, giving them a clean and sharp appearance. This white base is complemented with black detailing.The toe box and the heel counter of the shoes are accented in black, framing the white central part and providing a sleek look."},
-        #     {"role": "assistant", "content": "no"} ,
-        #     {"role": "user","content": "description of the garment : This pair of trousers displays a distinguished charcoal grey color. Their design exudes a contemporary and refined fit that strikes a perfect balance between snug and relaxed, making them suitable for a variety of settings."},
-        #     {"role": "assistant", "content": "The description of the garment mentions the color charcoal grey which is not black or white. so the answer is yes"} ,
-        #     {"role": "user", "content": "now analyze this description : "+description},
-        #     {"role": "assistant", "content": ""}  
-        # ]
-        
         messages=[
-            {"role": "system", "content": """Given the following description of a garment, identify all the colors present and list them in the format "<color1>,<color2>,<color3>, etc...". Do not include any explanatory text or additional information. If no color is mentionned in the text, return 'unknown'"""},
-            {"role": "user","content": "description of the garment : "+description}
+            {"role": "system", "content": "You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'."},
+            {"role": "user", "content": description},
+            {"role": "assistant", "content": ""}  # The model will fill this in with 'yes', 'no', or 'unknown' based on the color description.
         ]
-
-        #mistral_prompt_temp =" <s> [INST] You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'. {description} [/INST] </s>"
-        #mistral_prompt = mistral_prompt_temp.format(description=description)
-
-        #raw_answer_mistral = self.api_client.query(mistral_prompt)
-        response = self.api_client.chat_query(messages,temperature=0.7,top_p=1)
+        
+        response = self.api_client.chat_query(messages)
 
         raw_answer = response.choices[0].message.content.lower()
 
-        #return extract_otherColor(raw_answer)
-        return extract_otherColor2(raw_answer)
+        return extract_otherColor(raw_answer)
 
 def handle_garment_type(item, classifier):
     complete_description=""
-    if "type" not in item:
-        if "name of the product" in item :
-            complete_description = item["name of the product"]
-        if "visual description" in item:
-            classification = classifier.classify(complete_description + ", "+item["visual description"])
-            return [('type', classification)]
+    if "name of the product" in item :
+        complete_description = item["name of the product"]
+    if "visual description" in item:
+        classification = classifier.classify(complete_description + ", "+item["visual description"])
+        return [('type', classification)]
     return [(None, None)]
 
 def handle_composition(item, classifier):
-    if("composition" not in item ):
-        if "details about that item" in item:
-            details = item["details about that item"]
-            details_parts = details.split('\n')
-            if len(details_parts) >= 2:
-                part1 = details_parts[0].strip()
-                classification = classifier.classify(part1)
-                return [('composition', classification)]
+    if "details about that item" in item:
+        details = item["details about that item"]
+        details_parts = details.split('\n')
+        if len(details_parts) >= 2:
+            part1 = details_parts[0].strip()
+            classification = classifier.classify(part1)
+            return [('composition', classification)]
     return [(None, None)]
 
 def handle_bw(item,classifier):
-    if("contains_black" not in item and 'contains_white' not in item):
-        if "visual description" in item:
-            bw_list = classifier.classify(item["visual description"])
-            return [('contains_black', bw_list[0]),('contains_white' , bw_list[1])]
+    if "visual description" in item:
+        bw_list = classifier.classify(item["visual description"])
+        return [('contains_black', bw_list[0]),('contains_white' , bw_list[1])]
     return [(None, None)]
 
 def handle_otherColor(item,classifier):
-    if "contains_other_color" not in item:
-        if 'contains_black' in item and 'contains_white' in item:
-            if item['contains_black'] == "no" and item['contains_white']=="no":
-                return [("contains_other_color", "yes")]
-        if "visual description" in item:
-            answer = classifier.classify(item["visual description"])
-            return [("contains_other_color", answer)]
+    if "visual description" in item and "contains_other_color" not in item :
+        answer = classifier.classify(item["visual description"])
+        return [("contains_other_color", answer)]
     return [(None, None)]
 
 if __name__ == '__main__':
@@ -265,10 +229,7 @@ if __name__ == '__main__':
 
     print("Classifying composition...")
     json_processor.process(composition_classifier, handle_composition)
-
-    print("Classifying bw...")
-    json_processor.process(bw_classifier, handle_bw)
-    print("classfiying other color...")
-    json_processor.process(otherColor_classifier, handle_otherColor)
+    # print("classfiying other color...")
+    # json_processor.process(otherColor_classifier, handle_otherColor)
 
 

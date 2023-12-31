@@ -1,5 +1,4 @@
 import re
-
 def extract_blackwhite(text):
     # Initialize the list with 'None' to indicate unfound words
     mylist = [None, None]
@@ -54,34 +53,6 @@ def extract_otherColor(text):
     else:
         return "no"
 
-def extract_otherColor2(text):
-    if("unknown" in text):
-        return "unknown"
-    colors = text.split(',')
-
-    # Define forbidden words and separators
-    black_white = ['white', 'black']
-    separators = [' ', '-']
-
-    # Check each word
-    for color in colors:
-        # Normalize the word
-        normalized_color = color.strip().lower()
-
-        # Split the word if it contains any separator
-        for sep in separators:
-            if sep in normalized_color:
-                subwords = normalized_color.split(sep)
-                # Check if any of the subwords is forbidden
-                if any(subword in black_white for subword in subwords):
-                    break
-            elif normalized_color not in black_white:
-                # If none of the subwords is forbidden, return 'yes'
-                return 'yes'
-    
-    # If no such word is found
-    return 'no'
-    
 def extract_garment_type(txt):
     categories = ["Tops", "Bottoms", "Outerwear", "Underwear", "Footwear", "Accessories", "One-Pieces","Other","unknown"]
 

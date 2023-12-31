@@ -8,8 +8,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000258",
@@ -20,8 +19,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000259",
@@ -32,8 +30,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00025a",
@@ -44,8 +41,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00025b",
@@ -56,8 +52,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00025c",
@@ -68,8 +63,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00025d",
@@ -80,8 +74,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00025e",
@@ -92,8 +85,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00025f",
@@ -104,8 +96,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000260",
@@ -116,8 +107,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000261",
@@ -128,8 +118,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000262",
@@ -140,8 +129,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000263",
@@ -152,8 +140,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000264",
@@ -164,8 +151,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000265",
@@ -176,8 +162,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000266",
@@ -188,8 +173,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000267",
@@ -200,8 +184,7 @@
         "type": "One-Pieces",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000268",
@@ -212,8 +195,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000269",
@@ -224,8 +206,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00026a",
@@ -236,8 +217,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00026b",
@@ -248,8 +228,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00026c",
@@ -260,8 +239,7 @@
         "type": "Outerwear",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00026d",
@@ -272,8 +250,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00026e",
@@ -284,8 +261,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00026f",
@@ -296,8 +272,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000270",
@@ -308,8 +283,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000271",
@@ -320,8 +294,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000272",
@@ -332,8 +305,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000273",
@@ -344,8 +316,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000274",
@@ -356,8 +327,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000275",
@@ -368,8 +338,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000276",
@@ -380,8 +349,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000277",
@@ -392,8 +360,7 @@
         "type": "Outerwear",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000278",
@@ -404,8 +371,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000279",
@@ -422,8 +388,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00027b",
@@ -434,8 +399,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00027c",
@@ -446,8 +410,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00027d",
@@ -458,8 +421,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00027e",
@@ -470,8 +432,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00027f",
@@ -482,8 +443,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000280",
@@ -494,8 +454,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000281",
@@ -506,8 +465,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000282",
@@ -518,8 +476,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000283",
@@ -530,8 +487,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000284",
@@ -542,8 +498,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000285",
@@ -554,8 +509,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000286",
@@ -566,8 +520,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000287",
@@ -578,8 +531,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000288",
@@ -590,8 +542,7 @@
         "type": "Other",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000289",
@@ -602,8 +553,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00028a",
@@ -614,8 +564,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00028b",
@@ -626,8 +575,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00028c",
@@ -638,8 +586,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00028d",
@@ -650,8 +597,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00028e",
@@ -662,8 +608,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00028f",
@@ -674,8 +619,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000290",
@@ -686,8 +630,7 @@
         "type": "One-Pieces",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000291",
@@ -698,8 +641,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000292",
@@ -710,8 +652,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000293",
@@ -722,8 +663,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000294",
@@ -734,8 +674,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000295",
@@ -746,8 +685,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000296",
@@ -758,8 +696,7 @@
         "type": "Underwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000297",
@@ -770,8 +707,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000298",
@@ -782,8 +718,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000299",
@@ -794,8 +729,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00029a",
@@ -806,8 +740,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00029b",
@@ -818,8 +751,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00029c",
@@ -830,8 +762,7 @@
         "type": "Underwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00029d",
@@ -842,8 +773,7 @@
         "type": "Other",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00029e",
@@ -854,8 +784,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00029f",
@@ -866,8 +795,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a0",
@@ -878,8 +806,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a1",
@@ -890,8 +817,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a2",
@@ -902,8 +828,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002a3",
@@ -914,8 +839,7 @@
         "type": "One-Pieces",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002a4",
@@ -926,8 +850,7 @@
         "type": "Other",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a5",
@@ -938,8 +861,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a6",
@@ -950,8 +872,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a7",
@@ -962,8 +883,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002a8",
@@ -974,8 +894,7 @@
         "type": "unknown",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002a9",
@@ -986,8 +905,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002aa",
@@ -998,8 +916,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ab",
@@ -1010,8 +927,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ac",
@@ -1022,8 +938,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ad",
@@ -1034,8 +949,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ae",
@@ -1046,8 +960,7 @@
         "type": "Tops",
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002af",
@@ -1058,8 +971,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b0",
@@ -1070,8 +982,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b1",
@@ -1082,8 +993,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b2",
@@ -1094,8 +1004,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002b3",
@@ -1106,8 +1015,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002b4",
@@ -1118,8 +1026,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002b5",
@@ -1130,8 +1037,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b6",
@@ -1142,8 +1048,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b7",
@@ -1153,8 +1058,7 @@
         "visual description": "The images show a bow tie and suspender set. The colors are brown for the suspenders and bow tie, with silver-colored adjusters and clips on the suspenders. The design presents a classic, elegant aesthetic, commonly associated with formal attire. The suspenders are Y-shaped with a single strap splitting into two at a central piece of dark fabric, likely designed for comfort and fit across the back. The bow tie is pre-tied, featuring a fixed shape that maintains its form, ensuring ease of use and a consistent appearance. No graphics or text are visible on the items. This set exemplifies a refined accessory choice for formal or smart-casual events.",
         "type": "Accessories",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b8",
@@ -1165,8 +1069,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002b9",
@@ -1177,8 +1080,7 @@
         "type": "Outerwear",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ba",
@@ -1189,8 +1091,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002bb",
@@ -1201,8 +1102,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002bc",
@@ -1213,8 +1113,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002bd",
@@ -1225,8 +1124,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002be",
@@ -1237,8 +1135,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002bf",
@@ -1249,8 +1146,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c0",
@@ -1267,8 +1163,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c2",
@@ -1279,8 +1174,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c3",
@@ -1291,8 +1185,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c4",
@@ -1303,8 +1196,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c5",
@@ -1315,8 +1207,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002c6",
@@ -1327,8 +1218,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c7",
@@ -1339,8 +1229,7 @@
         "type": "Other",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c8",
@@ -1351,8 +1240,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002c9",
@@ -1363,8 +1251,7 @@
         "type": "Other",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ca",
@@ -1375,8 +1262,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002cb",
@@ -1387,8 +1273,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0002cc",
@@ -1405,8 +1290,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002ce",
@@ -1417,8 +1301,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0002cf",
@@ -1429,8 +1312,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00007b",
@@ -1441,8 +1323,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00007c",
@@ -1453,8 +1334,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00007d",
@@ -1465,8 +1345,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00007e",
@@ -1477,8 +1356,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00007f",
@@ -1489,8 +1367,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000080",
@@ -1501,8 +1378,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000081",
@@ -1513,8 +1389,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000082",
@@ -1525,8 +1400,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000083",
@@ -1537,8 +1411,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000084",
@@ -1549,8 +1422,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000085",
@@ -1561,8 +1433,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000086",
@@ -1573,8 +1444,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000087",
@@ -1585,8 +1455,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000088",
@@ -1597,8 +1466,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000089",
@@ -1609,8 +1477,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00008a",
@@ -1621,8 +1488,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00008b",
@@ -1639,8 +1505,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "unknown"
+        "contains_white": "yes"
     },
     {
         "id": "#I00008d",
@@ -1651,8 +1516,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00008e",
@@ -1663,8 +1527,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00008f",
@@ -1675,8 +1538,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000090",
@@ -1687,8 +1549,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000091",
@@ -1699,8 +1560,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000092",
@@ -1711,8 +1571,7 @@
         "type": "Footwear",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000093",
@@ -1723,8 +1582,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000094",
@@ -1735,8 +1593,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000095",
@@ -1753,8 +1610,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000097",
@@ -1765,8 +1621,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000098",
@@ -1777,8 +1632,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000099",
@@ -1789,8 +1643,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00009a",
@@ -1801,8 +1654,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00009b",
@@ -1813,8 +1665,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00009c",
@@ -1825,8 +1676,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00009d",
@@ -1837,8 +1687,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00009e",
@@ -1849,8 +1698,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00009f",
@@ -1861,8 +1709,7 @@
         "type": "Footwear",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000a0",
@@ -1873,8 +1720,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000a1",
@@ -1885,8 +1731,7 @@
         "type": "Footwear",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000a2",
@@ -1897,8 +1742,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000a3",
@@ -1909,8 +1753,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000a4",
@@ -1921,8 +1764,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000a5",
@@ -1933,8 +1775,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000a6",
@@ -1945,8 +1786,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000a7",
@@ -1957,8 +1797,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000a8",
@@ -1969,8 +1808,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000a9",
@@ -1981,8 +1819,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000aa",
@@ -1993,8 +1830,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000ab",
@@ -2005,8 +1841,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ac",
@@ -2017,8 +1852,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ad",
@@ -2029,8 +1863,7 @@
         "type": "Footwear",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000ae",
@@ -2041,8 +1874,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000af",
@@ -2053,8 +1885,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000b0",
@@ -2065,8 +1896,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b1",
@@ -2077,8 +1907,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b2",
@@ -2089,8 +1918,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b3",
@@ -2101,8 +1929,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000b4",
@@ -2113,8 +1940,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b5",
@@ -2125,8 +1951,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b6",
@@ -2137,8 +1962,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b7",
@@ -2149,8 +1973,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000b8",
@@ -2161,8 +1984,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000b9",
@@ -2173,8 +1995,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ba",
@@ -2185,8 +2006,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000bb",
@@ -2197,8 +2017,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000bc",
@@ -2209,8 +2028,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000bd",
@@ -2221,8 +2039,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000be",
@@ -2233,8 +2050,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000bf",
@@ -2245,8 +2061,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c0",
@@ -2257,8 +2072,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c1",
@@ -2269,8 +2083,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000c2",
@@ -2281,8 +2094,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c3",
@@ -2293,8 +2105,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000c4",
@@ -2305,8 +2116,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c5",
@@ -2317,8 +2127,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000c6",
@@ -2329,8 +2138,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c7",
@@ -2341,8 +2149,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c8",
@@ -2353,8 +2160,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000c9",
@@ -2365,8 +2171,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ca",
@@ -2377,8 +2182,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000cb",
@@ -2389,8 +2193,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000cc",
@@ -2401,8 +2204,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000cd",
@@ -2413,8 +2215,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ce",
@@ -2425,8 +2226,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000cf",
@@ -2437,8 +2237,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000d0",
@@ -2449,8 +2248,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000d1",
@@ -2461,8 +2259,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000d2",
@@ -2473,8 +2270,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000d3",
@@ -2485,8 +2281,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000d4",
@@ -2497,8 +2292,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000d5",
@@ -2509,8 +2303,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000d6",
@@ -2521,8 +2314,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000d7",
@@ -2533,8 +2325,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000d8",
@@ -2545,8 +2336,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000d9",
@@ -2557,8 +2347,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000da",
@@ -2569,8 +2358,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000db",
@@ -2581,8 +2369,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000dc",
@@ -2593,8 +2380,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000dd",
@@ -2605,8 +2391,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000de",
@@ -2617,8 +2402,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000df",
@@ -2629,8 +2413,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000e0",
@@ -2641,8 +2424,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000e1",
@@ -2653,8 +2435,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000e2",
@@ -2665,8 +2446,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000e3",
@@ -2677,8 +2457,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000e4",
@@ -2689,8 +2468,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000e5",
@@ -2701,8 +2479,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000e6",
@@ -2713,8 +2490,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000e7",
@@ -2725,8 +2501,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000e8",
@@ -2737,8 +2512,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000e9",
@@ -2755,8 +2529,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000eb",
@@ -2773,8 +2546,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ed",
@@ -2785,8 +2557,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0000ee",
@@ -2803,8 +2574,7 @@
         "type": "Footwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000f0",
@@ -2815,8 +2585,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0000f1",
@@ -2827,8 +2596,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0000f2",
@@ -2839,8 +2607,7 @@
         "type": "Footwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001e0",
@@ -2851,8 +2618,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001e1",
@@ -2863,8 +2629,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001e2",
@@ -2875,8 +2640,7 @@
         "type": "Tops",
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001e3",
@@ -2887,8 +2651,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001e4",
@@ -2899,8 +2662,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001e5",
@@ -2911,8 +2673,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001e6",
@@ -2923,8 +2684,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001e7",
@@ -2935,8 +2695,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001e8",
@@ -2947,8 +2706,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001e9",
@@ -2959,8 +2717,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001ea",
@@ -2971,8 +2728,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001eb",
@@ -2983,8 +2739,7 @@
         "type": "Outerwear",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001ec",
@@ -2995,8 +2750,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001ed",
@@ -3007,8 +2761,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001ee",
@@ -3019,8 +2772,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001ef",
@@ -3031,8 +2783,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f0",
@@ -3043,8 +2794,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f1",
@@ -3055,8 +2805,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f2",
@@ -3067,8 +2816,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f3",
@@ -3079,8 +2827,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f4",
@@ -3091,8 +2838,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f5",
@@ -3103,8 +2849,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001f6",
@@ -3115,8 +2860,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001f7",
@@ -3127,8 +2871,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001f8",
@@ -3139,8 +2882,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001f9",
@@ -3151,8 +2893,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001fa",
@@ -3163,8 +2904,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I0001fb",
@@ -3175,8 +2915,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001fc",
@@ -3187,8 +2926,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001fd",
@@ -3199,8 +2937,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I0001fe",
@@ -3211,8 +2948,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I0001ff",
@@ -3223,8 +2959,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000200",
@@ -3235,8 +2970,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000201",
@@ -3247,8 +2981,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000202",
@@ -3259,8 +2992,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000203",
@@ -3271,8 +3003,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000204",
@@ -3283,8 +3014,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000205",
@@ -3295,8 +3025,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000206",
@@ -3307,8 +3036,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000207",
@@ -3319,8 +3047,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000208",
@@ -3331,8 +3058,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000209",
@@ -3343,8 +3069,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00020a",
@@ -3355,8 +3080,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00020b",
@@ -3367,8 +3091,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00020c",
@@ -3379,8 +3102,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00020d",
@@ -3391,8 +3113,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00020e",
@@ -3403,8 +3124,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00020f",
@@ -3415,8 +3135,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000210",
@@ -3427,8 +3146,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000211",
@@ -3439,8 +3157,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000212",
@@ -3451,8 +3168,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000213",
@@ -3463,8 +3179,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000214",
@@ -3475,8 +3190,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000215",
@@ -3487,8 +3201,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000216",
@@ -3499,8 +3212,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000217",
@@ -3511,8 +3223,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000218",
@@ -3523,8 +3234,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000219",
@@ -3535,8 +3245,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00021a",
@@ -3547,8 +3256,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00021b",
@@ -3559,8 +3267,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00021c",
@@ -3571,8 +3278,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00021d",
@@ -3583,8 +3289,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00021e",
@@ -3595,8 +3300,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00021f",
@@ -3607,8 +3311,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000220",
@@ -3619,8 +3322,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000221",
@@ -3631,8 +3333,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000222",
@@ -3643,8 +3344,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000223",
@@ -3655,8 +3355,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000224",
@@ -3667,8 +3366,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000225",
@@ -3679,8 +3377,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000226",
@@ -3691,8 +3388,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000227",
@@ -3703,8 +3399,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000228",
@@ -3715,8 +3410,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000229",
@@ -3727,8 +3421,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00022a",
@@ -3739,8 +3432,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00022b",
@@ -3751,8 +3443,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00022c",
@@ -3763,8 +3454,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00022d",
@@ -3775,8 +3465,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00022e",
@@ -3787,8 +3476,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00022f",
@@ -3799,8 +3487,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000230",
@@ -3811,8 +3498,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000231",
@@ -3823,8 +3509,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000232",
@@ -3835,8 +3520,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000233",
@@ -3847,8 +3531,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000234",
@@ -3859,8 +3542,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000235",
@@ -3871,8 +3553,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000236",
@@ -3883,8 +3564,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000237",
@@ -3895,8 +3575,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I000238",
@@ -3907,8 +3586,7 @@
         "type": "Outerwear",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000239",
@@ -3919,8 +3597,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00023a",
@@ -3931,8 +3608,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00023b",
@@ -3943,8 +3619,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00023c",
@@ -3955,8 +3630,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00023d",
@@ -3967,8 +3641,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00023e",
@@ -3979,8 +3652,7 @@
         "type": "Bottoms",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00023f",
@@ -3991,8 +3663,7 @@
         "type": "Tops",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000240",
@@ -4003,8 +3674,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000241",
@@ -4015,8 +3685,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000242",
@@ -4027,8 +3696,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000243",
@@ -4039,8 +3707,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000244",
@@ -4051,8 +3718,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000245",
@@ -4063,8 +3729,7 @@
         "type": "Bottoms",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000246",
@@ -4075,8 +3740,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000247",
@@ -4087,8 +3751,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000248",
@@ -4099,8 +3762,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000249",
@@ -4111,8 +3773,7 @@
         "type": "Tops",
         "composition": "synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_white": "yes"
     },
     {
         "id": "#I00024a",
@@ -4123,8 +3784,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00024b",
@@ -4135,8 +3795,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I00024c",
@@ -4147,8 +3806,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I00024d",
@@ -4159,8 +3817,7 @@
         "type": "Outerwear",
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00024e",
@@ -4171,8 +3828,7 @@
         "type": "Outerwear",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I00024f",
@@ -4183,8 +3839,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000250",
@@ -4195,8 +3850,7 @@
         "type": "Bottoms",
         "composition": "synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000251",
@@ -4207,8 +3861,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000252",
@@ -4219,8 +3872,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000253",
@@ -4231,8 +3883,7 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_white": "yes"
     },
     {
         "id": "#I000254",
@@ -4243,8 +3894,7 @@
         "type": "Bottoms",
         "composition": "natural",
         "contains_black": "yes",
-        "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_white": "no"
     },
     {
         "id": "#I000255",
@@ -4255,8 +3905,7 @@
         "type": "Tops",
         "composition": "synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     },
     {
         "id": "#I000256",
@@ -4267,7 +3916,6 @@
         "type": "Tops",
         "composition": "natural, synthetic",
         "contains_black": "no",
-        "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_white": "no"
     }
 ]

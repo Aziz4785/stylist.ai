@@ -196,7 +196,7 @@ class OtherColorClassifier(ClassifierService):
         # ]
         
         messages=[
-            {"role": "system", "content": """Given the following description of a garment, identify all the colors present and list them in the format "<color1>,<color2>,<color3>, etc...". Do not include any explanatory text or additional information. If no color is mentionned in the text, return 'unknown'"""},
+            {"role": "system", "content": """Given the following description of a garment, identify all the colors present and list them in the format "<color1>,<color2>,<color3>, etc...". Do not include any explanatory text or additional information"""},
             {"role": "user","content": "description of the garment : "+description}
         ]
 
@@ -208,8 +208,7 @@ class OtherColorClassifier(ClassifierService):
 
         raw_answer = response.choices[0].message.content.lower()
 
-        #return extract_otherColor(raw_answer)
-        return extract_otherColor2(raw_answer)
+        return extract_otherColor(raw_answer)
 
 def handle_garment_type(item, classifier):
     complete_description=""
@@ -240,13 +239,9 @@ def handle_bw(item,classifier):
     return [(None, None)]
 
 def handle_otherColor(item,classifier):
-    if "contains_other_color" not in item:
-        if 'contains_black' in item and 'contains_white' in item:
-            if item['contains_black'] == "no" and item['contains_white']=="no":
-                return [("contains_other_color", "yes")]
-        if "visual description" in item:
-            answer = classifier.classify(item["visual description"])
-            return [("contains_other_color", answer)]
+    if "visual description" in item and "contains_other_color" not in item :
+        answer = classifier.classify(item["visual description"])
+        return [("contains_other_color", answer)]
     return [(None, None)]
 
 if __name__ == '__main__':
@@ -268,7 +263,7 @@ if __name__ == '__main__':
 
     print("Classifying bw...")
     json_processor.process(bw_classifier, handle_bw)
-    print("classfiying other color...")
-    json_processor.process(otherColor_classifier, handle_otherColor)
+    # print("classfiying other color...")
+    # json_processor.process(otherColor_classifier, handle_otherColor)
 
 

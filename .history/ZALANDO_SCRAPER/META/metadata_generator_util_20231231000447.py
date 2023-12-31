@@ -55,7 +55,7 @@ def extract_otherColor(text):
         return "no"
 
 def extract_otherColor2(text):
-    if("unknown" in text):
+    if(text=="unknown"):
         return "unknown"
     colors = text.split(',')
 

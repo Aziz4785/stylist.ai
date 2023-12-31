@@ -55,32 +55,23 @@ def extract_otherColor(text):
         return "no"
 
 def extract_otherColor2(text):
-    if("unknown" in text):
+    # Split the text by whitespace to get individual words
+    # print("text  from llm: ")
+    # print(text)
+    # print()
+    pattern_yes = r'\byes\b'
+    pattern_no = r'\bno\b'
+
+    # Use regular expression to find all matches
+    yes_count = len(re.findall(pattern_yes, text))
+    no_count = len(re.findall(pattern_no, text))
+
+    if(yes_count>no_count):
+        return "yes"
+    elif(yes_count==no_count):
         return "unknown"
-    colors = text.split(',')
-
-    # Define forbidden words and separators
-    black_white = ['white', 'black']
-    separators = [' ', '-']
-
-    # Check each word
-    for color in colors:
-        # Normalize the word
-        normalized_color = color.strip().lower()
-
-        # Split the word if it contains any separator
-        for sep in separators:
-            if sep in normalized_color:
-                subwords = normalized_color.split(sep)
-                # Check if any of the subwords is forbidden
-                if any(subword in black_white for subword in subwords):
-                    break
-            elif normalized_color not in black_white:
-                # If none of the subwords is forbidden, return 'yes'
-                return 'yes'
-    
-    # If no such word is found
-    return 'no'
+    else:
+        return "no"
     
 def extract_garment_type(txt):
     categories = ["Tops", "Bottoms", "Outerwear", "Underwear", "Footwear", "Accessories", "One-Pieces","Other","unknown"]

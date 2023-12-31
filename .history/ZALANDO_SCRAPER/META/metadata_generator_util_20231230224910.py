@@ -55,12 +55,11 @@ def extract_otherColor(text):
         return "no"
 
 def extract_otherColor2(text):
-    if("unknown" in text):
-        return "unknown"
+    # Split the string on comma
     colors = text.split(',')
 
     # Define forbidden words and separators
-    black_white = ['white', 'black']
+    forbidden_words = ['white', 'black']
     separators = [' ', '-']
 
     # Check each word
@@ -73,11 +72,11 @@ def extract_otherColor2(text):
             if sep in normalized_color:
                 subwords = normalized_color.split(sep)
                 # Check if any of the subwords is forbidden
-                if any(subword in black_white for subword in subwords):
+                if any(subword in forbidden_words for subword in subwords):
                     break
-            elif normalized_color not in black_white:
-                # If none of the subwords is forbidden, return 'yes'
-                return 'yes'
+        else:
+            # If none of the subwords is forbidden, return 'yes'
+            return 'yes'
     
     # If no such word is found
     return 'no'

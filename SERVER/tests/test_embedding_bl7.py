@@ -4,6 +4,11 @@ from server3 import app  # Import your Flask app
 import json
 import sys
 import os
+from SERVER.META.metadata_card import *
+from META.metadata_card import *
+from META.metadata_matching_controller import *
+from META.metadata_extraction import *
+from META.metadata_matching import *
 from ServerUtil import *
 script_dir = os.path.dirname(os.path.abspath(__file__))
 """
@@ -68,9 +73,49 @@ class MyTest(TestCase):
             return json.load(file)
     
     def run_test_case(self, user_input, expected_ids):
-        docs = get_similar_doc_for_separated_input(self.app.embedding, user_input)
-        set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs, self.app.hashtable)
-        actual_ids = set_of_ids_GPT4.union(set_of_ids_GPT3)
+        print()
+        print()
+        print()
+        print("user input : "+user_input)
+        type_extractor = TypeExtractor()
+        composition_extractor = CompositionExtractor()
+        bw_extractor = BlackWhiteExtractor()
+        otherColor_extrator =OtherColorExtractor()
+        type_matcher = TypeMatcher()
+        composition_matcher = CompositionMatcher()
+        bw_matcher = BlackWhiteMatcher()
+        otherColor_matcher = OtherColorMatcher()
+        # Step 2: Create a MetaDataCard with these extractors
+        extractors = {
+            "type": type_extractor,
+            "composition": composition_extractor,
+            "blackwhite": bw_extractor,
+            "otherColor": otherColor_extrator
+        }
+        matchers = {
+            "type": type_matcher,
+            "composition": composition_matcher,
+            "blackwhite": bw_matcher,
+            "otherColor": otherColor_matcher
+        }
+        matching_controller = MetadataMatchingController(matchers)
+
+        metadata_card = MetaDataCard(extractors)
+        metadata_card.generate_from_query(user_input)
+        print("metadata of the user input : ")
+        print(metadata_card)
+        separated_user_input = separate_sentence(user_input)
+        docs_with_score = get_similar_doc_for_separated_input(self.app,self.app.embedding, user_input,separated_user_input)
+        print("first 5 docs before meta filtering : ")
+        print(docs_with_score[:5])
+        meta_filtered_docs = filter_docs(self.app,docs_with_score,metadata_card,matching_controller)
+        print("first 5 docs after meta filtering : ")
+        print(meta_filtered_docs[:5])
+        actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs)
+        #each elem of actual_ids_pairs looks like this :('#I00026b', 0.39710677)
+        print(" the returned ids from get_topK_uniqueIds_from_docs : ")
+        actual_ids= [pair[0] for pair in actual_ids_pairs]
+        print(actual_ids)
 
         precision = compute_precision(set(actual_ids), set(expected_ids))
 

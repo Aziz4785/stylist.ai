@@ -185,20 +185,15 @@ class OtherColorClassifier(ClassifierService):
 
     def classify(self, description):
   
-        # messages=[
-        #     {"role": "system", "content": "You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the garment description describes a garment only with colors black and white, repsond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'."},
-        #     {"role": "user","content": "description of the garment : a pair of shoes that masterfully blend black and white elements to create a stylish and eye-catching design. The base of the shoes is white, giving them a clean and sharp appearance. This white base is complemented with black detailing.The toe box and the heel counter of the shoes are accented in black, framing the white central part and providing a sleek look."},
-        #     {"role": "assistant", "content": "no"} ,
-        #     {"role": "user","content": "description of the garment : This pair of trousers displays a distinguished charcoal grey color. Their design exudes a contemporary and refined fit that strikes a perfect balance between snug and relaxed, making them suitable for a variety of settings."},
-        #     {"role": "assistant", "content": "The description of the garment mentions the color charcoal grey which is not black or white. so the answer is yes"} ,
-        #     {"role": "user", "content": "now analyze this description : "+description},
-        #     {"role": "assistant", "content": ""}  
-        # ]
-        
         messages=[
-            {"role": "system", "content": """Given the following description of a garment, identify all the colors present and list them in the format "<color1>,<color2>,<color3>, etc...". Do not include any explanatory text or additional information. If no color is mentionned in the text, return 'unknown'"""},
-            {"role": "user","content": "description of the garment : "+description}
+            {"role": "system", "content": "You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the garment description describes a garment only with colors black and white, repsond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'."},
+            {"role": "user","content": "description of the garment : a pair of shoes that masterfully blend black and white elements to create a stylish and eye-catching design. The base of the shoes is white, giving them a clean and sharp appearance. This white base is complemented with black detailing, creating a striking contrast that adds to their visual appeal.The toe box and the heel counter of the shoes are accented in black, framing the white central part and providing a sleek look. The laces are also black, which stands out against the white tongue and adds a dynamic element to the design. "},
+            {"role": "assistant", "content": "no"} ,
+            {"role": "user", "content": "description of the garment : "+description},
+            {"role": "assistant", "content": ""}  
         ]
+        
+       
 
         #mistral_prompt_temp =" <s> [INST] You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'. {description} [/INST] </s>"
         #mistral_prompt = mistral_prompt_temp.format(description=description)
@@ -208,8 +203,7 @@ class OtherColorClassifier(ClassifierService):
 
         raw_answer = response.choices[0].message.content.lower()
 
-        #return extract_otherColor(raw_answer)
-        return extract_otherColor2(raw_answer)
+        return extract_otherColor(raw_answer)
 
 def handle_garment_type(item, classifier):
     complete_description=""
@@ -240,13 +234,9 @@ def handle_bw(item,classifier):
     return [(None, None)]
 
 def handle_otherColor(item,classifier):
-    if "contains_other_color" not in item:
-        if 'contains_black' in item and 'contains_white' in item:
-            if item['contains_black'] == "no" and item['contains_white']=="no":
-                return [("contains_other_color", "yes")]
-        if "visual description" in item:
-            answer = classifier.classify(item["visual description"])
-            return [("contains_other_color", answer)]
+    if "visual description" in item and "contains_other_color" not in item :
+        answer = classifier.classify(item["visual description"])
+        return [("contains_other_color", answer)]
     return [(None, None)]
 
 if __name__ == '__main__':
@@ -268,7 +258,7 @@ if __name__ == '__main__':
 
     print("Classifying bw...")
     json_processor.process(bw_classifier, handle_bw)
-    print("classfiying other color...")
-    json_processor.process(otherColor_classifier, handle_otherColor)
+    # print("classfiying other color...")
+    # json_processor.process(otherColor_classifier, handle_otherColor)
 
 

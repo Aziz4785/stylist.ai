@@ -55,8 +55,6 @@ def extract_otherColor(text):
         return "no"
 
 def extract_otherColor2(text):
-    if("unknown" in text):
-        return "unknown"
     colors = text.split(',')
 
     # Define forbidden words and separators

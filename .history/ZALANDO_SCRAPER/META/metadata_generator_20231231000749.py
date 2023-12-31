@@ -240,13 +240,9 @@ def handle_bw(item,classifier):
     return [(None, None)]
 
 def handle_otherColor(item,classifier):
-    if "contains_other_color" not in item:
-        if 'contains_black' in item and 'contains_white' in item:
-            if item['contains_black'] == "no" and item['contains_white']=="no":
-                return [("contains_other_color", "yes")]
-        if "visual description" in item:
-            answer = classifier.classify(item["visual description"])
-            return [("contains_other_color", answer)]
+    if "visual description" in item and "contains_other_color" not in item :
+        answer = classifier.classify(item["visual description"])
+        return [("contains_other_color", answer)]
     return [(None, None)]
 
 if __name__ == '__main__':

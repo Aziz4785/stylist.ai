@@ -55,8 +55,8 @@ def extract_otherColor(text):
         return "no"
 
 def extract_otherColor2(text):
-    if("unknown" in text):
-        return "unknown"
+    if(not text.contains(',')):
+        return 'unknown'
     colors = text.split(',')
 
     # Define forbidden words and separators
@@ -74,10 +74,10 @@ def extract_otherColor2(text):
                 subwords = normalized_color.split(sep)
                 # Check if any of the subwords is forbidden
                 if any(subword in black_white for subword in subwords):
-                    break
-            elif normalized_color not in black_white:
-                # If none of the subwords is forbidden, return 'yes'
-                return 'yes'
+                    pass
+        else:
+            # If none of the subwords is forbidden, return 'yes'
+            return 'yes'
     
     # If no such word is found
     return 'no'
