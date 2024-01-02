@@ -103,6 +103,7 @@ def generate_baseline_single_elem(entry):
         baseline elem has this format :
         {
         "id": <id>,
+        "genre": <genre>
         "name of the product : "", 
         "brand" :, 
         details about that item : "", 
@@ -113,6 +114,7 @@ def generate_baseline_single_elem(entry):
     #encoded_images = encode_imagesURLS(images)
 
     id = entry.get("id")
+    genre = entry.get("genre")
     name = entry.get("name")
     brand = entry.get("brand")
     composition = entry.get("composition and care (en)")
@@ -126,6 +128,8 @@ def generate_baseline_single_elem(entry):
     elem = {}
     if id:
         elem["id"] = id
+    if genre:
+        elem["genre"] = genre
     if name:
         elem["name of the product"] = name
     if brand:
@@ -138,19 +142,18 @@ def generate_baseline_single_elem(entry):
     return elem
 
 
-def iD_is_in_baseline_file(file_path, id_to_check):
+def iD_is_in_baseline_file(baseline_file_path, id_to_check):
 
-    if not os.path.exists(file_path):
+    if not os.path.exists(baseline_file_path):
         return False
     
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(baseline_file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # Check if the ID exists in the data
     for item in data:
         if item.get("id") == id_to_check:
             return True
-
+        
     return False
 
 
@@ -213,7 +216,7 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
                 if item_processed % 5 == 0:
                     print(str(math.ceil(item_processed * 100 / len(scraped_textInfos))) + "% done ")
 
-            reference_file.write(']')
+            #reference_file.write(']')
 
     else:
         # File doesn't exist or is empty, write as new

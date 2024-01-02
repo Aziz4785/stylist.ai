@@ -72,3 +72,16 @@ class OtherColorMatcher(IMetadataMatcher):
         
         return False
 
+class GenreMatcher(IMetadataMatcher):
+    def is_match(self, json_elem, metadata_card):
+        """
+        return True if metadata_card and json_elem match on genre
+        """
+        if "genre" not in json_elem  or json_elem["genre"]=="" or json_elem["genre"]=="unknown":
+            return True
+            
+        if(metadata_card.metadata["genre"] == json_elem["genre"] or metadata_card.metadata["genre"] == "unknown"):
+            return True
+        
+        return False
+

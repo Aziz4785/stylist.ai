@@ -3,13 +3,13 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 import os
 import sys
-from common_variables import *
+import SERVER.common_variables
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import config
 import json
 import re
 
-from ServerUtil import *
+from SERVER.ServerUtil import *
 os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 
 
@@ -26,7 +26,9 @@ class MyApp(Flask):
         self.config['BASELINE_PATH'] = default_baseline_path
         self.baseline = read_json(self.config['BASELINE_PATH'])
         self.hashtable = divide_into_tiny_chunks(self,self.baseline)
+        self.hashtable_small_chunks = divide_description_into_smaller_chunks(self.baseline)
         self.embedding = create_embedding(self.hashtable.keys())
+        self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
         # New code to create dynamic attributes
         # for category in self.corresponding_categories:
         #     hashtable_name = f"hashtable_{category}"

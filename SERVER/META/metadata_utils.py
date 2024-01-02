@@ -11,7 +11,7 @@ together.api_key = config.TOGETHER_API_KEY
 
 def extract_blackwhite(text):
     # Split the text into words
-    words = text.replace(':', ' ').split()
+    words = text.replace(':', ' ').replace('-', ' ').split()
 
     # Initialize the list with None values
     mylist = ["unknown", "unknown"]

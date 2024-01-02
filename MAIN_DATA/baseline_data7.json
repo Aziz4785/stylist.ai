@@ -9,7 +9,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000258",
@@ -21,7 +22,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000259",
@@ -33,7 +35,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00025a",
@@ -45,7 +48,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00025b",
@@ -57,7 +61,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00025c",
@@ -69,7 +74,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00025d",
@@ -81,7 +87,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00025e",
@@ -93,7 +100,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00025f",
@@ -105,7 +113,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000260",
@@ -117,7 +126,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000261",
@@ -129,7 +139,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000262",
@@ -141,7 +152,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000263",
@@ -153,7 +165,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000264",
@@ -165,7 +178,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000265",
@@ -177,7 +191,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000266",
@@ -189,7 +204,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000267",
@@ -201,7 +217,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000268",
@@ -213,7 +230,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000269",
@@ -225,7 +243,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00026a",
@@ -237,7 +256,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00026b",
@@ -249,7 +269,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00026c",
@@ -261,7 +282,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00026d",
@@ -273,7 +295,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00026e",
@@ -285,7 +308,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00026f",
@@ -297,7 +321,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000270",
@@ -309,7 +334,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000271",
@@ -321,7 +347,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000272",
@@ -333,7 +360,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000273",
@@ -345,7 +373,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000274",
@@ -357,7 +386,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000275",
@@ -369,7 +399,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000276",
@@ -381,7 +412,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000277",
@@ -393,7 +425,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000278",
@@ -405,13 +438,15 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000279",
         "brand": "LONG SLEEVE - T-SHIRT À MANCHES LONGUES",
         "details about that item": "Composition: 69% cotton, 29% viscose, 2% nylon, Material: Jersey, Care instructions: Machine wash at 30°C \n Collar: Trucker collar, Pattern / Color: Solid color, ",
-        "composition": "natural, synthetic, artificial"
+        "composition": "natural, synthetic, artificial",
+        "genre": "men"
     },
     {
         "id": "#I00027a",
@@ -423,7 +458,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00027b",
@@ -435,7 +471,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00027c",
@@ -447,7 +484,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00027d",
@@ -459,7 +497,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00027e",
@@ -471,7 +510,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00027f",
@@ -483,7 +523,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000280",
@@ -495,7 +536,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000281",
@@ -507,7 +549,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000282",
@@ -519,7 +562,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000283",
@@ -531,7 +575,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000284",
@@ -543,7 +588,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000285",
@@ -555,7 +601,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000286",
@@ -567,7 +614,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000287",
@@ -579,7 +627,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000288",
@@ -591,7 +640,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000289",
@@ -603,7 +653,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00028a",
@@ -615,7 +666,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00028b",
@@ -627,7 +679,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00028c",
@@ -639,7 +692,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00028d",
@@ -651,7 +705,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00028e",
@@ -663,7 +718,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00028f",
@@ -675,7 +731,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000290",
@@ -687,7 +744,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000291",
@@ -699,7 +757,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000292",
@@ -711,7 +770,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000293",
@@ -723,7 +783,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000294",
@@ -735,7 +796,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000295",
@@ -747,7 +809,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000296",
@@ -759,7 +822,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000297",
@@ -771,7 +835,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000298",
@@ -783,7 +848,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000299",
@@ -795,7 +861,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00029a",
@@ -807,7 +874,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00029b",
@@ -819,7 +887,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00029c",
@@ -831,7 +900,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00029d",
@@ -843,7 +913,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00029e",
@@ -855,7 +926,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00029f",
@@ -867,7 +939,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002a0",
@@ -879,7 +952,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002a1",
@@ -891,7 +965,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002a2",
@@ -903,7 +978,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002a3",
@@ -915,7 +991,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002a4",
@@ -927,7 +1004,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002a5",
@@ -939,7 +1017,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002a6",
@@ -951,7 +1030,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002a7",
@@ -963,7 +1043,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002a8",
@@ -975,7 +1056,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002a9",
@@ -987,7 +1069,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002aa",
@@ -999,7 +1082,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002ab",
@@ -1011,7 +1095,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002ac",
@@ -1023,7 +1108,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002ad",
@@ -1035,7 +1121,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002ae",
@@ -1047,7 +1134,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002af",
@@ -1059,7 +1147,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002b0",
@@ -1071,7 +1160,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002b1",
@@ -1083,7 +1173,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b2",
@@ -1095,7 +1186,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b3",
@@ -1107,7 +1199,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b4",
@@ -1119,7 +1212,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b5",
@@ -1131,7 +1225,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b6",
@@ -1143,7 +1238,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b7",
@@ -1154,7 +1250,8 @@
         "type": "Accessories",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b8",
@@ -1166,7 +1263,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002b9",
@@ -1178,7 +1276,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002ba",
@@ -1190,7 +1289,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002bb",
@@ -1202,7 +1302,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002bc",
@@ -1214,7 +1315,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002bd",
@@ -1226,7 +1328,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002be",
@@ -1238,7 +1341,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002bf",
@@ -1250,13 +1354,15 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c0",
         "brand": "LONG SLEEVE - T-SHIRT BASIQUE",
         "details about that item": "Composition: 100% cotton, Material: Jersey, Care instructions: Machine wash at 40°C \n Collar shape: Round neck, Pattern / Color: Solid color, ",
-        "composition": "natural"
+        "composition": "natural",
+        "genre": "men"
     },
     {
         "id": "#I0002c1",
@@ -1268,7 +1374,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c2",
@@ -1280,7 +1387,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c3",
@@ -1292,7 +1400,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c4",
@@ -1304,7 +1413,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002c5",
@@ -1316,7 +1426,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c6",
@@ -1328,7 +1439,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c7",
@@ -1340,7 +1452,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002c8",
@@ -1352,7 +1465,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002c9",
@@ -1364,7 +1478,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002ca",
@@ -1376,7 +1491,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002cb",
@@ -1388,13 +1504,15 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0002cc",
         "brand": "STRETCH SHIRT - CHEMISE",
         "details about that item": "Composition: 91% cotton, 9% elastane, Care instructions: Machine wash at 30°C \n Collar: Button collar, Closure: Buttons, Pattern / Color: Solid color, ",
-        "composition": "natural, synthetic"
+        "composition": "natural, synthetic",
+        "genre": "men"
     },
     {
         "id": "#I0002cd",
@@ -1406,7 +1524,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002ce",
@@ -1418,7 +1537,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0002cf",
@@ -1430,7 +1550,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00007b",
@@ -1442,7 +1563,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00007c",
@@ -1454,7 +1576,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00007d",
@@ -1466,7 +1589,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00007e",
@@ -1478,7 +1602,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00007f",
@@ -1490,7 +1615,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000080",
@@ -1502,7 +1628,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000081",
@@ -1514,7 +1641,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000082",
@@ -1526,7 +1654,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000083",
@@ -1538,7 +1667,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000084",
@@ -1550,7 +1680,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000085",
@@ -1562,7 +1693,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000086",
@@ -1574,7 +1706,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000087",
@@ -1586,7 +1719,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000088",
@@ -1598,7 +1732,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000089",
@@ -1610,7 +1745,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00008a",
@@ -1622,13 +1758,15 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00008b",
         "brand": "TRAIN UNISEX - BASKETS BASSES",
         "details about that item": "Upper / Upper: Leather and textile, Lining: Textile, Insole: Textile, Outsole: Synthetic material, Lining thickness: Lining protects against the cold, Care instructions: Apply waterproofing before first use \n Shoe toe: Round, Heel shape: Flat, Closure: Lacing, ",
-        "composition": "natural, synthetic"
+        "composition": "natural, synthetic",
+        "genre": "men"
     },
     {
         "id": "#I00008c",
@@ -1640,7 +1778,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "unknown"
+        "contains_other_color": "unknown",
+        "genre": "men"
     },
     {
         "id": "#I00008d",
@@ -1652,7 +1791,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00008e",
@@ -1664,7 +1804,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00008f",
@@ -1676,7 +1817,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000090",
@@ -1688,7 +1830,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I000091",
@@ -1700,7 +1843,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000092",
@@ -1712,7 +1856,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000093",
@@ -1724,7 +1869,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000094",
@@ -1736,13 +1882,15 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000095",
         "brand": "SAYER SPORT LACE UNISEX - BASKETS BASSES",
         "details about that item": "Upper / Upper: Leather and textile, Lining: Textile, Insole: Textile, Outsole: Synthetic material, Lining thickness: Cold-protecting lining, Material: Canvas, Care instructions: Apply waterproofing before first use \n Shoe toe: Round, Heel shape: Flat, Closure: Lacing, Pattern / Color: Solid color, ",
-        "composition": "natural, synthetic"
+        "composition": "natural, synthetic",
+        "genre": "men"
     },
     {
         "id": "#I000096",
@@ -1754,7 +1902,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000097",
@@ -1766,7 +1915,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000098",
@@ -1778,7 +1928,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I000099",
@@ -1790,7 +1941,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00009a",
@@ -1802,7 +1954,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00009b",
@@ -1814,7 +1967,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00009c",
@@ -1826,7 +1980,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I00009d",
@@ -1838,7 +1993,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00009e",
@@ -1850,7 +2006,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I00009f",
@@ -1862,7 +2019,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a0",
@@ -1874,7 +2032,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a1",
@@ -1886,7 +2045,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a2",
@@ -1898,7 +2058,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a3",
@@ -1910,7 +2071,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000a4",
@@ -1922,7 +2084,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a5",
@@ -1934,7 +2097,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a6",
@@ -1946,7 +2110,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a7",
@@ -1958,7 +2123,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000a8",
@@ -1970,7 +2136,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000a9",
@@ -1982,7 +2149,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000aa",
@@ -1994,7 +2162,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000ab",
@@ -2006,7 +2175,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000ac",
@@ -2018,7 +2188,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000ad",
@@ -2030,7 +2201,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000ae",
@@ -2042,7 +2214,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000af",
@@ -2054,7 +2227,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000b0",
@@ -2066,7 +2240,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000b1",
@@ -2078,7 +2253,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000b2",
@@ -2090,7 +2266,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000b3",
@@ -2102,7 +2279,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000b4",
@@ -2114,7 +2292,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000b5",
@@ -2126,7 +2305,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000b6",
@@ -2138,7 +2318,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000b7",
@@ -2150,7 +2331,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000b8",
@@ -2162,7 +2344,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000b9",
@@ -2174,7 +2357,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000ba",
@@ -2186,7 +2370,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000bb",
@@ -2198,7 +2383,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000bc",
@@ -2210,7 +2396,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000bd",
@@ -2222,7 +2409,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000be",
@@ -2234,7 +2422,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000bf",
@@ -2246,7 +2435,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c0",
@@ -2258,7 +2448,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c1",
@@ -2270,7 +2461,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000c2",
@@ -2282,7 +2474,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c3",
@@ -2294,7 +2487,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c4",
@@ -2306,7 +2500,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c5",
@@ -2318,7 +2513,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000c6",
@@ -2330,7 +2526,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c7",
@@ -2342,7 +2539,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c8",
@@ -2354,7 +2552,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000c9",
@@ -2366,7 +2565,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000ca",
@@ -2378,7 +2578,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000cb",
@@ -2390,7 +2591,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000cc",
@@ -2402,7 +2604,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000cd",
@@ -2414,7 +2617,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000ce",
@@ -2426,7 +2630,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000cf",
@@ -2438,7 +2643,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d0",
@@ -2450,7 +2656,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d1",
@@ -2462,7 +2669,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000d2",
@@ -2474,7 +2682,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d3",
@@ -2486,7 +2695,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d4",
@@ -2498,7 +2708,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d5",
@@ -2510,7 +2721,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000d6",
@@ -2522,7 +2734,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d7",
@@ -2534,7 +2747,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000d8",
@@ -2546,7 +2760,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000d9",
@@ -2558,7 +2773,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000da",
@@ -2570,7 +2786,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000db",
@@ -2582,7 +2799,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000dc",
@@ -2594,7 +2812,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000dd",
@@ -2606,7 +2825,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000de",
@@ -2618,7 +2838,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000df",
@@ -2630,7 +2851,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e0",
@@ -2642,7 +2864,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e1",
@@ -2654,7 +2877,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000e2",
@@ -2666,7 +2890,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e3",
@@ -2678,7 +2903,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e4",
@@ -2690,7 +2916,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e5",
@@ -2702,7 +2929,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000e6",
@@ -2714,7 +2942,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e7",
@@ -2726,7 +2955,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e8",
@@ -2738,13 +2968,15 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000e9",
         "brand": "LONGWOOD LACE UNISEX - BASKETS BASSES",
         "details about that item": "Upper / Upper: Leather, Lining: Textile, Insole: Textile, Outsole: Synthetic material, Lining thickness: Cold-protecting lining \n Shoe toe: Round, Heel shape: Flat, Closure: Lacing, Pattern / Color: Solid color, ",
-        "composition": "natural, synthetic"
+        "composition": "natural, synthetic",
+        "genre": "men"
     },
     {
         "id": "#I0000ea",
@@ -2756,13 +2988,15 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000eb",
         "brand": "TRAIN UNISEX - BASKETS BASSES",
         "details about that item": "Upper / Upper: Leather and textile, Lining: Textile, Insole: Textile, Outsole: Synthetic material, Lining thickness: Lining protects against the cold, Care instructions: Apply waterproofing before first use \n Shoe toe: Round, Heel shape: Flat, Closure: Lacing, Pattern / Color: Solid color, ",
-        "composition": "natural, synthetic"
+        "composition": "natural, synthetic",
+        "genre": "men"
     },
     {
         "id": "#I0000ec",
@@ -2774,7 +3008,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000ed",
@@ -2786,13 +3021,15 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000ee",
         "brand": "TRAIN UNISEX - BASKETS BASSES",
         "details about that item": "Upper / Upper: Leather and textile, Lining: Textile, Insole: Textile, Outsole: Synthetic material, Lining thickness: Lining protects against the cold, Care instructions: Apply waterproofing before first use \n Shoe toe: Round, Heel shape: Flat, Closure: Lacing, ",
-        "composition": "natural, synthetic"
+        "composition": "natural, synthetic",
+        "genre": "men"
     },
     {
         "id": "#I0000ef",
@@ -2804,7 +3041,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000f0",
@@ -2816,7 +3054,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "men"
     },
     {
         "id": "#I0000f1",
@@ -2828,7 +3067,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0000f2",
@@ -2840,7 +3080,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "men"
     },
     {
         "id": "#I0001e0",
@@ -2852,7 +3093,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001e1",
@@ -2864,7 +3106,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001e2",
@@ -2876,7 +3119,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001e3",
@@ -2888,7 +3132,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001e4",
@@ -2900,7 +3145,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001e5",
@@ -2912,7 +3158,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001e6",
@@ -2924,7 +3171,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001e7",
@@ -2936,7 +3184,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001e8",
@@ -2948,7 +3197,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001e9",
@@ -2960,7 +3210,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001ea",
@@ -2972,7 +3223,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001eb",
@@ -2984,7 +3236,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001ec",
@@ -2996,7 +3249,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001ed",
@@ -3008,7 +3262,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001ee",
@@ -3020,7 +3275,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001ef",
@@ -3032,7 +3288,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f0",
@@ -3044,7 +3301,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001f1",
@@ -3056,7 +3314,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f2",
@@ -3068,7 +3327,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f3",
@@ -3080,7 +3340,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f4",
@@ -3092,7 +3353,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f5",
@@ -3104,7 +3366,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f6",
@@ -3116,7 +3379,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001f7",
@@ -3128,7 +3392,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001f8",
@@ -3140,7 +3405,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001f9",
@@ -3152,7 +3418,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001fa",
@@ -3164,7 +3431,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001fb",
@@ -3176,7 +3444,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001fc",
@@ -3188,7 +3457,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I0001fd",
@@ -3200,7 +3470,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001fe",
@@ -3212,7 +3483,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I0001ff",
@@ -3224,7 +3496,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000200",
@@ -3236,7 +3509,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000201",
@@ -3248,7 +3522,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000202",
@@ -3260,7 +3535,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000203",
@@ -3272,7 +3548,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000204",
@@ -3284,7 +3561,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000205",
@@ -3296,7 +3574,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000206",
@@ -3308,7 +3587,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000207",
@@ -3320,7 +3600,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000208",
@@ -3332,7 +3613,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000209",
@@ -3344,7 +3626,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00020a",
@@ -3356,7 +3639,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00020b",
@@ -3368,7 +3652,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00020c",
@@ -3380,7 +3665,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00020d",
@@ -3392,7 +3678,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00020e",
@@ -3404,7 +3691,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00020f",
@@ -3416,7 +3704,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000210",
@@ -3428,7 +3717,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000211",
@@ -3440,7 +3730,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000212",
@@ -3452,7 +3743,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000213",
@@ -3464,7 +3756,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000214",
@@ -3476,7 +3769,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000215",
@@ -3488,7 +3782,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000216",
@@ -3500,7 +3795,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000217",
@@ -3512,7 +3808,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000218",
@@ -3524,7 +3821,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000219",
@@ -3536,7 +3834,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00021a",
@@ -3548,7 +3847,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00021b",
@@ -3560,7 +3860,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00021c",
@@ -3572,7 +3873,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00021d",
@@ -3584,7 +3886,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00021e",
@@ -3596,7 +3899,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00021f",
@@ -3608,7 +3912,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000220",
@@ -3620,7 +3925,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000221",
@@ -3632,7 +3938,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000222",
@@ -3644,7 +3951,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000223",
@@ -3656,7 +3964,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000224",
@@ -3668,7 +3977,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000225",
@@ -3680,7 +3990,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000226",
@@ -3692,7 +4003,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000227",
@@ -3704,7 +4016,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000228",
@@ -3716,7 +4029,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000229",
@@ -3728,7 +4042,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00022a",
@@ -3740,7 +4055,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00022b",
@@ -3752,7 +4068,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00022c",
@@ -3764,7 +4081,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00022d",
@@ -3776,7 +4094,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00022e",
@@ -3788,7 +4107,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00022f",
@@ -3800,7 +4120,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000230",
@@ -3812,7 +4133,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000231",
@@ -3824,7 +4146,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000232",
@@ -3836,7 +4159,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000233",
@@ -3848,7 +4172,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000234",
@@ -3860,7 +4185,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000235",
@@ -3872,7 +4198,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000236",
@@ -3884,7 +4211,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000237",
@@ -3896,7 +4224,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000238",
@@ -3908,7 +4237,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000239",
@@ -3920,7 +4250,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00023a",
@@ -3932,7 +4263,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00023b",
@@ -3944,7 +4276,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00023c",
@@ -3956,7 +4289,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00023d",
@@ -3968,7 +4302,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00023e",
@@ -3980,7 +4315,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00023f",
@@ -3992,7 +4328,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000240",
@@ -4004,7 +4341,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000241",
@@ -4016,7 +4354,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000242",
@@ -4028,7 +4367,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000243",
@@ -4040,7 +4380,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000244",
@@ -4052,7 +4393,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000245",
@@ -4064,7 +4406,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000246",
@@ -4076,7 +4419,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000247",
@@ -4088,7 +4432,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000248",
@@ -4100,7 +4445,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000249",
@@ -4112,7 +4458,8 @@
         "composition": "synthetic, artificial",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00024a",
@@ -4124,7 +4471,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00024b",
@@ -4136,7 +4484,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I00024c",
@@ -4148,7 +4497,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00024d",
@@ -4160,7 +4510,8 @@
         "composition": "natural, synthetic, artificial",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00024e",
@@ -4172,7 +4523,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I00024f",
@@ -4184,7 +4536,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000250",
@@ -4196,7 +4549,8 @@
         "composition": "synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000251",
@@ -4208,7 +4562,8 @@
         "composition": "natural",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000252",
@@ -4220,7 +4575,8 @@
         "composition": "natural, synthetic",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000253",
@@ -4232,7 +4588,8 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "yes",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000254",
@@ -4244,7 +4601,8 @@
         "composition": "natural",
         "contains_black": "yes",
         "contains_white": "no",
-        "contains_other_color": "no"
+        "contains_other_color": "no",
+        "genre": "women"
     },
     {
         "id": "#I000255",
@@ -4256,7 +4614,8 @@
         "composition": "synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     },
     {
         "id": "#I000256",
@@ -4268,6 +4627,7 @@
         "composition": "natural, synthetic",
         "contains_black": "no",
         "contains_white": "no",
-        "contains_other_color": "yes"
+        "contains_other_color": "yes",
+        "genre": "women"
     }
 ]

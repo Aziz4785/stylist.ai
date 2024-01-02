@@ -8,7 +8,8 @@ class IMetadataExtractor(ABC):
 
 class CompositionExtractor(IMetadataExtractor):
     def extract(self, query):
-        result = extract_composition_in_out(starling_composition_output(query))
+        result = extract_composition_in_out(gpt35_composition_output(query))
+        #result = extract_composition_in_out(starling_composition_output(query))
         return result
 
 class TypeExtractor(IMetadataExtractor):
@@ -23,3 +24,7 @@ class OtherColorExtractor(IMetadataExtractor):
     def extract(self, query):
         #return extract_otherColor(gpt35_otherColor_ouput(query))
         return extract_otherColor(starling_otherColor_ouput(query))
+    
+class GenreExtractor(IMetadataExtractor):
+    def extract(self, query):
+        return extract_genre(gpt35_genre_ouput(query))

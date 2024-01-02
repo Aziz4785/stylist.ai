@@ -1,0 +1,168 @@
+{
+    "average_precision": 0.7458553791887125,
+    "average_precision_featureword": 0.4192239858906526,
+    "test_results": [
+        {
+            "query": "a tshirt/pull or something similar where the colors on it are separated by horizontal lines",
+            "precision": 0.6,
+            "feature_word_precision": 0.6,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "something related to FC barcelona",
+            "precision": 0.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I want to buy something to my kid. He is a fan of FC Barcelona",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "i am a Fc barcelona fan and i want others to know that i am a Fc barcelona  fan. Please find me a piece of clothing that allows me to do this",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "Could you help me find a t-shirt, pullover, or something similar where the colors are separated by horizontal lines?",
+            "precision": 1.0,
+            "feature_word_precision": 0.6,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm interested in finding garments such as t-shirts or pullovers, specifically those with colors divided by horizontal lines.",
+            "precision": 0.8,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "an item for men (but not trousers/pants) with the norwegian flag on it",
+            "precision": 1.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I am looking for men's clothing. On this item of clothing, we should be able to see the flag of Norway. I don't want pants please",
+            "precision": 1.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm aiming to buy men's wear, other than trousers or pants, that includes the Norwegian flag.",
+            "precision": 1.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "a tshirt where the name of the brand is written in big",
+            "precision": 0.8333333333333334,
+            "feature_word_precision": 0.6666666666666666,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm looking for t-shirts where the brand name is featured prominently. Do you have any?",
+            "precision": 0.8333333333333334,
+            "feature_word_precision": 0.5,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I want to find t-shirts that have large, eye-catching brand names on them.",
+            "precision": 1.0,
+            "feature_word_precision": 0.16666666666666666,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "a stand collar coat",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "Do you have a coat with a high collar please?",
+            "precision": 0.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm interested in finding a coat that features a stand collar.",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I want a checkered shirt containing the color green",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "Could you show me your selection of checkered shirts that include the color green?",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'd like to see your checkered shirts, especially those with green in the pattern.",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I want bi-colored shoes, with white as one of the colors",
+            "precision": 0.7142857142857143,
+            "feature_word_precision": 0.14285714285714285,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I want shoes that contain white and another color",
+            "precision": 0.42857142857142855,
+            "feature_word_precision": 0.14285714285714285,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm aiming to buy shoes that combine two colors, with white as one of them.",
+            "precision": 0.42857142857142855,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "a pair of women's shorts that I can wear over pantyhose",
+            "precision": 1.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm looking for women's shorts that I can wear over tights",
+            "precision": 1.0,
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm seeking women's shorts with enough room to be worn over tights.",
+            "precision": 1.0,
+            "feature_word_precision": 0.5,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "marinière style for women",
+            "precision": 0.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "I'm keen on finding women's garments that showcase a marinière style.",
+            "precision": 0.5,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        },
+        {
+            "query": "women's clothing with a marinière style",
+            "precision": 0.0,
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7"
+        }
+    ]
+}

@@ -8,7 +8,7 @@ import re
 import openai
 import os
 import nltk
-from common_variables import *
+from SERVER.common_variables import *
 from SERVER.META.metadata_card import *
 import sys
 import config
@@ -108,82 +108,97 @@ def find_product_by_id_in_file(file_path, product_id):
 #         #format of elem : {'807e0c63-13f6-4070-9774-5c6f0fbb9866': Document(page_content='bar', metadata={})}
 #         id_of_elem = app.hashtable[elem.value().page_content]
 #         json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
+def divide_description_into_smaller_chunks(baseline):
+    print("dividing baseline into 4 words chunks ...")
+    hashtable={}
+    for item in baseline:
+        sentences= []
+        if("visual description" in item):
+            sentences = extract_sentences(item["visual description"])
+        for sentence in sentences:
+            chunks = chunk_string(sentence, chunk_size=5, slide=3)
+            for chunk in chunks:
+                if(chunk not in hashtable):
+                    hashtable[chunk] = set()
+                hashtable[chunk].add(item["id"])  
+    print("done")
+    return hashtable
 
 def divide_into_tiny_chunks(app,json_data,category="unknown"):
     print("dividing baseline into tiny chunks the category "+str(category)+" ...")
     hashtable={}
     for item in json_data:
-        if("type" not in item or("type" in item and (item["type"] in corresponding_categories[category]) )):
-            brand= ""
-            name= ""
-            details= ""
-            sentences= []
-            if("visual description" in item):
-                sentences = extract_sentences(item["visual description"])
-                description_without_newlines = replace_double_newlines(item["visual description"])
-                if(description_without_newlines not in hashtable):
-                    hashtable[description_without_newlines] = set()
-                hashtable[description_without_newlines].add(item["id"])
+        brand= ""
+        name= ""
+        details= ""
+        sentences= []
+        if("visual description" in item):
+            sentences = extract_sentences(item["visual description"])
+            description_without_newlines = replace_double_newlines(item["visual description"])
+            if(description_without_newlines not in hashtable):
+                hashtable[description_without_newlines] = set()
+            hashtable[description_without_newlines].add(item["id"])
 
-            if("brand" in  item):
-                brand = "brand : "+item["brand"]
-            if("name of the product" in item):
-                name = item["name of the product"]+", "
-            if("details about that item" in item):
-                details = item["details about that item"]
-                if details not in hashtable:
-                    hashtable[details] = set()
-                hashtable[details].add(item["id"])
+        if("brand" in  item):
+            brand = item["brand"]
+        if("name of the product" in item):
+            name = item["name of the product"]+", "
+        if("details about that item" in item):
+            details = item["details about that item"]
+            if details not in hashtable:
+                hashtable[details] = set()
+            hashtable[details].add(item["id"])
 
-            name_key = name +" "+brand
-            if name_key not in hashtable:
-                hashtable[name_key] = set()
-            
+        name_key = name +" "+brand
+        if name_key not in hashtable:
+            hashtable[name_key] = set()
+        if brand not in hashtable:
+            hashtable[brand] = set()
 
-            hashtable[name_key].add(item["id"])
-            
+        hashtable[name_key].add(item["id"])
+        hashtable[brand].add(item["id"])
 
-            details_parts = details.split('\n')
-            if(len(details_parts)>=2):
-                part1 = details_parts[0].strip()
-                part2 = details_parts[1].strip()
-                if part1 not in hashtable:
-                    hashtable[part1] = set()
-                if part2 not in hashtable:
-                    hashtable[part2] = set()
-                hashtable[part1].add(item["id"])
-                hashtable[part2].add(item["id"])
-                material_index = part1.find("Material:")
-                if material_index != -1:
-                    composition_part1 = part1[:material_index].strip()
-                    composition_part2 = part1[material_index:].strip()
-                    if composition_part1 not in hashtable:
-                        hashtable[composition_part1] = set()
-                    if composition_part2 not in hashtable:
-                        hashtable[composition_part2] = set()
-                    hashtable[composition_part1].add(item["id"])
-                    hashtable[composition_part2].add(item["id"])
+        details_parts = details.split('\n')
+        if(len(details_parts)>=2):
+            part1 = details_parts[0].strip()
+            part2 = details_parts[1].strip()
+            if part1 not in hashtable:
+                hashtable[part1] = set()
+            if part2 not in hashtable:
+                hashtable[part2] = set()
+            hashtable[part1].add(item["id"])
+            hashtable[part2].add(item["id"])
+            material_index = part1.find("Material:")
+            if material_index != -1:
+                composition_part1 = part1[:material_index].strip()
+                composition_part2 = part1[material_index:].strip()
+                if composition_part1 not in hashtable:
+                    hashtable[composition_part1] = set()
+                if composition_part2 not in hashtable:
+                    hashtable[composition_part2] = set()
+                hashtable[composition_part1].add(item["id"])
+                hashtable[composition_part2].add(item["id"])
 
-            for sentence in sentences:
-                #sentence_without_noun = separate_sentence(sentence)[1] #comment this
-                if(sentence not in hashtable):
-                    hashtable[sentence] = set()
+        for sentence in sentences:
+            #sentence_without_noun = separate_sentence(sentence)[1] #comment this
+            if(sentence not in hashtable):
+                hashtable[sentence] = set()
 
-                hashtable[sentence].add(item["id"])
-                #if(sentence.count(',')==3):
-                    #separated_sentence = split_at_third_comma(sentence)
-                    #part1 = separated_sentence[0]
-                    #part2 = separated_sentence[1]
-                    #if(part1 not in hashtable):
-                    # hashtable[part1] = set()
-                    #if(part2 not in hashtable):
-                    # hashtable[part2] = set()
-                    #hashtable[part1].add(item["id"])
-                    #hashtable[part2].add(item["id"])
-                #if(sentence_without_noun != ''):
-                    #if(sentence_without_noun not in hashtable):
-                        #hashtable[sentence_without_noun] = set()
-                    #hashtable[sentence_without_noun].add(item["id"])
+            hashtable[sentence].add(item["id"])
+            #if(sentence.count(',')==3):
+                #separated_sentence = split_at_third_comma(sentence)
+                #part1 = separated_sentence[0]
+                #part2 = separated_sentence[1]
+                #if(part1 not in hashtable):
+                # hashtable[part1] = set()
+                #if(part2 not in hashtable):
+                # hashtable[part2] = set()
+                #hashtable[part1].add(item["id"])
+                #hashtable[part2].add(item["id"])
+            #if(sentence_without_noun != ''):
+                #if(sentence_without_noun not in hashtable):
+                    #hashtable[sentence_without_noun] = set()
+                #hashtable[sentence_without_noun].add(item["id"])
 
         
     print("done")
@@ -196,6 +211,10 @@ def get_similar_doc_from_embedding(docsearch,query,k=10):
     #docs is a list of (doc, score)
     return docs
 
+def get_similar_docs_from_small_embedding(app,feature_word,k=100):
+    docs = app.embedding_of_small_chunks.similarity_search_with_score(feature_word,k)
+    #docs is a list of (doc, score)
+    return docs
 
 """  
 def get_similar_doc_from_embedding(docsearch,query,k):
@@ -351,20 +370,21 @@ def is_single_word(s):
 #         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=30+30) #get the best k docs
 #         return [docs_with_score]
 
+
 def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
-    
+    separated_user_input=['','']
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
-        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=55)
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=60)
         print("top 6 docs for "+user_input+ " : ")
         print(docs_with_score[:7])
-        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=55)
+        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=60)
         print("top 6 docs for "+separated_user_input[1]+ " : ")
         print(docs2_with_score[:7])
         docs_with_score.extend(docs2_with_score)
         return docs_with_score
     else:
         print("the input cant be separated ...")
-        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=55+55) #get the best k docs
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=60+60) #get the best k docs
         return docs_with_score
 
 def filter_docs(app,docs_with_score,metadata_card,matching_controller):
@@ -373,14 +393,41 @@ def filter_docs(app,docs_with_score,metadata_card,matching_controller):
     """
     filtered_docs = []
     for doc, score in docs_with_score:
-        ids_of_elem = app.hashtable[doc.page_content]
+        if(doc.page_content in app.hashtable):
+            ids_of_elem = app.hashtable[doc.page_content]
+        elif(doc.page_content in app.hashtable_small_chunks):
+            ids_of_elem = app.hashtable_small_chunks[doc.page_content]
+        else:
+            print("ERROR IN HASHTABLE ")
         for id_of_elem in ids_of_elem:
             json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
             if(matching_controller.meta_match(json_elem, metadata_card)):
                 filtered_docs.append((doc,score))
+                break
     return filtered_docs
 
-def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=20):
+def chunk_string(s, chunk_size=4, slide=2):
+    # Split the string into words
+    words = s.split()
+
+    # Initialize a list to hold the chunks
+    chunks = []
+
+    # Iterate over the words with a sliding window
+    for i in range(0, len(words), slide):
+        # Create a chunk of 'chunk_size' words
+        chunk = words[i:i + chunk_size]
+
+        # Join the words to form a string chunk
+        chunk_str = ' '.join(chunk)
+
+        # Append the chunk to the list if it's not empty
+        if chunk_str:
+            chunks.append(chunk_str)
+
+    return chunks
+
+def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=22):
     sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
     print("20 first sorted docs : ")
     print(sorted_docs[:20])
@@ -398,6 +445,35 @@ def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=20):
         
 def create_list_of_pairs(strings_set, score):
     return [(string, score) for string in strings_set]
+
+def extract_feature_words_from_query(query):
+    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a garment analysis assistant. Your task is to identify and extract the most important features of the garment. Base your decision solely on the description provided. If the description does not explicitly mention a particular feature, respond with 'unknown'."},
+            {"role": "user", "content": "do you have some vintage dark colored jacket for women? "},
+            {"role": "assistant", "content": """vintage"""},  
+            {"role": "user", "content": "something Kanye West could wear"},
+            {"role": "assistant", "content": """Kanye West"""},  
+            {"role": "user", "content": "black and white t-shirt (slim fit)"},
+            {"role": "assistant", "content": """black and white,slim fit"""},  
+            {"role": "user", "content": "a 100% cotton blue shirt for men"},
+            {"role": "assistant", "content": """100% cotton,blue"""},  
+            {"role": "user", "content": "different kind of accessories for a gothic style"},
+            {"role": "assistant", "content": """gothic"""},  
+            {"role": "user", "content": "I am looking for a military style shorts for men, do you have any ? "},
+            {"role": "assistant", "content": """military"""},  
+            {"role": "user", "content": "an item where the logo of the brand is printed/visible more than one time"},
+            {"role": "assistant", "content": """logo"""},  
+            {"role": "user", "content": 'a two-tone sweater, where the two colors are separated by a horizontal line throughout the sweater'},
+            {"role": "assistant", "content": """two-tone,horizontal line"""},  
+            {"role": "user", "content": query}
+            # The assistant will process the input and respond based on the instructions given in the system message.
+        ]
+    )
+    raw_answer =  response.choices[0].message.content.lower()
+    return raw_answer
 
 def separate_sentence(sentence):
     # Parse the sentence

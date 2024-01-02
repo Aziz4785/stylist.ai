@@ -52,5 +52,88 @@ class TestMetaDataCard(unittest.TestCase):
         }
         self.create_and_test_metadata_card(query, expected_metadata)
 
+    def test_3(self):
+        query = "a tshirt/pull or something similar where the colors on it are separated by horizontal lines"
+        expected_metadata = {
+            "type": "Tops",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "unknown"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
+    def test_4(self):
+        query = "an item for men (but not trousers/pants) with the norvegian flag on it"
+        expected_metadata = {
+            "type": "unknown",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "unknown",
+            "contains_other_color": "yes"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
+    def test_5(self):
+        query = "a tshirt where the name of the brand is written in big"
+        expected_metadata = {
+            "type": "Tops",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "unknown",
+            "contains_other_color": "unknown"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
+    def test_7(self):
+        query = "an officier collar coat"
+        expected_metadata = {
+            "type": "Outerwear",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "unknown",
+            "contains_other_color": "unknown"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
+    def test_8(self):
+        query = "I want a checkered shirt containing the color green"
+        expected_metadata = {
+            "type": "Tops",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "unknown",
+            "contains_other_color": "yes"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
+    def test_9(self):
+        query = "I want bi-colored shoes, with white as one of the colors"
+        expected_metadata = {
+            "type": "Footwear",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "yes",
+            "contains_other_color": "unknown"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
+    def test_10(self):
+        query = "a pair of women's shorts that I can wear over pantyhose"
+        expected_metadata = {
+            "type": "Bottoms",
+            "composition_in": {"unknown"},
+            "composition_out": {"unknown"},
+            "contains_black": "unknown",
+            "contains_white": "unknown",
+            "contains_other_color": "unknown"
+        }
+        self.create_and_test_metadata_card(query, expected_metadata)
+
 if __name__ == '__main__':
     unittest.main()
