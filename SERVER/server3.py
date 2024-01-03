@@ -29,21 +29,6 @@ class MyApp(Flask):
         self.hashtable_small_chunks = divide_description_into_smaller_chunks(self.baseline)
         self.embedding = create_embedding(self.hashtable.keys())
         self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
-        # New code to create dynamic attributes
-        # for category in self.corresponding_categories:
-        #     hashtable_name = f"hashtable_{category}"
-        #     embedding_name = f"embedding_{category}"
-        #     print("creating  "+str(hashtable_name))
-        #     hashtable_value = divide_into_tiny_chunks(self,self.baseline, category)
-        #     print("creating  "+str(embedding_name))
-        #     embedding_value = create_embedding(hashtable_value.keys())
-        #     setattr(self, hashtable_name, hashtable_value)
-        #     setattr(self, embedding_name, embedding_value)
-        
-    # def get_corresponding_embedding(self, input_type):
-    #     embedding_name = f"embedding_{input_type}"
-    #     return getattr(self, embedding_name, None)
-        
 
 app = MyApp(__name__)
 

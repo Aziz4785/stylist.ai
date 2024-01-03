@@ -138,21 +138,6 @@ class CompositionClassifier(ClassifierService):
             {"role": "assistant", "content": "Categories: 'natural'."},
             {"role": "user", "content": "Now, analyze the following garment description and categorize the fabrics: "+description}
         ]
-        # prompt_without_aritifical = """I am an AI trained to categorize fabrics in garment descriptions into three categories: natural, synthetic, and unknown. Natural fabrics are those like cotton, linen, hemp, jute, wool or silk. Synthetic fabrics include materials like nylon, polyester, polyamide, acrylic or elastane. If I am unsure about the category of a fabric, I will classify it as unknown. I will list all the categories present in a given garment description.
-        #         Examples:
-        #         - Description: "Composition: 60% cotton, 20% nylon, 20% unknown, Material: Knit / mesh"
-        #         Categories: "natural", "synthetic", "unknown"
-        #         - Description: "Composition: 98% cotton, 2% elastane, Material: Canvas"
-        #         Categories: "natural", "synthetic"
-        #         - Description: "Composition: 100% cotton, Material: Piqué"
-        #         Categories: "natural"
-
-        #         Now, analyze the following garment description and categorize the fabrics:
-
-        #         {description}"""
-        # prompt2 = prompt_without_aritifical.format(description=description)
-
-        #response = self.api_client.query(prompt2, model="gpt-3.5-turbo-instruct")
         response = self.api_client.chat_query(messages,temperature=0.7,top_p=1)
         raw_answer = response.choices[0].message.content.lower().strip()
         return res.union(extract_composition(raw_answer))
@@ -185,16 +170,6 @@ class OtherColorClassifier(ClassifierService):
 
     def classify(self, description):
   
-        # messages=[
-        #     {"role": "system", "content": "You are a helpful assistant. Your task is to read a garment description and determine if the garment contains any color other than black and white. If the garment includes any other color, respond 'yes'. If the garment is only black, white, or a combination of these two colors, respond 'no'. If the garment description describes a garment only with colors black and white, repsond 'no'. If the color of the garment is not mentioned or is unclear in the description, respond with 'unknown'."},
-        #     {"role": "user","content": "description of the garment : a pair of shoes that masterfully blend black and white elements to create a stylish and eye-catching design. The base of the shoes is white, giving them a clean and sharp appearance. This white base is complemented with black detailing.The toe box and the heel counter of the shoes are accented in black, framing the white central part and providing a sleek look."},
-        #     {"role": "assistant", "content": "no"} ,
-        #     {"role": "user","content": "description of the garment : This pair of trousers displays a distinguished charcoal grey color. Their design exudes a contemporary and refined fit that strikes a perfect balance between snug and relaxed, making them suitable for a variety of settings."},
-        #     {"role": "assistant", "content": "The description of the garment mentions the color charcoal grey which is not black or white. so the answer is yes"} ,
-        #     {"role": "user", "content": "now analyze this description : "+description},
-        #     {"role": "assistant", "content": ""}  
-        # ]
-        
         messages=[
             {"role": "system", "content": """Given the following description of a garment, identify all the colors present and list them in the format "<color1>,<color2>,<color3>, etc...". Do not include any explanatory text or additional information. If no color is mentionned in the text, return 'unknown'"""},
             {"role": "user","content": "description of the garment : "+description}

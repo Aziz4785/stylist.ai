@@ -70,19 +70,6 @@ def extract_sentences(paragraph):
     sentences = sent_tokenize(paragraph)
     return sentences
 
-# def split_at_third_comma(sentence):
-#     """
-#     Splits a sentence into two parts at the third comma, if the sentence contains exactly three commas.
-
-#     :param sentence: A string (sentence)
-#     :return: A tuple of two strings if the sentence has exactly three commas, else the original sentence
-#     """
-#     if sentence.count(',') == 3:
-#         parts = sentence.split(',', 3)
-#         return (','.join(parts[:3]) + ',', parts[3])
-#     else:
-#         return sentence
-
 def find_product_by_id_in_file(file_path, product_id):
     """
     Find a product in a JSON file by its ID.
@@ -103,11 +90,7 @@ def find_product_by_id_in_file(file_path, product_id):
         print("Error decoding JSON.")
     return None
 
-# def filter_embedding_with_metaData(app,metadata_card):
-#     for elem in app.embedding.docstore._dict:
-#         #format of elem : {'807e0c63-13f6-4070-9774-5c6f0fbb9866': Document(page_content='bar', metadata={})}
-#         id_of_elem = app.hashtable[elem.value().page_content]
-#         json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
+
 def divide_description_into_smaller_chunks(baseline):
     print("dividing baseline into 4 words chunks ...")
     hashtable={}
@@ -116,7 +99,7 @@ def divide_description_into_smaller_chunks(baseline):
         if("visual description" in item):
             sentences = extract_sentences(item["visual description"])
         for sentence in sentences:
-            chunks = chunk_string(sentence, chunk_size=5, slide=3)
+            chunks = chunk_sentence(sentence, chunk_size=5, slide=3)
             for chunk in chunks:
                 if(chunk not in hashtable):
                     hashtable[chunk] = set()
@@ -216,13 +199,6 @@ def get_similar_docs_from_small_embedding(app,feature_word,k=100):
     #docs is a list of (doc, score)
     return docs
 
-"""  
-def get_similar_doc_from_embedding(docsearch,query,k):
-    query_parts= separate_sentence(query)
-    docs_main = docsearch.similarity_search(query,k)
-    docs_second = docsearch.similarity_search(query_parts[1],k)
-    return docs_main.extend(docs_second)
-""" 
 def get_Ids_from_hashmap(list_of_docList,hashtable,set_sizes):
     #list_of_docList = [docs_1, docs_2 ,docs_3 ...] size = n
     #set_sizes = [a_1, a_2, a_3 ...]  size = n
@@ -349,26 +325,8 @@ Please provide a response that strictly lists the IDs of the clothing items meet
         return str(e)
     
 def is_single_word(s):
-    # Split the string by whitespace
     words = s.split()
-
-    # Check if the list contains exactly one non-empty word
     return len(words) == 1 and words[0] != ""
-
-# def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
-    
-#     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
-#         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=30)
-#         print("top 6 docs for "+user_input+ " : ")
-#         print(docs_with_score[:7])
-#         docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=30)
-#         print("top 6 docs for "+separated_user_input[1]+ " : ")
-#         print(docs2_with_score[:7])
-#         return [docs_with_score,docs2_with_score]
-#     else:
-#         print("the input cant be separated ...")
-#         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=30+30) #get the best k docs
-#         return [docs_with_score]
 
 
 def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
@@ -406,8 +364,8 @@ def filter_docs(app,docs_with_score,metadata_card,matching_controller):
                 break
     return filtered_docs
 
-def chunk_string(s, chunk_size=4, slide=2):
-    # Split the string into words
+def chunk_sentence(s, chunk_size=4, slide=2):
+    # Split the sentence into words
     words = s.split()
 
     # Initialize a list to hold the chunks
@@ -447,6 +405,7 @@ def create_list_of_pairs(strings_set, score):
     return [(string, score) for string in strings_set]
 
 def extract_feature_words_from_query(query):
+    #extract keywords from query
     client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",

@@ -1,3 +1,4 @@
+#when the user search for "Tops", we will also include garments from corresponding_categories["Tops"]
 corresponding_categories = {"Tops" : set(["Tops","Outerwear","Other","unknown"]),
     "Bottoms": set(["Bottoms","Outerwear","Other","unknown"]),
     "Outerwear": set(["Outerwear","Tops","Bottoms","Other","unknown"]),
