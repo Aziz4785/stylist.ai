@@ -2,8 +2,13 @@ config.py
 venv/
 __pycache__/
 SERVER/__pycache__/
+SERVER/META/__pycache__/
+SERVER/META/tests/__pycache__/
 ZALANDO_SCRAPER/__pycache__/
 ZALANDO_SCRAPER/test_vision.py
 ZALANDO_SCRAPER/zalando_text_scraper/__pycache__/
 SERVER/test.txt
 .idea/
+.history/
+ZALANDO_SCRAPER/data_from_site/genre_script.py
+SERVER/playground.py

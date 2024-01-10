@@ -8,6 +8,7 @@ import requests
 import os
 import logging
 import math
+from openai import OpenAI
 import openai
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -20,9 +21,6 @@ import config
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# Set OpenAI API key
-openai.api_key = config.OPENAI_API_KEY
 
 
 # Function to encode the image
@@ -41,6 +39,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
     """
     Generate a description from up to 3 images of the same product.
     """
+    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
     # Check if images is not None and is a list
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -79,7 +78,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
         else:
             print(f"Invalid or inaccessible URL: {img_url}")
     
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=messages,
         max_tokens=180,
@@ -104,6 +103,7 @@ def generate_baseline_single_elem(entry):
         baseline elem has this format :
         {
         "id": <id>,
+        "genre": <genre>
         "name of the product : "", 
         "brand" :, 
         details about that item : "", 
@@ -114,6 +114,7 @@ def generate_baseline_single_elem(entry):
     #encoded_images = encode_imagesURLS(images)
 
     id = entry.get("id")
+    genre = entry.get("genre")
     name = entry.get("name")
     brand = entry.get("brand")
     composition = entry.get("composition and care (en)")
@@ -127,6 +128,8 @@ def generate_baseline_single_elem(entry):
     elem = {}
     if id:
         elem["id"] = id
+    if genre:
+        elem["genre"] = genre
     if name:
         elem["name of the product"] = name
     if brand:
@@ -139,19 +142,18 @@ def generate_baseline_single_elem(entry):
     return elem
 
 
-def iD_is_in_baseline_file(file_path, id_to_check):
+def iD_is_in_baseline_file(baseline_file_path, id_to_check):
 
-    if not os.path.exists(file_path):
+    if not os.path.exists(baseline_file_path):
         return False
     
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(baseline_file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # Check if the ID exists in the data
     for item in data:
         if item.get("id") == id_to_check:
             return True
-
+        
     return False
 
 
@@ -214,7 +216,7 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
                 if item_processed % 5 == 0:
                     print(str(math.ceil(item_processed * 100 / len(scraped_textInfos))) + "% done ")
 
-            reference_file.write(']')
+            #reference_file.write(']')
 
     else:
         # File doesn't exist or is empty, write as new
@@ -247,7 +249,7 @@ def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, base
 def process_json_files_in_folder(folder_path, output_json_filename, output_baseline_filename):
     for filename in os.listdir(folder_path):
         if filename.endswith('.json'):
-            if filename in ["data_mode-femme.json","data_chaussures-homme.json"]:
+            if filename in ["data_streetwear-femme.json","data_chaussures-femme.json","data_streetwear-homme.json"]:
                 print("Processing " + str(filename) + " ...")
                 json_file_path = os.path.join(folder_path, filename)
                 process_json_file_incr(json_file_path, output_json_filename, output_baseline_filename)

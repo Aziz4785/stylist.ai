@@ -1,0 +1,310 @@
+{
+    "average_precision": 0.6725198412698413,
+    "average_precision_featureword": 0.3464646464646465,
+    "average_precision (simple queries)": 0.6924603174603176,
+    "average_precision_separated_simple": 0.6898148148148149,
+    "average_precision (i want simple queries)": 0.7007936507936509,
+    "average_precision (imlooking for simple queries)": 0.6243055555555556,
+    "test_results": [
+        {
+            "query": "a tshirt/pull or something similar where the colors on it are separated by horizontal lines",
+            "precision": 0.6,
+            "keyword": "horizontal lines",
+            "feature_word_precision": 0.4,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 0.6
+        },
+        {
+            "query": "something related to FC barcelona",
+            "precision": 1.0,
+            "keyword": "fc barcelona",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 1.0
+        },
+        {
+            "query": "I want something related to FC barcelona",
+            "precision": 1.0,
+            "keyword": "fc barcelona",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for something related to FC barcelona",
+            "precision": 1.0,
+            "keyword": "fc barcelona",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "shoes where the outer sole starts from the top back of the shoe",
+            "precision": 1.0,
+            "keyword": "outer sole",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 1.0
+        },
+        {
+            "query": "I want shoes where the outer sole starts from the top back of the shoe",
+            "precision": 1.0,
+            "keyword": "unknown",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for shoes where the outer sole starts from the top back of the shoe",
+            "precision": 1.0,
+            "keyword": "unknown",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "black and white shoes with a thick sole",
+            "precision": 0.1,
+            "keyword": "black and white",
+            "feature_word_precision": 0.1,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 0.1
+        },
+        {
+            "query": "I want black and white shoes with a thick sole",
+            "precision": 0.2,
+            "keyword": "black and white",
+            "feature_word_precision": 0.2,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for black and white shoes with a thick sole",
+            "precision": 0.1,
+            "keyword": "black and white",
+            "feature_word_precision": 0.1,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "clothes with no more than 10% polyester",
+            "precision": 0.14285714285714285,
+            "keyword": "no more than 10% polyester",
+            "feature_word_precision": 1,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 0.1111111111111111
+        },
+        {
+            "query": "I want clothes with no more than 10% polyester",
+            "precision": 0.14285714285714285,
+            "keyword": "polyester (<=10%)",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for clothes with no more than 10% polyester",
+            "precision": 0.125,
+            "keyword": "<10% polyester",
+            "feature_word_precision": 0.2727272727272727,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "I want a tshirt/pull or something similar where the colors on it are separated by horizontal lines",
+            "precision": 0.6,
+            "keyword": "colors",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for a tshirt/pull or something similar where the colors on it are separated by horizontal lines",
+            "precision": 0.8,
+            "keyword": "horizontal lines",
+            "feature_word_precision": 0.4,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "an item for men (but not trousers/pants) with the norwegian flag on it",
+            "precision": 1.0,
+            "keyword": "norwegian flag",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 1.0
+        },
+        {
+            "query": "I want an item for men (but not trousers/pants) with the norwegian flag on it",
+            "precision": 1.0,
+            "keyword": "norwegian flag",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for an item for men (but not trousers/pants) with the norwegian flag on it",
+            "precision": 1.0,
+            "keyword": "norwegian flag",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "a tshirt where the name of the brand is written in big",
+            "precision": 0.8333333333333334,
+            "keyword": "brand name",
+            "feature_word_precision": 0.3333333333333333,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 0.8333333333333334
+        },
+        {
+            "query": "I want a tshirt where the name of the brand is written in big",
+            "precision": 0.8333333333333334,
+            "keyword": "brand name",
+            "feature_word_precision": 0.3333333333333333,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for a tshirt where the name of the brand is written in big",
+            "precision": 0.8333333333333334,
+            "keyword": "brand name",
+            "feature_word_precision": 0.3333333333333333,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "a stand collar coat",
+            "precision": 1.0,
+            "keyword": "stand collar",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 1.0
+        },
+        {
+            "query": "I want a stand collar coat",
+            "precision": 1.0,
+            "keyword": "stand collar",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for a stand collar coat",
+            "precision": 1.0,
+            "keyword": "stand collar",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "a checkered shirt containing the color green",
+            "precision": 1.0,
+            "keyword": "checkered",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 1.0
+        },
+        {
+            "query": "I want a checkered shirt containing the color green",
+            "precision": 1.0,
+            "keyword": "checkered",
+            "feature_word_precision": 1.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for a checkered shirt containing the color green",
+            "precision": 0.0,
+            "keyword": "checkered",
+            "feature_word_precision": 1,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "bi-colored shoes, with white as one of the colors",
+            "precision": 0.3,
+            "keyword": "bi-colored",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 0.3
+        },
+        {
+            "query": "I want bi-colored shoes, with white as one of the colors",
+            "precision": 0.3,
+            "keyword": "bi-colored",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for bi-colored shoes, with white as one of the colors",
+            "precision": 0.3,
+            "keyword": "bi-colored",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "women's shorts that I can wear over pantyhose",
+            "precision": 1.0,
+            "keyword": "wear over pantyhose",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 1.0
+        },
+        {
+            "query": "I want women's shorts that I can wear over tights",
+            "precision": 1.0,
+            "keyword": "wear over tights",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for women's shorts that I can wear over tights",
+            "precision": 1.0,
+            "keyword": "unknown",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        },
+        {
+            "query": "marinière style for women",
+            "precision": 0.3333333333333333,
+            "keyword": "marinière style",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "simple",
+            "separated_simple_precision": 0.3333333333333333
+        },
+        {
+            "query": "I want a marinière style for women",
+            "precision": 0.3333333333333333,
+            "keyword": "marinière",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "i_want_simple"
+        },
+        {
+            "query": "I'm looking for a marinière style for women",
+            "precision": 0.3333333333333333,
+            "keyword": "marinière",
+            "feature_word_precision": 0.0,
+            "baseline_used": "baseline_data7",
+            "query_formulation": "imlookingfor_simple"
+        }
+    ]
+}
