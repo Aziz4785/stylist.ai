@@ -1,13 +1,12 @@
 import sys
 from openai import OpenAI
 import os
-from llama_index.llms import MistralAI
-import together
+#import together
 import replicate
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import config
 #openai.api_key = config.OPENAI_API_KEY
-together.api_key = config.TOGETHER_API_KEY
+#together.api_key = config.TOGETHER_API_KEY
 
 def extract_blackwhite(text):
     # Split the text into words

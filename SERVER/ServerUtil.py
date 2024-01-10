@@ -329,20 +329,19 @@ def is_single_word(s):
     return len(words) == 1 and words[0] != ""
 
 
-def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input):
-    separated_user_input=['','']
+def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input,k):
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
-        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=60)
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k)
         print("top 6 docs for "+user_input+ " : ")
         print(docs_with_score[:7])
-        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k=60)
+        docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k)
         print("top 6 docs for "+separated_user_input[1]+ " : ")
         print(docs2_with_score[:7])
         docs_with_score.extend(docs2_with_score)
         return docs_with_score
     else:
         print("the input cant be separated ...")
-        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k=60+60) #get the best k docs
+        docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,2*k) #get the best k docs
         return docs_with_score
 
 def filter_docs(app,docs_with_score,metadata_card,matching_controller):
@@ -385,7 +384,7 @@ def chunk_sentence(s, chunk_size=4, slide=2):
 
     return chunks
 
-def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=22):
+def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=24):
     sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
     print("20 first sorted docs : ")
     print(sorted_docs[:20])

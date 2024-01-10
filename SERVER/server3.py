@@ -38,17 +38,73 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
-    query = request.form['query']
-    docs = get_similar_doc_for_separated_input(app.embedding, query)
-    print("docs : ")
-    print(docs)
-    set_of_ids_GPT4, set_of_ids_GPT3 = get_Ids_from_hashmap(docs,app.hashtable)
-    print("set_of_ids_GPT4 : ")
-    print(set_of_ids_GPT4)
+    type_extractor = TypeExtractor()
+    composition_extractor = CompositionExtractor()
+    bw_extractor = BlackWhiteExtractor()
+    otherColor_extrator =OtherColorExtractor()
+    genre_extractor = GenreExtractor()
+
+    type_matcher = TypeMatcher()
+    composition_matcher = CompositionMatcher()
+    bw_matcher = BlackWhiteMatcher()
+    otherColor_matcher = OtherColorMatcher()
+    genre_matcher= GenreMatcher()
+    
+    extractors = {
+        "type": type_extractor,
+        "composition": composition_extractor,
+        "blackwhite": bw_extractor,
+        "otherColor": otherColor_extrator,
+        "genre": genre_extractor
+    }
+    matchers = {
+        "type": type_matcher,
+        "composition": composition_matcher,
+        "blackwhite": bw_matcher,
+        "otherColor": otherColor_matcher,
+        "genre": genre_matcher
+    }
+    matching_controller = MetadataMatchingController(matchers)
+    
+    metadata_card = MetaDataCard(extractors)
+
+    user_input = request.form['query']
+
+    metadata_card.generate_from_query(user_input)
+    print("metadata of the user input : ")
+    print(metadata_card)
+    separated_user_input = separate_sentence(user_input)
+    feature_words = extract_feature_words_from_query(user_input).split(',')
+    most_important_word = feature_words[0]
+    if(len(feature_words)>1 and most_important_word.lower() in {"white","black","men","women","for men","for women"} ):
+        most_important_word = feature_words[1]
+
+    meta_filtered_docs=[]
+    k=60
+    while(len(meta_filtered_docs)<20 and k<1000):
+        docs_similar_to_feature_words = get_similar_docs_from_small_embedding(self.app,most_important_word)
+        separated_user_input=['','']
+        docs_with_score = get_similar_doc_for_separated_input(self.app,self.app.embedding, user_input,separated_user_input,k=k)
+        meta_filtered_docs = filter_docs(self.app,docs_with_score,metadata_card,matching_controller)
+        meta_filtered_feature_words_docs = filter_docs(self.app,docs_similar_to_feature_words,metadata_card,matching_controller)
+        print("first 5 docs after meta filtering : ")
+        #meta_filtered_docs is a list of (doc,score)
+        print(meta_filtered_docs[:5])
+        print("best 40 docs similar to feature words : ")
+        print(meta_filtered_feature_words_docs[:40])
+        k*=2
+
+    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=24)
+    actual_ids= [pair[0] for pair in actual_ids_pairs]
+
+    
+
+    set_of_ids_GPT4, set_of_ids_GPT3 = set(actual_ids[:10]),set(actual_ids[10:])
     correpsonding_items_gpt4 = filter_json_By_Id(app.config['BASELINE_PATH'],set_of_ids_GPT4)
     correpsonding_items_gpt3 = filter_json_By_Id(app.config['BASELINE_PATH'],set_of_ids_GPT3)
-    gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, query, with_analysis=True)
-    gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, query, with_analysis=True)
+
+    gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, user_input, with_analysis=True)
+    gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, user_input, with_analysis=True)
     print("chat gpt4 answer : ")
     print(gpt4_answer)
     print("gpt3 ANSWER :")
