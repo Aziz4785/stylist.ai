@@ -10,8 +10,9 @@ def main():
     links = ["https://www.zalando.fr/streetwear-homme/","https://www.zalando.fr/luxe-homme/","https://www.zalando.fr/sport-homme/"]
     for link in links:
         print("scraping link "+link)
-        scraper = ScraperFactory.create_scraper(link.strip(),IncrementalJsonWritingStrategy())
-        data = scraper.scrape(2,True,f"../data_from_site/data_{link.split('/')[-2]}.json")
+        collection_name=f"data_{link.split('/')[-2]}"
+        scraper = ScraperFactory.create_scraper(link.strip(),IncrementalJsonWritingStrategy(collection_name))
+        data = scraper.scrape(max_pages=1,half_of_last_page = False)
         
 
 if __name__ == "__main__":

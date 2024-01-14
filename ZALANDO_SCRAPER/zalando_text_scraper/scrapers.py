@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from translate import Translator
+#from translate import Translator
 from deep_translator import GoogleTranslator
 
 class ProductPageScraper:
@@ -81,14 +81,11 @@ class ProductPageScraper:
         material_and_care_text = ""
         # Expand the material and care accordion and wait for content
         try:
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 6).until(
                 EC.visibility_of_element_located((By.XPATH, "//div[@data-testid='pdp-accordion-material_care']/h2/button"))
             )
             accordion_button = self.driver.find_element(By.XPATH, "//div[@data-testid='pdp-accordion-material_care']/h2/button")
             accordion_button.click()
-            WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located((By.XPATH, "//div[@data-testid='pdp-accordion-material_care']/div"))
-            )
         except Exception as e:
             print(f"Material Accordion button not found for URL: {url}, Error: {e}")
 
@@ -210,6 +207,28 @@ class LuxeProductPageScraper(ProductPageScraper):
         return product_name
 
 
+# class StreetwearProductPageScraper(ProductPageScraper):
+#     def extract_details(self,url):
+#         print("extract_details for streetwear")
+#         product_details_text=""
+#         #extract details of the product
+#         try:
+#             WebDriverWait(self.driver, 5).until(
+#                 EC.visibility_of_element_located((By.XPATH, "//div[@data-testid='pdp-accordion-details']/div"))
+#             )
+#             time.sleep(1)
+#             product_details = self.driver.find_element(By.XPATH, "//div[@data-testid='pdp-accordion-details']/div")
+#             product_details_text = product_details.text
+#             product_details_text = product_details.text.replace("\n", ", ")
+#             if(product_details_text.strip() ==""):
+#                 print("details are empty")
+#             else:
+#                 print("details : "+product_details_text)
+#         except:
+#             print(f"product details not found for URL: {url}")
+        
+#         return product_details_text
+    
 class Scraper:
     """
     Base class for all scrapers.
@@ -292,15 +311,14 @@ class Scraper:
         print(f"Total unique links extracted: {len(all_unique_links)}")
         return all_unique_links
     
-    def scrape(self, max_pages,half_for_last_page, filename):
+    def scrape(self, max_pages,half_of_last_page):
         #if half_for_last is True, max_pages = n, and we have m items per page then
         # the total nunmber of scraped items will be  ((n-1)*m)+(m/2)
         #if half_for_last is False, total nbr of items = n*m
-        all_unique_links = self.collect_links_from_pages(max_pages, half_for_last_page = half_for_last_page)
+        all_unique_links = self.collect_links_from_pages(max_pages, half_for_last_page = half_of_last_page)
         for i, href in enumerate(all_unique_links):
             product_data = self.product_page_scraper.scrap_product_page(href)
-            self.json_strategy.write_json(product_data, filename)
-        self.json_strategy.closetab(filename)
+            self.json_strategy.write_json(product_data)
 
 
 
@@ -324,9 +342,9 @@ class ShoesScraper(Scraper):
 
 
 class StreetwearScraper(Scraper):
-    """
-    Scraper for streetwear sections.
-    """
-    def parse_html(self, html):
-        pass
+    def __init__(self, url, json_strategy):
+        print("Initializing StreetwearScraper with URL:", url)
+        super().__init__(url, json_strategy)
+        #self.product_page_scraper = StreetwearProductPageScraper(self.driver)
+
 

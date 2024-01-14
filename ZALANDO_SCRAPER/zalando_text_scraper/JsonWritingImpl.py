@@ -1,43 +1,28 @@
 from JsonWritingStrategy import *
-
+import pymongo
 import json
 import os
 
+db_uri = "mongodb://localhost:27017/"
+db_name = "mydatabase"
 
 class IncrementalJsonWritingStrategy(JsonWritingStrategy):
-    def __init__(self):
+    def __init__(self,collection_name):
         self.is_first_entry = True
+        #mongodb :
+        self.client = pymongo.MongoClient(db_uri)
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
 
-    def write_json(self, data, filename):
-        # Check if the file exists and its size is greater than zero (i.e., it's not empty)
-        file_exists = os.path.isfile(filename) and os.path.getsize(filename) > 0
-
-        with open(filename, 'a+', encoding='utf-8') as json_file:
-            
-            if not file_exists:
-                json_file.write('[')
-            else:
-                # Move to the end of the file
-                json_file.seek(0, os.SEEK_END)
-
-                # If it's not the first entry, add a comma before the next JSON object
-                if not self.is_first_entry:
-                    json_file.write(',')
-                else:
-                    # Remove the closing bracket before appending next object
-                    json_file.seek(-1, os.SEEK_END)
-                    json_file.truncate()
-
-            # Convert the data to a JSON string and write it
-            formatted_json_string = json.dumps(data, ensure_ascii=False, indent=4)
-            json_file.write(formatted_json_string)
-
-            self.is_first_entry = False
-
-
-    def closetab(self,filename):
-        with open(filename, 'a') as file:
-            file.write("]")
+    def write_json(self, data):
+        #mongodb :
+          # Assuming 'data' is a dictionary or a list of dictionaries
+        if isinstance(data, dict):
+            self.collection.insert_one(data)
+        elif isinstance(data, list):
+            self.collection.insert_many(data)
+        else:
+            raise ValueError("Data is neither a dictionary nor a list of dictionaries")
 
 
 class BatchJsonWritingStrategy(JsonWritingStrategy):
@@ -48,8 +33,6 @@ class BatchJsonWritingStrategy(JsonWritingStrategy):
         self.batch_size = batch_size
         self.batch_data = []
 
-    def write_json(self, data, filename):
+    def write_json(self, data):
         self.batch_data.append(data)
-        if len(self.batch_data) >= self.batch_size:
-            with open(filename, 'a', encoding='utf-8') as json_file:
-                self.batch_data = []
+        
