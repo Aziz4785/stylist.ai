@@ -1,7 +1,5 @@
 from JsonWritingStrategy import *
 import pymongo
-import json
-import os
 
 db_uri = "mongodb://localhost:27017/"
 db_name = "mydatabase"
