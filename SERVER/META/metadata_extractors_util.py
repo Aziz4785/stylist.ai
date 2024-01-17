@@ -1,6 +1,7 @@
 from SERVER.META.metadata_utils import *
 import openai
 import re
+import config
 def gpt35_type_output(description):
     """
     Classify the type of a garment based on its text description.
@@ -56,45 +57,45 @@ def gpt35_composition_ouput(query):
     return response.choices[0].text.lower().strip()
 
 
-def mixtral_composition_output(query):
+# def mixtral_composition_output(query):
 
-    prompt_template = """<s> [INST] Based on user queries about garment preferences, categorize the materials into 'composition_in' and 'composition_out'. Categories are as follows:
-        - Natural fibers: cotton, linen, hemp, jute, wool, silk.
-        - Artificial fibers: viscose, acetate, rayon.
-        - Synthetic fibers: nylon, polyester, polyamide, acrylic.
+#     prompt_template = """<s> [INST] Based on user queries about garment preferences, categorize the materials into 'composition_in' and 'composition_out'. Categories are as follows:
+#         - Natural fibers: cotton, linen, hemp, jute, wool, silk.
+#         - Artificial fibers: viscose, acetate, rayon.
+#         - Synthetic fibers: nylon, polyester, polyamide, acrylic.
 
-        User Query: {query}
+#         User Query: {query}
 
-        Extract and categorize the materials in the following format:
-        - composition_in: List the categories that include the mentioned materials. If no materials are mentioned, categorize as 'unknown'.
-        - composition_out: List the categories that should not be included in the garment. If the user query does not specify or does not mention materials, default to 'unknown'.
+#         Extract and categorize the materials in the following format:
+#         - composition_in: List the categories that include the mentioned materials. If no materials are mentioned, categorize as 'unknown'.
+#         - composition_out: List the categories that should not be included in the garment. If the user query does not specify or does not mention materials, default to 'unknown'.
 
-        Do not make assumptions about material types if they are not explicitly stated in the query. Do not make assumptions about material types if they are not explicitly stated in the query. Provide the composition categories accordingly.
-        Do not make assumptions about material types if they are not explicitly stated in the query.
-        Do not make assumptions about material types if they are not explicitly stated in the query.
-        Do not make assumptions about material types if they are not explicitly stated in the query.
-        DO NOT make assumptions about material types if they are not explicitly stated in the query.
-        DO NOT make assumptions about material types if they are not explicitly stated in the query.
-        DO NOT make assumptions about material types if they are not explicitly stated in the query.
+#         Do not make assumptions about material types if they are not explicitly stated in the query. Do not make assumptions about material types if they are not explicitly stated in the query. Provide the composition categories accordingly.
+#         Do not make assumptions about material types if they are not explicitly stated in the query.
+#         Do not make assumptions about material types if they are not explicitly stated in the query.
+#         Do not make assumptions about material types if they are not explicitly stated in the query.
+#         DO NOT make assumptions about material types if they are not explicitly stated in the query.
+#         DO NOT make assumptions about material types if they are not explicitly stated in the query.
+#         DO NOT make assumptions about material types if they are not explicitly stated in the query.
 
-        Focus on the general category of fibers. Do not separate the materials within each category
-        Don't modify and don't make assumptions on the user query
-        Note: For a query where the materials are not explicitly stated the correct response is 'composition_in: unknown\ncomposition_out: unknown' [/INST] </s>"""
-    prompt = prompt_template.format(query=query)
+#         Focus on the general category of fibers. Do not separate the materials within each category
+#         Don't modify and don't make assumptions on the user query
+#         Note: For a query where the materials are not explicitly stated the correct response is 'composition_in: unknown\ncomposition_out: unknown' [/INST] </s>"""
+#     prompt = prompt_template.format(query=query)
 
-    output = together.Complete.create(
-    prompt = prompt, 
-    model = "mistralai/Mixtral-8x7B-Instruct-v0.1", 
-    max_tokens = 50,
-    temperature = 0.3,
-    top_k = 40,
-    top_p = 0.6,
-    repetition_penalty = 1.1,
-    stop = ['<human>']
-    )
+#     output = together.Complete.create(
+#     prompt = prompt, 
+#     model = "mistralai/Mixtral-8x7B-Instruct-v0.1", 
+#     max_tokens = 50,
+#     temperature = 0.3,
+#     top_k = 40,
+#     top_p = 0.6,
+#     repetition_penalty = 1.1,
+#     stop = ['<human>']
+#     )
 
 
-    return output['output']['choices'][0]['text'].lower()
+#     return output['output']['choices'][0]['text'].lower()
 
 def extract_otherColor(text):
     # Split the text by whitespace to get individual words
@@ -128,35 +129,61 @@ def extract_genre(text):
         return "women"
     else:
         return "unknown"
-def starling_otherColor_ouput(query):
-    # do this before : $env:REPLICATE_API_TOKEN="<api_key>" 
-    prompt_template = """GPT4 Correct User: You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color,  respond with 'unknown'. Avoid making assumptions based on incomplete color information. Avoid making assumptions based on incomplete color information. Black is a color and white is a color.Consider Black and White as colors ! Consider Black and White as colors !
-Description : {query}  <|end_of_turn|>GPT4 Correct Assistant:"""
-    prompt = prompt_template.format(query=query)
+    
+# def starling_otherColor_ouput(query):
+#     # do this before : $env:REPLICATE_API_TOKEN="<api_key>" 
+#     prompt_template = """GPT4 Correct User: You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color,  respond with 'unknown'. Avoid making assumptions based on incomplete color information. Avoid making assumptions based on incomplete color information. Black is a color and white is a color.Consider Black and White as colors ! Consider Black and White as colors !
+# Description : {query}  <|end_of_turn|>GPT4 Correct Assistant:"""
+#     prompt = prompt_template.format(query=query)
 
-    output = replicate.run(
-    "tomasmcm/starling-lm-7b-alpha:1cee13652378fac04fe10dedd4c15d3024a0958c3e52f97a1aa7c4d05b99ef99",
-    input={
-        "top_p": 1,
-        "top_k": 36,
-        "prompt": prompt,
-        "max_tokens": 128,
-        "temperature": 0.3,
-        "presence_penalty": 0,
-        "frequency_penalty": 0.1
-    }
-    )
+#     output = replicate.run(
+#     "tomasmcm/starling-lm-7b-alpha:1cee13652378fac04fe10dedd4c15d3024a0958c3e52f97a1aa7c4d05b99ef99",
+#     input={
+#         "top_p": 1,
+#         "top_k": 36,
+#         "prompt": prompt,
+#         "max_tokens": 128,
+#         "temperature": 0.3,
+#         "presence_penalty": 0,
+#         "frequency_penalty": 0.1
+#     }
+#     )
 
-    return output.lower()
+#     return output.lower()
+    
 def gpt35_otherColor_ouput(query):
     client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
 
     messages=[
-        {"role": "system", "content": "You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color,  respond with 'unknown'. Avoid making assumptions based on incomplete color information. Avoid making assumptions based on incomplete color information. Black is a color and white is a color."},
-        {"role": "user", "content": "Description : "+query},
-        {"role": "assistant", "content": ""}  # The model will fill this in with 'yes', 'no', or 'unknown' based on the color description.
-    ]
-
+            {"role": "system", "content": "You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment explicitly contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color, such as mentioning 'bi-colored' without specifying both colors, respond with 'unknown'. Avoid making assumptions based on incomplete color information."},
+            {"role": "user", "content": "a 100% cotton blue shirt"},
+            {"role": "assistant", "content": """yes"""},      
+            {"role": "user", "content": "a jacket having a colored french flag on one of the sleeve"},
+            {"role": "assistant", "content": """yes"""},  
+            {"role": "user", "content": "I want to buy full black shoes"},
+            {"role": "assistant", "content": """no"""},  
+            {"role": "user", "content": "black and white t-shirt (slim fit)"},
+            {"role": "assistant", "content": """no"""},  
+            {"role": "user", "content": "a pullover with white sleeves"},
+            {"role": "assistant", "content": """unknown"""},  
+            {"role": "user", "content": "shoes that can match with a brown trousers"},
+            {"role": "assistant", "content": """unknown"""},  
+            {"role": "user", "content": "something Kanye West could wear"},
+            {"role": "assistant", "content": """unknown"""},  
+            {"role": "user", "content": "do you have some vintage dark colored jacket ? "},
+            {"role": "assistant", "content": """unknown"""},  
+            {"role": "user", "content": "a red polka dot dress"},
+            {"role": "assistant", "content": "yes"},
+            {"role": "user", "content": "a grey suit"},
+            {"role": "assistant", "content": "yes"},
+            {"role": "user", "content": "striped socks in black and white"},
+            {"role": "assistant", "content": "no"},
+            {"role": "user", "content": "a tie with a black base and white stripes"},
+            {"role": "assistant", "content": "no"},
+            {"role": "user", "content": "a pink scarf"},
+            {"role": "assistant", "content": "yes"},
+            {"role": "user", "content": query}
+             ]
     response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             temperature=0.7,

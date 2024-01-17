@@ -158,6 +158,8 @@ class TestIndividualExtractors(unittest.TestCase):
                 self.assertTrue(result[0]==expected[0] and result[1]==expected[1])
 
     def test_othercolor(self):
+        print("testing other color...")
+        print()
         # List of pairs (description, expected garment type)
         test_cases = [
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", "unknown"),
@@ -235,6 +237,8 @@ class TestIndividualExtractors(unittest.TestCase):
                 self.assertTrue(result==expected)
     
     def test_genre(self):
+        print("testing genre...")
+        print()
         test_cases = [
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", "unknown"),
             ("an item for men (but not trousers/pants) with the norwegian flag on it","men"),
@@ -343,10 +347,10 @@ class TestIndividualExtractors(unittest.TestCase):
                 self.assertTrue(result==expected)
 
 if __name__ == '__main__':
-    suite = unittest.TestSuite()
-    suite.addTest(TestIndividualExtractors('test_genre'))
-    runner = unittest.TextTestRunner()
-    runner.run(suite)
+    # suite = unittest.TestSuite()
+    # suite.addTest(TestIndividualExtractors('test_genre'))
+    # runner = unittest.TextTestRunner()
+    # runner.run(suite)
 
     #if you want to run all the tests, uncomment this and comment all the block above:
-    #unittest.main()
+    unittest.main()
