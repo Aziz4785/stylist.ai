@@ -3,7 +3,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
-import json
+
 import re
 import openai
 import os
@@ -11,6 +11,7 @@ import nltk
 from SERVER.common_variables import *
 from SERVER.META.metadata_card import *
 import sys
+import pymongo
 import config
 import spacy
 from nltk.tokenize import sent_tokenize
@@ -39,30 +40,25 @@ def remove_outer_quotes(text):
         return text[1:-1]
     return text
 
-def filter_json_By_Id(json_name,list_of_ids):
-    """
-    Generates a JSON object that filters entries based on a list of IDs.
+def filter_collection_By_Id(collection_name,list_of_ids):
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    db = client["mydatabase"]
+    mongodb_collection = db[collection_name]
+    filtered_docs=[]
 
-    """
-    with open(json_name, 'r', encoding='utf-8') as file:
-      data = json.load(file)
+    for entry in mongodb_collection.find():
+        if entry['id'] in list_of_ids:
+            filtered_docs.append(entry)
 
-    filtered_json = [entry for entry in data if entry['id'] in list_of_ids]
+    return filtered_docs
 
-    return filtered_json
-
-
-def read_json(filename):
-     with open(filename, 'r', encoding='utf-8') as file:
-        data = json.load(file)
-        return data
      
-def create_embedding(baseline_chunks):
+def create_embedding(catalogue_chunks):
     print("creating embedding ...")
-    if(baseline_chunks is None):
+    if(catalogue_chunks is None):
         return None
     embeddings = OpenAIEmbeddings()
-    docsearch = FAISS.from_texts(baseline_chunks, embeddings)
+    docsearch = FAISS.from_texts(catalogue_chunks, embeddings)
     print("done")
     return docsearch
 
@@ -70,31 +66,28 @@ def extract_sentences(paragraph):
     sentences = sent_tokenize(paragraph)
     return sentences
 
-def find_product_by_id_in_file(file_path, product_id):
+def find_product_by_id_in_collection(collection_name, product_id):
     """
-    Find a product in a JSON file by its ID.
+    Find a product in a mongodb collection by its ID.
 
-    :param file_path: Path to the JSON file.
     :param product_id: The ID of the product to find.
     :return: The product with the given ID, or None if not found.
     """
-    try:
-        with open(file_path, 'r',encoding='utf-8') as file:
-            product_list = json.load(file)
-            for product in product_list:
-                if product['id'] == product_id:
-                    return product
-    except FileNotFoundError:
-        print("File not found.")
-    except json.JSONDecodeError:
-        print("Error decoding JSON.")
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    db = client["mydatabase"]
+    mongodb_collection = db[collection_name]
+
+    product_list = mongodb_collection.find()
+    for product in product_list:
+        if product['id'] == product_id:
+            return product
+        
     return None
 
-
-def divide_description_into_smaller_chunks(baseline):
-    print("dividing baseline into 4 words chunks ...")
+def divide_description_into_smaller_chunks(catalogue_data):
+    print("dividing catalogue into 4 words chunks ...")
     hashtable={}
-    for item in baseline:
+    for item in catalogue_data:
         sentences= []
         if("visual description" in item):
             sentences = extract_sentences(item["visual description"])
@@ -107,10 +100,10 @@ def divide_description_into_smaller_chunks(baseline):
     print("done")
     return hashtable
 
-def divide_into_tiny_chunks(app,json_data,category="unknown"):
-    print("dividing baseline into tiny chunks the category "+str(category)+" ...")
+def divide_into_tiny_chunks(app,catalogue_data,category="unknown"):
+    print("dividing catalogue into tiny chunks the category "+str(category)+" ...")
     hashtable={}
-    for item in json_data:
+    for item in catalogue_data:
         brand= ""
         name= ""
         details= ""
@@ -357,7 +350,7 @@ def filter_docs(app,docs_with_score,metadata_card,matching_controller):
         else:
             print("ERROR IN HASHTABLE ")
         for id_of_elem in ids_of_elem:
-            json_elem = find_product_by_id_in_file(app.config['BASELINE_PATH'],id_of_elem)
+            json_elem = find_product_by_id_in_collection(app.config['catalogue_collection_name'],id_of_elem)
             if(matching_controller.meta_match(json_elem, metadata_card)):
                 filtered_docs.append((doc,score))
                 break

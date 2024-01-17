@@ -6,27 +6,28 @@ import sys
 import SERVER.common_variables
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import config
-import json
+from SERVER.META.metadata_card import *
+from SERVER.META.metadata_matching_controller import *
+from SERVER.META.metadata_extraction import *
+from SERVER.META.metadata_matching import *
 import re
 
 from SERVER.ServerUtil import *
 os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
 
 
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-reference_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'Reference7.json')
-default_baseline_path = os.path.join(script_dir, '..',  'MAIN_DATA', 'baseline_data7.json')
-
-
 class MyApp(Flask):
     
     def __init__(self, import_name):
+        db_uri = "mongodb://localhost:27017/"
+        db_name = "mydatabase"
+        client = pymongo.MongoClient(db_uri)
+        db = client[db_name]
         super(MyApp, self).__init__(import_name)
-        self.config['BASELINE_PATH'] = default_baseline_path
-        self.baseline = read_json(self.config['BASELINE_PATH'])
-        self.hashtable = divide_into_tiny_chunks(self,self.baseline)
-        self.hashtable_small_chunks = divide_description_into_smaller_chunks(self.baseline)
+        self.config['catalogue_collection_name'] = "Catalogue1"
+        self.catalogue = db[self.config['catalogue_collection_name']].find() #list of docs 
+        self.hashtable = divide_into_tiny_chunks(self,self.catalogue)
+        self.hashtable_small_chunks = divide_description_into_smaller_chunks(self.catalogue)
         self.embedding = create_embedding(self.hashtable.keys())
         self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
 
@@ -82,11 +83,11 @@ def process():
     meta_filtered_docs=[]
     k=60
     while(len(meta_filtered_docs)<20 and k<1000):
-        docs_similar_to_feature_words = get_similar_docs_from_small_embedding(self.app,most_important_word)
+        docs_similar_to_feature_words = get_similar_docs_from_small_embedding(app,most_important_word)
         separated_user_input=['','']
-        docs_with_score = get_similar_doc_for_separated_input(self.app,self.app.embedding, user_input,separated_user_input,k=k)
-        meta_filtered_docs = filter_docs(self.app,docs_with_score,metadata_card,matching_controller)
-        meta_filtered_feature_words_docs = filter_docs(self.app,docs_similar_to_feature_words,metadata_card,matching_controller)
+        docs_with_score = get_similar_doc_for_separated_input(app,app.embedding, user_input,separated_user_input,k=k)
+        meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
+        meta_filtered_feature_words_docs = filter_docs(app,docs_similar_to_feature_words,metadata_card,matching_controller)
         print("first 5 docs after meta filtering : ")
         #meta_filtered_docs is a list of (doc,score)
         print(meta_filtered_docs[:5])
@@ -100,8 +101,8 @@ def process():
     
 
     set_of_ids_GPT4, set_of_ids_GPT3 = set(actual_ids[:10]),set(actual_ids[10:])
-    correpsonding_items_gpt4 = filter_json_By_Id(app.config['BASELINE_PATH'],set_of_ids_GPT4)
-    correpsonding_items_gpt3 = filter_json_By_Id(app.config['BASELINE_PATH'],set_of_ids_GPT3)
+    correpsonding_items_gpt4 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT4)
+    correpsonding_items_gpt3 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT3)
 
     gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, user_input, with_analysis=True)
     gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, user_input, with_analysis=True)
@@ -113,7 +114,7 @@ def process():
     list_of_ids.extend(extract_Ids_from_text(gpt3_answer))
     print("list of ids = ")
     print(list_of_ids)
-    output_json = filter_json_By_Id(reference_path,list_of_ids)
+    output_json = filter_collection_By_Id("reference8",list_of_ids)
     return output_json
 
 if __name__ == '__main__':
