@@ -5,5 +5,5 @@ class JsonWritingStrategy(ABC):
     Abstract base class for JSON writing strategies.
     """
     @abstractmethod
-    def write_json(self, data, filename):
+    def write_json(self, data):
         pass

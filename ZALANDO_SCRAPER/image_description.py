@@ -8,6 +8,7 @@ import requests
 import os
 import logging
 import math
+import pymongo
 from openai import OpenAI
 import openai
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -15,9 +16,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#import ZALANDO_SCRAPER.config as config
 import config
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -98,9 +99,9 @@ def encode_imagesURLS(images_urls):
         print(f"Error occurred while encoding image sources: {e}")
 
     return encoded_images
-def generate_baseline_single_elem(entry):
+def generate_catalog_single_elem(entry):
     """
-        baseline elem has this format :
+        catalogue elem has this format :
         {
         "id": <id>,
         "genre": <genre>
@@ -123,8 +124,8 @@ def generate_baseline_single_elem(entry):
     components = [name, brand, composition, details]
     total = " \n ".join([comp for comp in components if comp])
 
-    description = describe_clothing_multi(name, brand, total, images)
-    #description = "test description"
+    #description = describe_clothing_multi(name, brand, total, images)
+    description = "test description"
     elem = {}
     if id:
         elem["id"] = id
@@ -142,126 +143,98 @@ def generate_baseline_single_elem(entry):
     return elem
 
 
-def iD_is_in_baseline_file(baseline_file_path, id_to_check):
+def iD_is_in_Catalogue(catalogue_name,id_to_check):
+    #catalogue_name is the collection name
+    db_uri = config.db_uri
+    db_name = config.db_name
 
-    if not os.path.exists(baseline_file_path):
+    client = pymongo.MongoClient(db_uri)
+    db = client[db_name]
+    collection = db[catalogue_name]
+
+    if collection.find_one({"id": id_to_check}):
+        client.close()
+        return True
+    else:
+        client.close()
         return False
-    
-    with open(baseline_file_path, 'r', encoding='utf-8') as file:
-        data = json.load(file)
-
-    for item in data:
-        if item.get("id") == id_to_check:
-            return True
-        
-    return False
 
 
-def add_to_baseline_file(baseline_elem, filename):
+def add_to_Catalogue(catalogue_elem, catalogue_name):
     """
     Appends the given element to a JSON file.
 
-    :param baseline_elem: The element to be added.
+    :param catalogue_elem: The element to be added.
     :param filename: Name of the JSON file to which the element is added.
     """
-    try:
-        # Read the existing data from the file
-        try:
-            with open(filename, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-        except FileNotFoundError:
-            data = []
+    db_uri = config.db_uri
+    db_name = config.db_name
 
-        data.append(baseline_elem)
+    client = pymongo.MongoClient(db_uri)
+    db = client[db_name]
+    collection = db[catalogue_name]
 
-        # Write the updated data back to the file
-        with open(filename, 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=4, ensure_ascii=False)
+    if isinstance(catalogue_elem, dict):
+        collection.insert_one(catalogue_elem)
+    elif isinstance(catalogue_elem, list):
+        collection.insert_many(catalogue_elem)
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    client.close()
 
-
-def process_json_file_incr(scraped_textInfos_filepath, reference_file_path, baseline_filepath):
+def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, catalogue_name, reference_name):
     item_processed = 0
-    with open(scraped_textInfos_filepath, 'r', encoding='utf-8') as file:
-        scraped_textInfos = json.load(file)
 
-    # Check if reference file exists and is not empty
-    if os.path.exists(reference_file_path) and os.path.getsize(reference_file_path) > 0:
-        with open(reference_file_path, 'r+') as reference_file:
-            reference_file.seek(0, os.SEEK_END)
-            pos = reference_file.tell() - 1
-            reference_file.seek(pos, os.SEEK_SET)
+    db_uri = config.db_uri
+    db_name = config.db_name
 
-            for i, singleItem_text_info in enumerate(scraped_textInfos):
-                if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
-                    continue
-                item_processed += 1
+    client = pymongo.MongoClient(db_uri)
+    db = client[db_name]
+    scraped_data_collection = db[scraped_data_collection_name]
+    reference_collection = db[reference_name]
 
-                # Check for 'images' key
-                images = singleItem_text_info.get('images', [])  # Use an empty list if 'images' key is not found
+    scraped_data_length = scraped_data_collection.count_documents({})
+    for scraped_data_doc in scraped_data_collection.find():
+        if "id" in scraped_data_doc:
+            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["id"]):
+                continue
+        item_processed += 1
 
-                baseline_elem = generate_baseline_single_elem(singleItem_text_info)
-                add_to_baseline_file(baseline_elem, baseline_filepath)
+        # Check for 'images' key
+        images = []
 
-                reference_elem = json.dumps({
-                    'id': singleItem_text_info['id'],
-                    'url': singleItem_text_info['url'],
-                    'images': images  # Use the checked images here
-                })
-                reference_file.write(',\n')
-                reference_file.write(reference_elem)
-                
-                if item_processed % 5 == 0:
-                    print(str(math.ceil(item_processed * 100 / len(scraped_textInfos))) + "% done ")
+        if 'images' in scraped_data_doc and scraped_data_doc['images']:
+            images = scraped_data_doc['images']
 
-            #reference_file.write(']')
+        catalogue_elem = generate_catalog_single_elem(scraped_data_doc)
+        add_to_Catalogue(catalogue_elem, catalogue_name)
 
-    else:
-        # File doesn't exist or is empty, write as new
-        with open(reference_file_path, 'w') as reference_file:
-            reference_file.write('[')
+        scraped_url = ""
+        if("url" in scraped_data_doc):
+            scraped_url = scraped_data_doc['url']
 
-            for i, singleItem_text_info in enumerate(scraped_textInfos):
-                if iD_is_in_baseline_file(baseline_filepath, singleItem_text_info["id"]):
-                    continue
-                else:
-                    if i>0 and i < len(scraped_textInfos) - 1:
-                        reference_file.write(',\n')
-                item_processed += 1
-                # Check for 'images' key
-                images = singleItem_text_info.get('images', [])
+        reference_elem = {
+            'id': scraped_data_doc['id'],
+            'url': scraped_url,
+            'images': images 
+        }
 
-                baseline_elem = generate_baseline_single_elem(singleItem_text_info)
-                add_to_baseline_file(baseline_elem, baseline_filepath)
-                reference_elem = json.dumps({
-                    'id': singleItem_text_info['id'],
-                    'url': singleItem_text_info['url'],
-                    'images': images
-                })
-                reference_file.write(reference_elem)
-                if item_processed % 5 == 0:
-                    print(str(math.ceil(item_processed * 100 / len(scraped_textInfos))) + "% done ")
-            reference_file.write(']')
+        reference_collection.insert_one(reference_elem)
+
+        if item_processed % 5 == 0:
+            print(str(math.ceil(item_processed * 100 / scraped_data_length)) + "% done ")
 
 
-def process_json_files_in_folder(folder_path, output_json_filename, output_baseline_filename):
-    for filename in os.listdir(folder_path):
-        if filename.endswith('.json'):
-            if filename in ["data_streetwear-femme.json","data_chaussures-femme.json","data_streetwear-homme.json"]:
-                print("Processing " + str(filename) + " ...")
-                json_file_path = os.path.join(folder_path, filename)
-                process_json_file_incr(json_file_path, output_json_filename, output_baseline_filename)
+def generate_Catalog_and_Reference(reference_name, catalogue_name):
+    
+    client = pymongo.MongoClient(config.db_uri)
+    db = client[config.db_name]
+
+    for collection_name in db.list_collection_names():
+        # Check if the collection name starts with 'data_'
+        if collection_name.startswith("data_"):
+            #if collection_name in ["data_streetwear-femme.json","data_chaussures-femme.json","data_streetwear-homme.json"]:
+                print("Processing " + str(collection_name) + " ...")
+                convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
 
-# Get the directory of the current script
-script_dir = os.path.dirname(os.path.abspath(__file__))
-# Navigate two levels up and then into the MAIN_DATA directory
-output_reference_path = os.path.join(script_dir, '..', 'MAIN_DATA', 'Reference7.json')
-
-output_baseline = os.path.join(script_dir, '..', 'MAIN_DATA', 'baseline_data7.json')
-
-folder_path_of_scraped_text = os.path.join(script_dir,'data_from_site')
-print("Current Working Directory:", os.getcwd())
-process_json_files_in_folder(folder_path_of_scraped_text, output_reference_path, output_baseline)
+generate_Catalog_and_Reference("reference8", "Catalogue1")

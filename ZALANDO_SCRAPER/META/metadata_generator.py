@@ -1,17 +1,24 @@
 import openai
-import sys
-import os
+import pymongo
 from openai import OpenAI
-import json
 import re
-import together
-from .metadata_generator_util import *
+#import together
+from metadata_generator_util import *
 
 from abc import ABC, abstractmethod
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import config
-script_dir = os.path.dirname(os.path.abspath(__file__))
-baseline_path = os.path.join(script_dir, '..', '..', 'MAIN_DATA', 'baseline_data7.json')
+
+import sys
+import os
+
+
+zalando_scraper_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(zalando_scraper_directory)
+
+try:
+    import config
+except ModuleNotFoundError:
+    print("Failed to import config. Current sys.path:", sys.path) 
+    raise
 
 class Config:
     @staticmethod
@@ -20,19 +27,19 @@ class Config:
     def get_MISTRAL_api_key():
         return config.TOGETHER_API_KEY
 
-class MistralClient:
-    def __init__(self):
-        together.api_key = Config.get_MISTRAL_api_key()
-    def query(self, prompt):
-        output = together.Complete.create(
-            prompt = prompt, 
-            model = "mistralai/Mixtral-8x7B-Instruct-v0.1", 
-            max_tokens = 50,
-            temperature = 0.7,
-            top_p = 1,
-            stop = ['<human>']
-            )
-        return output['output']['choices'][0]['text'].lower()
+# class MistralClient:
+#     def __init__(self):
+#         together.api_key = Config.get_MISTRAL_api_key()
+#     def query(self, prompt):
+#         output = together.Complete.create(
+#             prompt = prompt, 
+#             model = "mistralai/Mixtral-8x7B-Instruct-v0.1", 
+#             max_tokens = 50,
+#             temperature = 0.7,
+#             top_p = 1,
+#             stop = ['<human>']
+#             )
+#         return output['output']['choices'][0]['text'].lower()
 
 class OpenAIClient:
     def __init__(self):
@@ -115,6 +122,7 @@ class BWClassifier(ClassifierService):
         
         response = self.api_client.chat_query(messages,temperature=0.7,top_p=1)
         raw_answer = response.choices[0].message.content.lower().strip()
+        
         return extract_blackwhite(raw_answer)
 
 class CompositionClassifier(ClassifierService):
@@ -143,26 +151,32 @@ class CompositionClassifier(ClassifierService):
         return res.union(extract_composition(raw_answer))
     
 class JsonProcessor:
-    def __init__(self, file_path):
-        self.file_path = file_path
+    def __init__(self,collection_name):
+        db_uri = config.db_uri
+        db_name = config.db_name
+        self.is_first_entry = True
+        #mongodb :
+        self.client = pymongo.MongoClient(db_uri)
+        self.db = self.client[db_name]
+        self.collection = self.db[collection_name]
 
     def process(self, classifier, handle_item):
-        with open(self.file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-
-        for item in data:
+        """
+        handle_item is a function that return the classification (type or composition or color etc..) of the item
+        """
+        for item in self.collection.find():
             keyvalues = handle_item(item, classifier)
             if(keyvalues):
                 for key, value in keyvalues:
-                    if key:
+                    if key and value:
                         if isinstance(value, set):
                             item[key] = ', '.join(map(str, value))
                         else:
                             item[key] = value
 
-        with open(self.file_path, 'w', encoding='utf-8') as file:
-            json.dump(data, file, indent=4, ensure_ascii=False)
-
+                        self.collection.update_one({"_id": item["_id"]}, {"$set": item})
+            else:       
+                print("handle_item return null")
 
 class OtherColorClassifier(ClassifierService):
     def __init__(self, api_client):
@@ -187,16 +201,24 @@ class OtherColorClassifier(ClassifierService):
         return extract_otherColor2(raw_answer)
 
 def handle_garment_type(item, classifier):
+    """
+    item is a catalog element
+    this function returns the type of the item using classifier
+    """
     complete_description=""
     if "type" not in item:
         if "name of the product" in item :
-            complete_description = item["name of the product"]
+            complete_description = item["name of the product"]+ ", "
         if "visual description" in item:
-            classification = classifier.classify(complete_description + ", "+item["visual description"])
+            classification = classifier.classify(complete_description +item["visual description"])
             return [('type', classification)]
     return [(None, None)]
 
 def handle_composition(item, classifier):
+    """
+        item is a catalog element
+        this function returns the composition of the item using classifier
+    """
     if("composition" not in item ):
         if "details about that item" in item:
             details = item["details about that item"]
@@ -226,14 +248,14 @@ def handle_otherColor(item,classifier):
 
 if __name__ == '__main__':
     #RUN py -m ZALANDO_SCRAPER.META.metadata_generator at root
-    print("modifiying baseline ...")
+    print("modifiying Catalog ...")
     api_client = OpenAIClient()
 
     type_classifier = GarmentTypeClassifier(api_client)
     composition_classifier = CompositionClassifier(api_client)
     bw_classifier = BWClassifier(api_client)
     otherColor_classifier = OtherColorClassifier(api_client)
-    json_processor = JsonProcessor("MAIN_DATA/baseline_data7.json")
+    json_processor = JsonProcessor("Catalogue1")
 
     print("Classifying garment types...")
     json_processor.process(type_classifier, handle_garment_type)

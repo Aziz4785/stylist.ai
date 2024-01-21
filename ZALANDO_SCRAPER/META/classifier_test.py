@@ -1,5 +1,5 @@
 import unittest
-from ZALANDO_SCRAPER.META.metadata_generator import * # Replace 'your_module' with the actual module name
+from metadata_generator import * 
 
 # run py -m ZALANDO_SCRAPER.META.classifier_test    at root
 def classify_othercolor(description):
@@ -123,9 +123,11 @@ class TestClassification(unittest.TestCase):
             with self.subTest(description=description):
                 result = classify_BW(description)
                 if(result[0] != expected[0]):
-                    print("for "+description[:20])
+                    print("---------------------------------")
+                    print("for "+description)
                     print("actual answer is :"+str(result))
                     print("expected = "+str(expected))
+                    print("---------------------------------")
                     print()
                 self.assertTrue(result[0]==expected[0] and result[1]==expected[1])
 
@@ -232,10 +234,10 @@ class TestClassification(unittest.TestCase):
                 self.assertTrue(result==expected)
 
 if __name__ == '__main__':
-    # suite = unittest.TestSuite()
-    # suite.addTest(TestClassification('test_otherColor_classification'))
-    # runner = unittest.TextTestRunner()
-    # runner.run(suite)
+    suite = unittest.TestSuite()
+    suite.addTest(TestClassification('test_BW_classification'))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
 
     #if you want to run all the tests, uncomment this and comment all the block above:
-    unittest.main()
+    #unittest.main()

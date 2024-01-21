@@ -1,4 +1,4 @@
-from SERVER.META.metadata_extractors_util import *
+from META.metadata_extractors_util import *
 from abc import ABC, abstractmethod
 
 class IMetadataExtractor(ABC):
@@ -22,8 +22,8 @@ class BlackWhiteExtractor(IMetadataExtractor):
     
 class OtherColorExtractor(IMetadataExtractor):
     def extract(self, query):
-        #return extract_otherColor(gpt35_otherColor_ouput(query))
-        return extract_otherColor(starling_otherColor_ouput(query))
+        return extract_otherColor(gpt35_otherColor_ouput(query))
+        #return extract_otherColor(starling_otherColor_ouput(query))
     
 class GenreExtractor(IMetadataExtractor):
     def extract(self, query):

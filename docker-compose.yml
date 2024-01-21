@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+
+  # scraper:
+  #   build: ./ZALANDO_SCRAPER
+  #   volumes:
+  #     - ./ZALANDO_SCRAPER:/scraper
+  #   depends_on:
+  #     - mongodb
+  #   networks:
+  #     - mynetwork
+
+  server:
+    build: ./SERVER
+    volumes:
+      - ./SERVER:/server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      - mynetwork
+
+volumes:
+  mongodb_data:
+
+networks:
+  mynetwork:
