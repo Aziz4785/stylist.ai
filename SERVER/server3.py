@@ -1,35 +1,34 @@
 from flask import Flask, request, jsonify , render_template
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter
 import os
 import sys
-import SERVER.common_variables
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import config
-from SERVER.META.metadata_card import *
-from SERVER.META.metadata_matching_controller import *
-from SERVER.META.metadata_extraction import *
-from SERVER.META.metadata_matching import *
-import re
+from META.metadata_card import *
+from META.metadata_matching_controller import *
+from META.metadata_extraction import *
+from META.metadata_matching import *
 
-from SERVER.ServerUtil import *
-os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
+from ServerUtil import *
+import config_server
+
+os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
 
 
 class MyApp(Flask):
     
     def __init__(self, import_name):
-        db_uri = "mongodb://localhost:27017/"
-        db_name = "mydatabase"
+        db_uri = config_server.db_uri
+        db_name = config_server.db_name
         client = pymongo.MongoClient(db_uri)
+        print("List of databases:", client.list_database_names())
         db = client[db_name]
         super(MyApp, self).__init__(import_name)
         self.config['catalogue_collection_name'] = "Catalogue1"
-        self.catalogue = db[self.config['catalogue_collection_name']].find() #list of docs 
-        self.hashtable = divide_into_tiny_chunks(self,self.catalogue)
-        self.hashtable_small_chunks = divide_description_into_smaller_chunks(self.catalogue)
-        self.embedding = create_embedding(self.hashtable.keys())
-        self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
+        if(self.config['catalogue_collection_name'] in db.list_collection_names()):
+            self.catalogue = db[self.config['catalogue_collection_name']]
+            self.hashtable = divide_into_tiny_chunks(self)
+            self.hashtable_small_chunks = divide_description_into_smaller_chunks(self)
+            self.embedding = create_embedding(self.hashtable.keys())
+            self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
 
 app = MyApp(__name__)
 

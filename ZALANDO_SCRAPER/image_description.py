@@ -16,9 +16,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#import ZALANDO_SCRAPER.config as config
 import config
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -145,8 +145,8 @@ def generate_catalog_single_elem(entry):
 
 def iD_is_in_Catalogue(catalogue_name,id_to_check):
     #catalogue_name is the collection name
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -167,8 +167,8 @@ def add_to_Catalogue(catalogue_elem, catalogue_name):
     :param catalogue_elem: The element to be added.
     :param filename: Name of the JSON file to which the element is added.
     """
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -181,11 +181,11 @@ def add_to_Catalogue(catalogue_elem, catalogue_name):
 
     client.close()
 
-def generate_Catalog_and_Reference(scraped_data_collection_name, catalogue_name, reference_name):
+def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, catalogue_name, reference_name):
     item_processed = 0
 
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -224,17 +224,17 @@ def generate_Catalog_and_Reference(scraped_data_collection_name, catalogue_name,
             print(str(math.ceil(item_processed * 100 / scraped_data_length)) + "% done ")
 
 
-def process_json_files_in_folder(reference_name, catalogue_name):
+def generate_Catalog_and_Reference(reference_name, catalogue_name):
     
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    db = client["mydatabase"]
+    client = pymongo.MongoClient(config.db_uri)
+    db = client[config.db_name]
 
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
         if collection_name.startswith("data_"):
             #if collection_name in ["data_streetwear-femme.json","data_chaussures-femme.json","data_streetwear-homme.json"]:
                 print("Processing " + str(collection_name) + " ...")
-                generate_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
+                convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
 
-process_json_files_in_folder("reference8", "Catalogue1")
+generate_Catalog_and_Reference("reference8", "Catalogue1")

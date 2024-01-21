@@ -1,5 +1,5 @@
 import unittest
-from ZALANDO_SCRAPER.META.metadata_generator import * # Replace 'your_module' with the actual module name
+from metadata_generator import * 
 
 # run py -m ZALANDO_SCRAPER.META.classifier_test    at root
 def classify_othercolor(description):

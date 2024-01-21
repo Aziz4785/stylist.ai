@@ -1,7 +1,7 @@
-from SERVER.META.metadata_utils import *
+from META.metadata_utils import *
 import openai
 import re
-import config
+import config_server
 def gpt35_type_output(description):
     """
     Classify the type of a garment based on its text description.
@@ -11,7 +11,7 @@ def gpt35_type_output(description):
     prompt = f"Based on the following description, determine the garment type: Tops, Bottoms, Outerwear, Underwear, Footwear, Accessories, One-Pieces, Other, or unknown. If the garment type (or any specific garment-related terms) are not explicitly mentioned in the description, respond with 'unknown'.\n\nDescription: {description}"
 
     client = OpenAI(
-        api_key=config.OPENAI_API_KEY,
+        api_key=config_server.OPENAI_API_KEY,
     )
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -152,7 +152,7 @@ def extract_genre(text):
 #     return output.lower()
     
 def gpt35_otherColor_ouput(query):
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
 
     messages=[
             {"role": "system", "content": "You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment explicitly contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color, such as mentioning 'bi-colored' without specifying both colors, respond with 'unknown'. Avoid making assumptions based on incomplete color information."},
@@ -198,7 +198,7 @@ def gpt35_otherColor_ouput(query):
 
 def gpt35_bw_ouput(query):
     client = OpenAI(
-        api_key=config.OPENAI_API_KEY,
+        api_key=config_server.OPENAI_API_KEY,
     )
 
     # prompt_template = """You are a smart assistant. Analyze the provided garment description and determine if it explicitly mentions the colors black and/or white. Only respond with 'Black: Yes' or 'White: Yes' if these colors are directly and clearly stated in the description. If there is any ambiguity or if the colors black or white are not explicitly mentioned, respond with 'Unknown' for each color.
@@ -246,7 +246,7 @@ def gpt35_bw_ouput(query):
     return raw_answer
 
 def gpt35_genre_ouput(query):
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -260,7 +260,7 @@ def gpt35_genre_ouput(query):
     return raw_answer
 
 def gpt35_composition_output(query):
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[

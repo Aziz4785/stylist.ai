@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from SERVER.META.metadata_utils import *
+from META.metadata_utils import *
 from common_variables import *
 class IMetadataMatcher(ABC):
     @abstractmethod

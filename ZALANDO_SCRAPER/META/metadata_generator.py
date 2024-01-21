@@ -3,11 +3,22 @@ import pymongo
 from openai import OpenAI
 import re
 #import together
-from .metadata_generator_util import *
+from metadata_generator_util import *
 
 from abc import ABC, abstractmethod
 
-import config
+import sys
+import os
+
+
+zalando_scraper_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(zalando_scraper_directory)
+
+try:
+    import config
+except ModuleNotFoundError:
+    print("Failed to import config. Current sys.path:", sys.path) 
+    raise
 
 class Config:
     @staticmethod
@@ -141,8 +152,8 @@ class CompositionClassifier(ClassifierService):
     
 class JsonProcessor:
     def __init__(self,collection_name):
-        db_uri = "mongodb://localhost:27017/"
-        db_name = "mydatabase"
+        db_uri = config.db_uri
+        db_name = config.db_name
         self.is_first_entry = True
         #mongodb :
         self.client = pymongo.MongoClient(db_uri)
@@ -157,12 +168,15 @@ class JsonProcessor:
             keyvalues = handle_item(item, classifier)
             if(keyvalues):
                 for key, value in keyvalues:
-                    if key:
+                    if key and value:
                         if isinstance(value, set):
                             item[key] = ', '.join(map(str, value))
                         else:
                             item[key] = value
 
+                        self.collection.update_one({"_id": item["_id"]}, {"$set": item})
+            else:       
+                print("handle_item return null")
 
 class OtherColorClassifier(ClassifierService):
     def __init__(self, api_client):

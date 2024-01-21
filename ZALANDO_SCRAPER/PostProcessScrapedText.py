@@ -1,11 +1,10 @@
-import json
-import os
 import re
 import pymongo
+import config
 
 def remove_SeeEnvironementSpec(collection_name):
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -25,8 +24,8 @@ def remove_SeeEnvironementSpec(collection_name):
     client.close()
         
 def reduce_image_width(collection_name):
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -52,8 +51,8 @@ def reduce_image_width(collection_name):
     client.close()
 
 def add_gender_to_collection(collection_name):
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -79,8 +78,8 @@ def remove_reference(collection_name):
     # stopping at a space, comma, point, or the end of the string
     pattern = r"Reference: [^ ,.]*[ ,.]?"
 
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -99,8 +98,8 @@ def remove_reference(collection_name):
     client.close()
 
 def add_incremental_id(collection_name, last_id=0):
-    db_uri = "mongodb://localhost:27017/"
-    db_name = "mydatabase"
+    db_uri = config.db_uri
+    db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -126,15 +125,11 @@ def post_process_json_files_in_folder(db_name, operations):
     :param db_name: Name of the MongoDB database.
     :param operations: A list of functions to be applied on each qualifying collection.
     """
-    # Create a MongoDB client and connect to the database
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    client = pymongo.MongoClient(config.db_uri)
     db = client[db_name]
     last_id = 3  # Starting ID in decimal
-    # Iterate over the collections in the database
     for collection_name in db.list_collection_names():
-        # Check if the collection name starts with 'data_'
         if collection_name.startswith("data_"):
-            # Perform each operation on the collection
             for operation in operations:
                 if operation.__name__ == 'add_incremental_id':
                     last_id = operation(collection_name, last_id)

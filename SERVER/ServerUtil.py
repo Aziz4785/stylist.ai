@@ -1,22 +1,19 @@
 
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
 
 import re
 import openai
 import os
 import nltk
-from SERVER.common_variables import *
-from SERVER.META.metadata_card import *
-import sys
+from common_variables import *
+from META.metadata_card import *
 import pymongo
-import config
+import config_server
 import spacy
 from nltk.tokenize import sent_tokenize
-openai.api_key = config.OPENAI_API_KEY
-os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
+openai.api_key = config_server.OPENAI_API_KEY
+os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
 # Load spaCy's English language model
 nlp = spacy.load("en_core_web_sm")
 nltk.download('punkt')
@@ -41,8 +38,8 @@ def remove_outer_quotes(text):
     return text
 
 def filter_collection_By_Id(collection_name,list_of_ids):
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    db = client["mydatabase"]
+    client = pymongo.MongoClient(config_server.db_uri)
+    db = client[config_server.db_name]
     mongodb_collection = db[collection_name]
     filtered_docs=[]
 
@@ -55,7 +52,7 @@ def filter_collection_By_Id(collection_name,list_of_ids):
      
 def create_embedding(catalogue_chunks):
     print("creating embedding ...")
-    if(catalogue_chunks is None):
+    if(catalogue_chunks is None or len(catalogue_chunks)==0):
         return None
     embeddings = OpenAIEmbeddings()
     docsearch = FAISS.from_texts(catalogue_chunks, embeddings)
@@ -73,8 +70,8 @@ def find_product_by_id_in_collection(collection_name, product_id):
     :param product_id: The ID of the product to find.
     :return: The product with the given ID, or None if not found.
     """
-    client = pymongo.MongoClient("mongodb://localhost:27017/")
-    db = client["mydatabase"]
+    client = pymongo.MongoClient(config_server.db_uri)
+    db = client[config_server.db_name]
     mongodb_collection = db[collection_name]
 
     product_list = mongodb_collection.find()
@@ -84,10 +81,10 @@ def find_product_by_id_in_collection(collection_name, product_id):
         
     return None
 
-def divide_description_into_smaller_chunks(catalogue_data):
+def divide_description_into_smaller_chunks(app):
     print("dividing catalogue into 4 words chunks ...")
     hashtable={}
-    for item in catalogue_data:
+    for item in app.catalogue.find():
         sentences= []
         if("visual description" in item):
             sentences = extract_sentences(item["visual description"])
@@ -100,10 +97,10 @@ def divide_description_into_smaller_chunks(catalogue_data):
     print("done")
     return hashtable
 
-def divide_into_tiny_chunks(app,catalogue_data,category="unknown"):
+def divide_into_tiny_chunks(app,category="unknown"):
     print("dividing catalogue into tiny chunks the category "+str(category)+" ...")
     hashtable={}
-    for item in catalogue_data:
+    for item in app.catalogue.find():
         brand= ""
         name= ""
         details= ""
@@ -242,7 +239,7 @@ def convert_to_proper_string(items):
 
 def get_chatgpt_response(context, question, with_analysis=False):
     # Your OpenAI API key
-    openai.api_key = config.OPENAI_API_KEY
+    openai.api_key = config_server.OPENAI_API_KEY
 
     if not isinstance(context, str):
         context = convert_to_proper_string(context)
@@ -285,7 +282,7 @@ def get_all_GPT3_response(context, question, with_analysis=False):
 
 def get_GPT3_response(context, question, with_analysis=False):
     # Your OpenAI API key
-    openai.api_key = config.OPENAI_API_KEY
+    openai.api_key = config_server.OPENAI_API_KEY
 
     if not isinstance(context, str):
         context = convert_to_proper_string(context)
@@ -398,7 +395,7 @@ def create_list_of_pairs(strings_set, score):
 
 def extract_feature_words_from_query(query):
     #extract keywords from query
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[

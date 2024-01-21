@@ -1,38 +1,49 @@
-## Install a virtual environment
 
-You will need [Python3](https://www.python.org/downloads/) on your machine.
-
+## Configuration of the server
+Before running the server, you need to create a config_server.py file in the SERVER directory of the project
 ```bash
 
-# Set up a Python virtual environment
-python -m venv venv
+# Create a config_server.py file with this content
+OPENAI_API_KEY = 'your-api-key'
+db_uri = "mongodb://mongodb:27017/"
+db_name = "mydatabase"
 
-# Activate  the virtual environment
-.\venv\Scripts\activate # Windows
-source venv/bin/activate # linux
+```
+## Run the server
+```bash
+# at project root:
 
-# Install all dependencies
-pip install -r requirements.txt
+docker-compose up # add --build If you're running it for the first time or after modifying the server code
 
-# Leave the virtual environment
-deactivate
+```
+## Run the tests on server
+```bash
+# at project root:
+
+docker-compose run server python -m unittest tests/test_embedding_catalog1.py
+
 ```
 
-## Configuration
-Before running the server, you need to create a config.py file in the root directory of the project
+## Configuration of zalando scraper
+Before running the scraper, you need to create a config.py file in the ZALANDO_SCRAPER directory of the project.
 ```bash
 
 # Create a config.py file with this content
 OPENAI_API_KEY = 'your-api-key'
-```
-## Run the server
-```bash
+db_uri = "mongodb://mongodb:27017/"
+db_name = "mydatabase"
 
-py SERVER/server3.py
 ```
-## generate test report
+
+## Run the zalando scraper
 ```bash
-cd SERVER
-py -m unittest test_embedding 
+cd ZALANDO_SCRAPER/zalando_text_scraper
+py main.py
+
 ```
-the test report "test_embedding_report.json" will be generated in SERVER
+
+## shut down containers : 
+```bash
+docker-compose down
+
+```

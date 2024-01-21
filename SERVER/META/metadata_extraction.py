@@ -1,4 +1,4 @@
-from SERVER.META.metadata_extractors_util import *
+from META.metadata_extractors_util import *
 from abc import ABC, abstractmethod
 
 class IMetadataExtractor(ABC):

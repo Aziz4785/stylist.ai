@@ -1,8 +1,20 @@
 from JsonWritingStrategy import *
 import pymongo
+import os
+import sys
 
-db_uri = "mongodb://localhost:27017/"
-db_name = "mydatabase"
+zalando_scraper_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(zalando_scraper_directory)
+
+try:
+    import config
+except ModuleNotFoundError:
+    print("Failed to import config. Current sys.path:", sys.path)  
+    raise
+
+
+db_uri = config.db_uri
+db_name = config.db_name
 
 class IncrementalJsonWritingStrategy(JsonWritingStrategy):
     def __init__(self,collection_name):
