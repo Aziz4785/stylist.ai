@@ -153,39 +153,14 @@ def extract_genre(text):
     
 def gpt35_otherColor_ouput(query):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
-
     messages=[
-            {"role": "system", "content": "You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment explicitly contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color, such as mentioning 'bi-colored' without specifying both colors, respond with 'unknown'. Avoid making assumptions based on incomplete color information."},
-            {"role": "user", "content": "a 100% cotton blue shirt"},
-            {"role": "assistant", "content": """yes"""},      
-            {"role": "user", "content": "a jacket having a colored french flag on one of the sleeve"},
-            {"role": "assistant", "content": """yes"""},  
-            {"role": "user", "content": "I want to buy full black shoes"},
-            {"role": "assistant", "content": """no"""},  
-            {"role": "user", "content": "black and white t-shirt (slim fit)"},
-            {"role": "assistant", "content": """no"""},  
-            {"role": "user", "content": "a pullover with white sleeves"},
-            {"role": "assistant", "content": """unknown"""},  
-            {"role": "user", "content": "shoes that can match with a brown trousers"},
-            {"role": "assistant", "content": """unknown"""},  
-            {"role": "user", "content": "something Kanye West could wear"},
-            {"role": "assistant", "content": """unknown"""},  
-            {"role": "user", "content": "do you have some vintage dark colored jacket ? "},
-            {"role": "assistant", "content": """unknown"""},  
-            {"role": "user", "content": "a red polka dot dress"},
-            {"role": "assistant", "content": "yes"},
-            {"role": "user", "content": "a grey suit"},
-            {"role": "assistant", "content": "yes"},
-            {"role": "user", "content": "striped socks in black and white"},
-            {"role": "assistant", "content": "no"},
-            {"role": "user", "content": "a tie with a black base and white stripes"},
-            {"role": "assistant", "content": "no"},
-            {"role": "user", "content": "a pink scarf"},
-            {"role": "assistant", "content": "yes"},
+            {"role": "system", "content": "You are a helpful assistant. Your primary task is to determine whether the garment described here contains a color other than black and white. Respond 'yes' only if the garment explicitly contains a color other than black and white. Respond 'no' if it explicitly states the garment is only black, white, or a combination of these two colors. If the description is ambiguous about color, respond with 'unknown'. Avoid making assumptions based on incomplete color information."},
             {"role": "user", "content": query}
              ]
+    #"ft:gpt-3.5-turbo-0613:personal::8jat2dog"
+    #ft:gpt-3.5-turbo-0613:personal::8jl55SvW 
     response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="ft:gpt-3.5-turbo-0613:personal::8jm3Rzek",
             temperature=0.7,
             top_p=1,
             messages=messages,

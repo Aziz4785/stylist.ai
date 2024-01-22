@@ -1,10 +1,16 @@
 import unittest
-from SERVER.META.metadata_card import *
-from SERVER.META.metadata_extraction import *
+
+import sys
+import os
+
+server_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..'))
+sys.path.append(server_directory)
+
+from META.metadata_card import *
+from META.metadata_extraction import *
 
 class TestIndividualExtractors(unittest.TestCase):
     
-#TO RUN THIS FILE DO :  py -m SERVER.META.tests.extractors_test at root
     def test_material_from_query(self):
         test_cases = [
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", {"unknown"},{"unknown"}),
@@ -82,6 +88,7 @@ class TestIndividualExtractors(unittest.TestCase):
      
     def test_colorblackwhite(self):
         # List of pairs (description, expected garment type)
+        print("testing black white extractor")
         test_cases = [
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", ["unknown","unknown"]),
             ("an item for men (but not trousers/pants) with the norwegian flag on it",["unknown","yes"]),
@@ -347,10 +354,10 @@ class TestIndividualExtractors(unittest.TestCase):
                 self.assertTrue(result==expected)
 
 if __name__ == '__main__':
-    # suite = unittest.TestSuite()
-    # suite.addTest(TestIndividualExtractors('test_genre'))
-    # runner = unittest.TextTestRunner()
-    # runner.run(suite)
+    suite = unittest.TestSuite()
+    suite.addTest(TestIndividualExtractors('test_colorblackwhite'))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
 
     #if you want to run all the tests, uncomment this and comment all the block above:
-    unittest.main()
+    #unittest.main()
