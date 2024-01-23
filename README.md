@@ -47,3 +47,18 @@ py main.py
 docker-compose down
 
 ```
+
+## Export the mongodatabase (from container to local machine)
+```bash
+# at project root:
+
+docker ps #to get ids of containers
+
+docker exec -it <mongodb_container_id> bash #enter inside the container
+
+mongodump --uri "mongodb://localhost:27017/" --db <db_name> --out /dump #create a dump of the "mydatabase" database and place it in the /dump directory inside the container.
+
+exit #exit the container
+
+docker cp <mongodb_container_name>:/dump ./dump # Copy the Dump to Your Host Machine
+```

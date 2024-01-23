@@ -78,15 +78,21 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
             })
         else:
             print(f"Invalid or inaccessible URL: {img_url}")
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4-vision-preview",
+            messages=messages,
+            max_tokens=180,
+        )
+
+        return response.choices[0].message.content
     
-    response = client.chat.completions.create(
-        model="gpt-4-vision-preview",
-        messages=messages,
-        max_tokens=180,
-    )
-
-    return response.choices[0].message.content
-
+    except openai.BadRequestError as e:
+        # Handle the error here
+        print("An error occurred: ", e)
+        return None
+    
 def encode_imagesURLS(images_urls):
     encoded_images = []
     try:
@@ -124,8 +130,8 @@ def generate_catalog_single_elem(entry):
     components = [name, brand, composition, details]
     total = " \n ".join([comp for comp in components if comp])
 
-    #description = describe_clothing_multi(name, brand, total, images)
-    description = "test description"
+    description = describe_clothing_multi(name, brand, total, images)
+    #description = "test description"
     elem = {}
     if id:
         elem["id"] = id
@@ -232,7 +238,7 @@ def generate_Catalog_and_Reference(reference_name, catalogue_name):
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
         if collection_name.startswith("data_"):
-            #if collection_name in ["data_streetwear-femme.json","data_chaussures-femme.json","data_streetwear-homme.json"]:
+            if collection_name in {"data_luxe-homme"}:
                 print("Processing " + str(collection_name) + " ...")
                 convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  

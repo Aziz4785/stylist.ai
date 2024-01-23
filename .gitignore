@@ -13,5 +13,6 @@ ZALANDO_SCRAPER/zalando_text_scraper/__pycache__/
 SERVER/test.txt
 .idea/
 .history/
+dump/
 ZALANDO_SCRAPER/data_from_site/genre_script.py
 SERVER/playground.py
