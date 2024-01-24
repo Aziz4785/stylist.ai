@@ -1,4 +1,5 @@
 
+[![Big picture of the project](https://github.com/Aziz4785/stylist.ai/blob/master/bigpicture.jpg)](https://github.com/Aziz4785/stylist.ai/blob/master/bigpicture.jpg)
 ## Configuration of the server
 Before running the server, you need to create a config_server.py file in the SERVER directory of the project
 ```bash
@@ -30,7 +31,7 @@ Before running the scraper, you need to create a config.py file in the ZALANDO_S
 
 # Create a config.py file with this content
 OPENAI_API_KEY = 'your-api-key'
-db_uri = "mongodb://mongodb:27017/"
+db_uri = "mongodb://localhost:27017/"
 db_name = "mydatabase"
 
 ```

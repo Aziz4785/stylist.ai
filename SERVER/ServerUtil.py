@@ -97,8 +97,8 @@ def divide_description_into_smaller_chunks(app):
     print("done")
     return hashtable
 
-def divide_into_tiny_chunks(app,category="unknown"):
-    print("dividing catalogue into tiny chunks the category "+str(category)+" ...")
+def divide_into_tiny_chunks(app):
+    print("dividing catalogue into tiny chunks  ...")
     hashtable={}
     for item in app.catalogue.find():
         brand= ""
@@ -374,7 +374,7 @@ def chunk_sentence(s, chunk_size=4, slide=2):
 
     return chunks
 
-def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=24):
+def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=30):
     sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
     print("20 first sorted docs : ")
     print(sorted_docs[:20])

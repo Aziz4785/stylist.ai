@@ -20,8 +20,6 @@ from META.metadata_matching import *
 
 from ServerUtil import *
 
-# run docker exec -it d2d67708437c python -m unittest /server/tests/test_embedding_catalog1.py  OR  docker-compose run (ou exec jsp plus) server python -m unittest tests/test_embedding_catalog1.py
-
 def compute_precision(actual_id_set,expected_id_set):
     tp = len(actual_id_set.intersection(expected_id_set)) 
 
