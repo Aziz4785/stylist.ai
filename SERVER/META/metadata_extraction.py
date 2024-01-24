@@ -25,6 +25,6 @@ class OtherColorExtractor(IMetadataExtractor):
         return extract_otherColor(gpt35_otherColor_ouput(query))
         #return extract_otherColor(starling_otherColor_ouput(query))
     
-class GenreExtractor(IMetadataExtractor):
+class GenderExtractor(IMetadataExtractor):
     def extract(self, query):
-        return extract_genre(gpt35_genre_ouput(query))
+        return extract_gender(gpt35_gender_ouput(query))

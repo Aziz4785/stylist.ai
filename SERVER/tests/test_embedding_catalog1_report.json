@@ -1,0 +1,32 @@
+{
+    "average_precision": 1.0,
+    "average_precision_simple": 1.0,
+    "average_precision_dy1": 1.0,
+    "average_precision_long": 1.0,
+    "test_results": [
+        {
+            "query": "blue and white shoes",
+            "precision": 1.0,
+            "catalogue_used": "catalogue1",
+            "query_formulation": "simple"
+        },
+        {
+            "query": "do you have blue and white shoes ? ",
+            "precision": 1.0,
+            "catalogue_used": "catalogue1",
+            "query_formulation": "dy1"
+        },
+        {
+            "query": "I'm looking for Nike shoes where the Nike logo is clearly visible, but I don't want the logo to be a solid color, I want the logo to be filled with a colorful pattern.",
+            "precision": 1.0,
+            "catalogue_used": "catalogue1",
+            "query_formulation": "long"
+        },
+        {
+            "query": "a simple men's jeans without any pattern, and not ripped",
+            "precision": 1.0,
+            "catalogue_used": "catalogue1",
+            "query_formulation": "simple"
+        }
+    ]
+}

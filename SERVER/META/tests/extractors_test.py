@@ -243,8 +243,8 @@ class TestIndividualExtractors(unittest.TestCase):
                     print()
                 self.assertTrue(result==expected)
     
-    def test_genre(self):
-        print("testing genre...")
+    def test_gender(self):
+        print("testing gender...")
         print()
         test_cases = [
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", "unknown"),
@@ -342,7 +342,7 @@ class TestIndividualExtractors(unittest.TestCase):
 
         for description, expected in test_cases:
             with self.subTest(description=description):
-                extractor = GenreExtractor()
+                extractor = GenderExtractor()
                 result = extractor.extract(description)
                 if(result != expected):
                     print()

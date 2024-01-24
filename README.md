@@ -13,15 +13,15 @@ db_name = "mydatabase"
 ```bash
 # at project root:
 
-docker-compose up # add --build If you're running it for the first time or after modifying the server code
-
+docker-compose up server # add --build after "up" If you're running it for the first time or after modifying the server code
+#and wait ...
 ```
 ## Run the tests on server
 ```bash
 # at project root:
 
-docker-compose run server python -m unittest tests/test_embedding_catalog1.py
-
+docker-compose up test # add --build after "up" If you're running it for the first time or after modifying the test
+#and wait ...
 ```
 
 ## Configuration of zalando scraper

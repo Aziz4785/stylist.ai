@@ -114,7 +114,7 @@ def extract_otherColor(text):
     else:
         return "unknown"
     
-def extract_genre(text):
+def extract_gender(text):
     pattern_men = r'\bmen\b'
     pattern_women = r'\bwomen\b'
     pattern_unknown = r'\bunknown\b'
@@ -220,7 +220,7 @@ def gpt35_bw_ouput(query):
 
     return raw_answer
 
-def gpt35_genre_ouput(query):
+def gpt35_gender_ouput(query):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",

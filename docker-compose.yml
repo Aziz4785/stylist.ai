@@ -35,6 +35,17 @@ services:
     networks:
       - mynetwork
 
+  test:
+    build: ./SERVER
+    volumes:
+      - ./SERVER:/server
+    command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
+    #command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
+    depends_on:
+      - mongodb
+    networks:
+      - mynetwork
+
 volumes:
   mongodb_data:
 

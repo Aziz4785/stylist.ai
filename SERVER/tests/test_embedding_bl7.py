@@ -112,27 +112,27 @@ class MyTest(TestCase):
         composition_extractor = CompositionExtractor()
         bw_extractor = BlackWhiteExtractor()
         otherColor_extrator =OtherColorExtractor()
-        genre_extractor = GenreExtractor()
+        gender_extractor = GenderExtractor()
 
         type_matcher = TypeMatcher()
         composition_matcher = CompositionMatcher()
         bw_matcher = BlackWhiteMatcher()
         otherColor_matcher = OtherColorMatcher()
-        genre_matcher= GenreMatcher()
+        gender_matcher= GenderMatcher()
         # Step 2: Create a MetaDataCard with these extractors
         extractors = {
             "type": type_extractor,
             "composition": composition_extractor,
             "blackwhite": bw_extractor,
             "otherColor": otherColor_extrator,
-            "genre": genre_extractor
+            "gender": gender_extractor
         }
         matchers = {
             "type": type_matcher,
             "composition": composition_matcher,
             "blackwhite": bw_matcher,
             "otherColor": otherColor_matcher,
-            "genre": genre_matcher
+            "gender": gender_matcher
         }
         matching_controller = MetadataMatchingController(matchers)
 

@@ -110,7 +110,7 @@ def generate_catalog_single_elem(entry):
         catalogue elem has this format :
         {
         "id": <id>,
-        "genre": <genre>
+        "gender": <gender>
         "name of the product : "", 
         "brand" :, 
         details about that item : "", 
@@ -121,7 +121,7 @@ def generate_catalog_single_elem(entry):
     #encoded_images = encode_imagesURLS(images)
 
     id = entry.get("id")
-    genre = entry.get("genre")
+    gender = entry.get("gender")
     name = entry.get("name")
     brand = entry.get("brand")
     composition = entry.get("composition and care (en)")
@@ -135,8 +135,8 @@ def generate_catalog_single_elem(entry):
     elem = {}
     if id:
         elem["id"] = id
-    if genre:
-        elem["genre"] = genre
+    if gender:
+        elem["gender"] = gender
     if name:
         elem["name of the product"] = name
     if brand:

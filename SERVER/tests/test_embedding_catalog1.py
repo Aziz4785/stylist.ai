@@ -3,8 +3,11 @@ from flask_testing import TestCase
 import sys
 import os
 
-server_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(server_directory)
+# server_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(server_directory)
+
+server_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, server_directory)
 
 from server3 import app  
 import json
@@ -20,21 +23,15 @@ from ServerUtil import *
 # run docker exec -it d2d67708437c python -m unittest /server/tests/test_embedding_catalog1.py  OR  docker-compose run (ou exec jsp plus) server python -m unittest tests/test_embedding_catalog1.py
 
 def compute_precision(actual_id_set,expected_id_set):
-    # True Positives (TP): Items in the actual set that are also in the expected set
-    tp = len(actual_id_set.intersection(expected_id_set))
+    tp = len(actual_id_set.intersection(expected_id_set)) 
 
     precision = 1
     # Calculate precision
     if(len(expected_id_set))>0 and len(actual_id_set)>0:
         precision = tp / min(len(actual_id_set),len(expected_id_set))
+    elif len(expected_id_set)>0:
+        return 0
     return precision
-
-def extract_id_from_response(data):
-    ans = []
-    for elem in data:
-        ans.append(elem['id'])
-    return ans
-
 
 class MyTest(TestCase):
     test_results = []
@@ -50,15 +47,30 @@ class MyTest(TestCase):
         total_precision = sum(result['precision'] for result in cls.test_results)
         average_precision = total_precision / len(cls.test_results) if cls.test_results else 0
 
-        total_precision_simple = sum(result['precision'] for result in cls.test_results if result['query_formulation'] == "simple")
-        count_simple_results = sum(1 for result in cls.test_results if result['query_formulation'] == "simple")
-        average_precision_simple = total_precision_simple / count_simple_results if count_simple_results else 0
-
         report_data = {
             "average_precision": average_precision,
-            "average_precision (simple queries)": average_precision_simple,
-            "test_results": cls.test_results
         }
+
+        formulation_precisions = {}
+        for result in cls.test_results:
+            formulation = result['query_formulation']
+            precision = result['precision']
+            if formulation not in formulation_precisions:
+                formulation_precisions[formulation] = {'total_precision': 0, 'count': 0}
+            formulation_precisions[formulation]['total_precision'] += precision
+            formulation_precisions[formulation]['count'] += 1
+
+        for formulation, data in formulation_precisions.items():
+            average_precision_key = f"average_precision_{formulation}"
+
+            if data['count']>0:
+                average = data['total_precision'] / data['count']
+            else:
+                print("data['count'] == 0 and it shouldn't")
+
+            report_data[average_precision_key] = average
+
+        report_data["test_results"] = cls.test_results
         with open('tests/test_embedding_catalog1_report.json', 'w', encoding='utf-8') as file:
             json.dump(report_data, file, indent=4, ensure_ascii=False)
 
@@ -74,9 +86,6 @@ class MyTest(TestCase):
         print()
         print()
         print()
-        print()
-        print()
-        print()
         print("user input : "+user_input)
 
         # Step 2: Create a MetaDataCard with these extractors
@@ -85,14 +94,14 @@ class MyTest(TestCase):
             "composition": CompositionExtractor(),
             "blackwhite": BlackWhiteExtractor(),
             "otherColor": OtherColorExtractor(),
-            "genre": GenreExtractor()
+            "gender": GenderExtractor()
         }
         matchers = {
             "type": TypeMatcher(),
             "composition": CompositionMatcher(),
             "blackwhite": BlackWhiteMatcher(),
             "otherColor": OtherColorMatcher(),
-            "genre": GenreMatcher()
+            "gender": GenderMatcher()
         }
         matching_controller = MetadataMatchingController(matchers)
 
@@ -112,7 +121,7 @@ class MyTest(TestCase):
             print(meta_filtered_docs[:5])
             k*=2
         
-        actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=24)
+        actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=30)
         #each elem of actual_ids_pairs looks like this :('#I00026b', 0.39710677)
         print(" the returned ids from get_topK_uniqueIds_from_docs : ")
         actual_ids= [pair[0] for pair in actual_ids_pairs]
@@ -134,6 +143,21 @@ class MyTest(TestCase):
     
     
     def test_1(self):
-        user_input = "a blue shirt"
-        expected_ids = ["#I000257","#I00025d","#I000276","#I000237","#I0001f8"]
+        user_input = "blue and white shoes"
+        expected_ids = ["#I0001ed","#I0000f4"]
+        self.run_test_case(user_input, expected_ids, "simple")
+
+    def test_2(self):
+        user_input = "do you have blue and white shoes ? "
+        expected_ids = ["#I0001ed","#I0000f4"]
+        self.run_test_case(user_input, expected_ids, "dy1")
+
+    def test_3(self):
+        user_input = """I'm looking for Nike shoes where the Nike logo is clearly visible, but I don't want the logo to be a solid color, I want the logo to be filled with a colorful pattern."""
+        expected_ids = ["#I00041b"]
+        self.run_test_case(user_input, expected_ids, "long")
+
+    def test_4(self):
+        user_input = "a simple men's jeans without any pattern, and not ripped"
+        expected_ids = ["#I000341"]
         self.run_test_case(user_input, expected_ids, "simple")
