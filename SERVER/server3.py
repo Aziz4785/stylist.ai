@@ -38,34 +38,22 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
-    type_extractor = TypeExtractor()
-    composition_extractor = CompositionExtractor()
-    bw_extractor = BlackWhiteExtractor()
-    otherColor_extrator =OtherColorExtractor()
-    gender_extractor = GenderExtractor()
-
-    type_matcher = TypeMatcher()
-    composition_matcher = CompositionMatcher()
-    bw_matcher = BlackWhiteMatcher()
-    otherColor_matcher = OtherColorMatcher()
-    gender_matcher= GenderMatcher()
-    
     extractors = {
-        "type": type_extractor,
-        "composition": composition_extractor,
-        "blackwhite": bw_extractor,
-        "otherColor": otherColor_extrator,
-        "gender": gender_extractor
-    }
+            "type": TypeExtractor(),
+            "composition": CompositionExtractor(),
+            "blackwhite": BlackWhiteExtractor(),
+            "otherColor": OtherColorExtractor(),
+            "gender": GenderExtractor()
+        }
     matchers = {
-        "type": type_matcher,
-        "composition": composition_matcher,
-        "blackwhite": bw_matcher,
-        "otherColor": otherColor_matcher,
-        "gender": gender_matcher
+        "type": TypeMatcher(),
+        "composition": CompositionMatcher(),
+        "blackwhite": BlackWhiteMatcher(),
+        "otherColor": OtherColorMatcher(),
+        "gender": GenderMatcher()
     }
     matching_controller = MetadataMatchingController(matchers)
-    
+
     metadata_card = MetaDataCard(extractors)
 
     user_input = request.form['query']
@@ -74,27 +62,18 @@ def process():
     print("metadata of the user input : ")
     print(metadata_card)
     separated_user_input = separate_sentence(user_input)
-    feature_words = extract_feature_words_from_query(user_input).split(',')
-    most_important_word = feature_words[0]
-    if(len(feature_words)>1 and most_important_word.lower() in {"white","black","men","women","for men","for women"} ):
-        most_important_word = feature_words[1]
-
     meta_filtered_docs=[]
     k=60
     while(len(meta_filtered_docs)<20 and k<1000):
-        docs_similar_to_feature_words = get_similar_docs_from_small_embedding(app,most_important_word)
         separated_user_input=['','']
         docs_with_score = get_similar_doc_for_separated_input(app,app.embedding, user_input,separated_user_input,k=k)
         meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
-        meta_filtered_feature_words_docs = filter_docs(app,docs_similar_to_feature_words,metadata_card,matching_controller)
         print("first 5 docs after meta filtering : ")
         #meta_filtered_docs is a list of (doc,score)
         print(meta_filtered_docs[:5])
-        print("best 40 docs similar to feature words : ")
-        print(meta_filtered_feature_words_docs[:40])
         k*=2
 
-    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=24)
+    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=30)
     actual_ids= [pair[0] for pair in actual_ids_pairs]
 
     

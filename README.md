@@ -1,5 +1,8 @@
 
 [![Big picture of the project](https://github.com/Aziz4785/stylist.ai/blob/master/bigpicture.jpg)](https://github.com/Aziz4785/stylist.ai/blob/master/bigpicture.jpg)
+
+link to edit the image : https://drive.google.com/file/d/1DSfWRgtU-0kk6xvRn2hk7EyXIFcfVX89/view?usp=sharing
+
 ## Configuration of the server
 Before running the server, you need to create a config_server.py file in the SERVER directory of the project
 ```bash
@@ -46,6 +49,13 @@ py main.py
 ## shut down containers : 
 ```bash
 docker-compose down
+
+```
+
+## Import the mongodatabase (from local machine to container)
+```bash
+# at project root:
+mongorestore --uri "mongodb://localhost:27017/" /path/to/dump_on_your_local_machine
 
 ```
 
