@@ -1,4 +1,4 @@
-from JsonWritingStrategy import *
+from .WritingStrategy import *
 import pymongo
 import os
 import sys
@@ -16,15 +16,13 @@ except ModuleNotFoundError:
 db_uri = config.db_uri
 db_name = config.db_name
 
-class IncrementalJsonWritingStrategy(JsonWritingStrategy):
+class IncrementalWritingStrategy(WritingStrategy):
     def __init__(self,collection_name):
-        self.is_first_entry = True
-        #mongodb :
         self.client = pymongo.MongoClient(db_uri)
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
-    def write_json(self, data):
+    def write(self, data):
         #mongodb :
           # Assuming 'data' is a dictionary or a list of dictionaries
         if isinstance(data, dict):
@@ -35,7 +33,7 @@ class IncrementalJsonWritingStrategy(JsonWritingStrategy):
             raise ValueError("Data is neither a dictionary nor a list of dictionaries")
 
 
-class BatchJsonWritingStrategy(JsonWritingStrategy):
+class BatchWritingStrategy(WritingStrategy):
     """
     to be implemented...
     """
@@ -43,6 +41,6 @@ class BatchJsonWritingStrategy(JsonWritingStrategy):
         self.batch_size = batch_size
         self.batch_data = []
 
-    def write_json(self, data):
+    def write(self, data):
         self.batch_data.append(data)
         

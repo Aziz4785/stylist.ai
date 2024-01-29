@@ -113,6 +113,7 @@ def generate_catalog_single_elem(entry):
         "gender": <gender>
         "name of the product : "", 
         "brand" :, 
+        "materials" :,
         details about that item : "", 
         visual description : ""
         }
@@ -141,8 +142,10 @@ def generate_catalog_single_elem(entry):
         elem["name of the product"] = name
     if brand:
         elem["brand"] = brand
-    if composition or details:
-        elem["details about that item"] = " \n ".join(filter(None, [composition, details]))
+    if composition:
+        elem["materials"] = composition
+    if details:
+        elem["details about that item"] = details
     if description:
         elem["visual description"] = description
 
