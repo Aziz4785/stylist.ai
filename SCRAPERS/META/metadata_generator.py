@@ -27,20 +27,6 @@ class Config:
     def get_MISTRAL_api_key():
         return config.TOGETHER_API_KEY
 
-# class MistralClient:
-#     def __init__(self):
-#         together.api_key = Config.get_MISTRAL_api_key()
-#     def query(self, prompt):
-#         output = together.Complete.create(
-#             prompt = prompt, 
-#             model = "mistralai/Mixtral-8x7B-Instruct-v0.1", 
-#             max_tokens = 50,
-#             temperature = 0.7,
-#             top_p = 1,
-#             stop = ['<human>']
-#             )
-#         return output['output']['choices'][0]['text'].lower()
-
 class OpenAIClient:
     def __init__(self):
         self.api_key = Config.get_OPENAI_api_key()
@@ -154,8 +140,6 @@ class JsonProcessor:
     def __init__(self,collection_name):
         db_uri = config.db_uri
         db_name = config.db_name
-        self.is_first_entry = True
-        #mongodb :
         self.client = pymongo.MongoClient(db_uri)
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
@@ -176,7 +160,7 @@ class JsonProcessor:
 
                         self.collection.update_one({"_id": item["_id"]}, {"$set": item})
             else:       
-                print("handle_item return null")
+                print("handle_item returns null")
 
 class OtherColorClassifier(ClassifierService):
     def __init__(self, api_client):
@@ -227,6 +211,9 @@ def handle_composition(item, classifier):
                 part1 = details_parts[0].strip()
                 classification = classifier.classify(part1)
                 return [('composition', classification)]
+            else:
+                classification = classifier.classify(details)
+                return [('composition', classification)]
     return [(None, None)]
 
 def handle_bw(item,classifier):
@@ -247,7 +234,6 @@ def handle_otherColor(item,classifier):
     return [(None, None)]
 
 if __name__ == '__main__':
-    #RUN py -m ZALANDO_SCRAPER.META.metadata_generator at root
     print("modifiying Catalog ...")
     api_client = OpenAIClient()
 
@@ -265,6 +251,7 @@ if __name__ == '__main__':
 
     print("Classifying bw...")
     json_processor.process(bw_classifier, handle_bw)
+
     print("classfiying other color...")
     json_processor.process(otherColor_classifier, handle_otherColor)
 

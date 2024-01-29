@@ -81,21 +81,21 @@ def find_product_by_id_in_collection(collection_name, product_id):
         
     return None
 
-def divide_description_into_smaller_chunks(app):
-    print("dividing catalogue into 4 words chunks ...")
-    hashtable={}
-    for item in app.catalogue.find():
-        sentences= []
-        if("visual description" in item):
-            sentences = extract_sentences(item["visual description"])
-        for sentence in sentences:
-            chunks = chunk_sentence(sentence, chunk_size=5, slide=3)
-            for chunk in chunks:
-                if(chunk not in hashtable):
-                    hashtable[chunk] = set()
-                hashtable[chunk].add(item["id"])  
-    print("done")
-    return hashtable
+# def divide_description_into_smaller_chunks(app):
+#     print("dividing catalogue into 4 words chunks ...")
+#     hashtable={}
+#     for item in app.catalogue.find():
+#         sentences= []
+#         if("visual description" in item):
+#             sentences = extract_sentences(item["visual description"])
+#         for sentence in sentences:
+#             chunks = chunk_sentence(sentence, chunk_size=5, slide=3)
+#             for chunk in chunks:
+#                 if(chunk not in hashtable):
+#                     hashtable[chunk] = set()
+#                 hashtable[chunk].add(item["id"])  
+#     print("done")
+#     return hashtable
 
 def divide_into_tiny_chunks(app):
     print("dividing catalogue into tiny chunks  ...")
@@ -121,6 +121,11 @@ def divide_into_tiny_chunks(app):
             if details not in hashtable:
                 hashtable[details] = set()
             hashtable[details].add(item["id"])
+        if("materials" in item):
+            materials = item["materials"]
+            if materials not in hashtable:
+                hashtable[materials] = set()
+            hashtable[materials].add(item["id"])
 
         name_key = name +" "+brand
         if name_key not in hashtable:
@@ -131,47 +136,11 @@ def divide_into_tiny_chunks(app):
         hashtable[name_key].add(item["id"])
         hashtable[brand].add(item["id"])
 
-        details_parts = details.split('\n')
-        if(len(details_parts)>=2):
-            part1 = details_parts[0].strip()
-            part2 = details_parts[1].strip()
-            if part1 not in hashtable:
-                hashtable[part1] = set()
-            if part2 not in hashtable:
-                hashtable[part2] = set()
-            hashtable[part1].add(item["id"])
-            hashtable[part2].add(item["id"])
-            material_index = part1.find("Material:")
-            if material_index != -1:
-                composition_part1 = part1[:material_index].strip()
-                composition_part2 = part1[material_index:].strip()
-                if composition_part1 not in hashtable:
-                    hashtable[composition_part1] = set()
-                if composition_part2 not in hashtable:
-                    hashtable[composition_part2] = set()
-                hashtable[composition_part1].add(item["id"])
-                hashtable[composition_part2].add(item["id"])
-
         for sentence in sentences:
-            #sentence_without_noun = separate_sentence(sentence)[1] #comment this
             if(sentence not in hashtable):
                 hashtable[sentence] = set()
-
             hashtable[sentence].add(item["id"])
-            #if(sentence.count(',')==3):
-                #separated_sentence = split_at_third_comma(sentence)
-                #part1 = separated_sentence[0]
-                #part2 = separated_sentence[1]
-                #if(part1 not in hashtable):
-                # hashtable[part1] = set()
-                #if(part2 not in hashtable):
-                # hashtable[part2] = set()
-                #hashtable[part1].add(item["id"])
-                #hashtable[part2].add(item["id"])
-            #if(sentence_without_noun != ''):
-                #if(sentence_without_noun not in hashtable):
-                    #hashtable[sentence_without_noun] = set()
-                #hashtable[sentence_without_noun].add(item["id"])
+           
 
         
     print("done")
