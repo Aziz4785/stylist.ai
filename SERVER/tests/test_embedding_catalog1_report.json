@@ -1,6 +1,6 @@
 {
-    "average_precision": 1.0,
-    "average_precision_simple": 1.0,
+    "average_precision": 0.75,
+    "average_precision_simple": 0.5,
     "average_precision_dy1": 1.0,
     "average_precision_long": 1.0,
     "test_results": [
@@ -24,7 +24,7 @@
         },
         {
             "query": "a simple men's jeans without any pattern, and not ripped",
-            "precision": 1.0,
+            "precision": 0.0,
             "catalogue_used": "catalogue1",
             "query_formulation": "simple"
         }

@@ -115,6 +115,7 @@ def generate_catalog_single_elem(entry):
         "name of the product : "", 
         "brand" :, 
         "materials" : ,
+        source : forever21,
         details about that item : "", 
         visual description : ""
         }
@@ -151,7 +152,7 @@ def generate_catalog_single_elem(entry):
         elem["materials"] = composition
     if description:
         elem["visual description"] = details + '\n' +description
-
+    elem["source"] = "forever21"
     return elem
 
 def generate_reference_single_elem(scraped_data_doc):

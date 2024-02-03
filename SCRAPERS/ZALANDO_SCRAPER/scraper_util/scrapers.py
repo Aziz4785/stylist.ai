@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 #from translate import Translator
 from deep_translator import GoogleTranslator
-
+from .dal import *
 class ProductPageScraper:
     """
     Class dedicated to scraping individual product pages.
@@ -228,7 +228,14 @@ class LuxeProductPageScraper(ProductPageScraper):
 #             print(f"product details not found for URL: {url}")
         
 #         return product_details_text
-    
+
+def add_hardcoded_metadata(product_data,type="-",gender="-"):
+    if(type!="-"):
+        product_data["type"]=type
+    if(gender!="-"):
+        product_data["gender"]=gender
+    return product_data
+  
 class Scraper:
     """
     Base class for all scrapers.
@@ -240,7 +247,7 @@ class Scraper:
         self.json_strategy = json_strategy
         self.product_page_scraper = ProductPageScraper(self.driver)
 
-    def extract_links_from_page(self,only_half=False):
+    def extract_links_from_whole_page(self):
         unique_links = set()
         item_divs = self.driver.find_elements(By.XPATH, "//div[contains(@class, '_5qdMrS w8MdNG cYylcv BaerYO _75qWlu iOzucJ JT3_zV _Qe9k6')]")
         for div in item_divs:
@@ -254,13 +261,8 @@ class Scraper:
             for link in links:
                 href = link.get_attribute('href')
                 if href:
-                    unique_links.add(href)
-
-        if(only_half):
-            set_to_list = list(unique_links)
-            midpoint = len(set_to_list) // 2
-            first_half = set_to_list[:midpoint]
-            return set(first_half)
+                    if not inReference("reference8",href):
+                        unique_links.add(href)
         
         return unique_links
     
@@ -273,7 +275,7 @@ class Scraper:
         except Exception as e:
             pass
     
-    def go_to_next_page(self, current_page, max_pages):
+    def go_to_next_page(self):
         try:
             WebDriverWait(self.driver, 5).until(
                 EC.presence_of_element_located((By.XPATH, "//a[@title='page suivante']"))
@@ -283,41 +285,44 @@ class Scraper:
             time.sleep(4)
             return True
         except Exception as e:
-            print(f"Could not find the next page button or reached page {max_pages}, stopping. Error: {e}")
+            print(f"Could not find the next page button  Error: {e}")
             return False
         
-    def collect_links_from_pages(self, max_pages, half_for_last_page =False):
+    def collect_links_from_pages(self, nbr_items=20):
         all_unique_links = set()
         current_page = 1
 
         self.driver.get(self.url)
         time.sleep(2)
-
-        while current_page <= max_pages:
+        while len(all_unique_links) < nbr_items and current_page<10:
+            print("so far we've collected : "+str(len(all_unique_links))+" links which is less than "+str(nbr_items))
             # Extract links from the current page
-            half_for_last_page=False
-            if(current_page==max_pages):
-                half_for_last_page = True
-            all_unique_links.update(self.extract_links_from_page(half_for_last_page))
+            all_unique_links.update(self.extract_links_from_whole_page())
 
             if not self.cookies_accepted:
                 self.accept_cookies()
 
-            if not self.go_to_next_page(current_page, max_pages):
-                break
+            if(len(all_unique_links) < nbr_items):
+                if not self.go_to_next_page():
+                    break
 
             current_page += 1
+        if(len(all_unique_links) > nbr_items ):
+            my_list = list(all_unique_links)
+
+            my_list = my_list[:nbr_items]
+
+            # Convert the list back to a set
+            all_unique_links = set(my_list)
 
         print(f"Total unique links extracted: {len(all_unique_links)}")
         return all_unique_links
     
-    def scrape(self, max_pages,half_of_last_page):
-        #if half_for_last is True, max_pages = n, and we have m items per page then
-        # the total nunmber of scraped items will be  ((n-1)*m)+(m/2)
-        #if half_for_last is False, total nbr of items = n*m
-        all_unique_links = self.collect_links_from_pages(max_pages, half_for_last_page = half_of_last_page)
+    def scrape(self, nbr_items=20,type="-",gender="-"):
+        all_unique_links = self.collect_links_from_pages(nbr_items=nbr_items)#len(all_unique_links) ~<= nbr_items
         for i, href in enumerate(all_unique_links):
             product_data = self.product_page_scraper.scrap_product_page(href)
+            product_data = add_hardcoded_metadata(product_data,type=type,gender=gender)
             self.json_strategy.write_json(product_data)
 
 

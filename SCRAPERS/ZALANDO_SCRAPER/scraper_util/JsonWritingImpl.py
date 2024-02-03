@@ -1,4 +1,4 @@
-from JsonWritingStrategy import *
+from .JsonWritingStrategy import *
 import pymongo
 import os
 import sys
