@@ -1,4 +1,4 @@
-from scrapers import ShoesScraper,LuxeScraper,StreetwearScraper,ModeScraper,Scraper
+from .scrapers import ShoesScraper,LuxeScraper,StreetwearScraper,ModeScraper,Scraper
 class ScraperFactory:
     """
     Factory for creating scrapers based on URL.

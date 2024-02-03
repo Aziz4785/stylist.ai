@@ -114,6 +114,7 @@ def generate_catalog_single_elem(entry):
         "name of the product : "", 
         "brand" :, 
         "materials" :,
+        source : zalando,
         details about that item : "", 
         visual description : ""
         }
@@ -148,7 +149,8 @@ def generate_catalog_single_elem(entry):
         elem["details about that item"] = details
     if description:
         elem["visual description"] = description
-
+    
+    elem["source"]="zalando"
     return elem
 
 
