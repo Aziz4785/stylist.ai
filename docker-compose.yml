@@ -15,17 +15,9 @@ services:
     networks:
       - mynetwork
 
-  # scraper:
-  #   build: ./ZALANDO_SCRAPER
-  #   volumes:
-  #     - ./ZALANDO_SCRAPER:/scraper
-  #   depends_on:
-  #     - mongodb
-  #   networks:
-  #     - mynetwork
-
   server:
-    build: ./SERVER
+    #build: ./SERVER
+    image: ghcr.io/aziz4785/smartstyle-server:v0.1
     volumes:
       - ./SERVER:/server
     ports:
@@ -36,11 +28,11 @@ services:
       - mynetwork
 
   test:
-    build: ./SERVER
+    #build: ./SERVER
+    image: ghcr.io/aziz4785/smartstyle-test:v0.1
     volumes:
       - ./SERVER:/server
     command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
-    #command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
     depends_on:
       - mongodb
     networks:
