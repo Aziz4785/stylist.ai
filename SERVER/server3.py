@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify , render_template
 import os
 import sys
+import json
+from bson import ObjectId
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from META.metadata_card import *
 from META.metadata_matching_controller import *
@@ -81,7 +83,8 @@ def process():
     set_of_ids_GPT4, set_of_ids_GPT3 = set(actual_ids[:10]),set(actual_ids[10:])
     correpsonding_items_gpt4 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT4)
     correpsonding_items_gpt3 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT3)
-
+    print("corredponsing items for gpt4 : ")
+    print(correpsonding_items_gpt4)
     gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, user_input, with_analysis=True)
     gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, user_input, with_analysis=True)
     print("chat gpt4 answer : ")
@@ -92,7 +95,9 @@ def process():
     list_of_ids.extend(extract_Ids_from_text(gpt3_answer))
     print("list of ids = ")
     print(list_of_ids)
-    output_json = filter_collection_By_Id("reference8",list_of_ids)
+    final_documents = filter_collection_By_Id("reference8",list_of_ids)
+    json_output = json.dumps(final_documents, cls=MongoJsonEncoder)
+    return json_output
     return output_json
 
 if __name__ == '__main__':

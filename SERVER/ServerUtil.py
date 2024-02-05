@@ -1,7 +1,8 @@
 
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-
+import json
+from bson import ObjectId
 import re
 import openai
 import os
@@ -96,7 +97,13 @@ def find_product_by_id_in_collection(collection_name, product_id):
 #                 hashtable[chunk].add(item["id"])  
 #     print("done")
 #     return hashtable
-
+class MongoJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)  # Convert ObjectId to string
+        # Let the base class default method raise the TypeError
+        return json.JSONEncoder.default(self, obj)
+    
 def divide_into_tiny_chunks(app):
     print("dividing catalogue into tiny chunks  ...")
     hashtable={}
@@ -207,9 +214,8 @@ def convert_to_proper_string(items):
     return formatted_string
 
 def get_chatgpt_response(context, question, with_analysis=False):
-    # Your OpenAI API key
-    openai.api_key = config_server.OPENAI_API_KEY
-
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
+    print("getting chatgpt4 response...")
     if not isinstance(context, str):
         context = convert_to_proper_string(context)
 
@@ -231,12 +237,12 @@ Begin your response by listing IDs of the specific clothing items that 100% matc
     print("prompt : ")
     print(prompt)
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",  
             messages=[{"role": "system", "content": "You specialize in fashion and apparel, offering personalized clothing recommendations based on user input."}, 
                       {"role": "user", "content": prompt}]
         )
-        return response.choices[0].message['content']
+        return response.choices[0].message.content
     except Exception as e:
         return str(e)
     
@@ -251,8 +257,7 @@ def get_all_GPT3_response(context, question, with_analysis=False):
 
 def get_GPT3_response(context, question, with_analysis=False):
     # Your OpenAI API key
-    openai.api_key = config_server.OPENAI_API_KEY
-
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     if not isinstance(context, str):
         context = convert_to_proper_string(context)
 
@@ -274,12 +279,12 @@ Please provide a response that strictly lists the IDs of the clothing items meet
     print("prompt : ")
     print(prompt)
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",  
             messages=[{"role": "system", "content": "You are a helpful assistant."}, 
                       {"role": "user", "content": prompt}]
         )
-        return response.choices[0].message['content']
+        return response.choices[0].message.content
     except Exception as e:
         return str(e)
     
