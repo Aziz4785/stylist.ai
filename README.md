@@ -58,7 +58,16 @@ docker-compose down
 mongorestore --uri "mongodb://localhost:27017/" /path/to/dump_on_your_local_machine
 
 ```
+## In the VPS : Import the mongodatabase (from local machine to container)
+```bash
+#copy the dump folder from host to the container:
+docker cp dump askstyler-mongodb-1:/dump
+#get inside the mongo container :
+docker exec -it <container id> bash
+#then :
+mongorestore --uri "mongodb://localhost:27017/" /dump
 
+```
 ## Export the mongodatabase (from container to local machine)
 ```bash
 # at project root:
