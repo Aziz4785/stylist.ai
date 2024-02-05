@@ -82,3 +82,11 @@ exit #exit the container
 
 docker cp <mongodb_container_name>:/dump ./dump # Copy the Dump to Your Host Machine
 ```
+
+## Push a new version of a docker image to github container package
+```bash
+docker login ghcr.io --username Aziz4785 --password <password>
+docker-compose build
+docker tag <image name>:latest ghcr.io/aziz4785/<image name>:<tag you want to put>
+docker push ghcr.io/aziz4785/<image name>:<tag you want to put>
+```
