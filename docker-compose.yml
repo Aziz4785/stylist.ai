@@ -16,8 +16,8 @@ services:
       - mynetwork
 
   server:
-    #build: ./SERVER
-    image: ghcr.io/aziz4785/smartstyle-server:v0.1
+    build: ./SERVER
+    #image: ghcr.io/aziz4785/smartstyle-server:v0.1
     volumes:
       - ./SERVER:/server
     ports:
@@ -27,17 +27,41 @@ services:
     networks:
       - mynetwork
 
-  test:
-    #build: ./SERVER
-    image: ghcr.io/aziz4785/smartstyle-test:v0.1
+  # test:
+  #   build: ./SERVER
+  #   #image: ghcr.io/aziz4785/smartstyle-test:v0.1
+  #   volumes:
+  #     - ./SERVER:/server
+  #   command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
+  #   depends_on:
+  #     - mongodb
+  #   networks:
+  #     - mynetwork
+
+  # apache:
+  #   image: httpd:2.4
+  #   volumes:
+  #     - ./my-httpd.conf:/usr/local/apache2/conf/httpd.conf
+  #     - ./my-apache.conf:/usr/local/apache2/conf/apache.conf
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - mynetwork
+
+  nginx:
+    image: nginx:alpine
     volumes:
-      - ./SERVER:/server
-    command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./SERVER/static:/usr/share/nginx/html/static
+      - ./SERVER/templates:/usr/share/nginx/html/templates
+    ports:
+      - "80:80"
     depends_on:
-      - mongodb
+      - server
     networks:
       - mynetwork
-
 volumes:
   mongodb_data:
 
