@@ -4,43 +4,108 @@
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
-body{
-    background: #39297b;
-    color: #fff
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    background: #ffffff;
+    color: #040404;
+}
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    margin-top: 20px;
+    position: sticky; /* or fixed */
+    top: 0; /* Stick to the top */
+    background: #ffffff; /* Or any other color to make it stand out */
+    z-index: 1000; /* Ensure it's above other content */
+}
+/*.navbar button {
+    padding: 10px 20px;
+    background-color: #312e51;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 30px;
+}*/
+
+.navbar button {
+    padding: 12px 25px; /* Slightly larger padding */
+    background: linear-gradient(to right, #0c4eb1, #3468b6); /* Gradient background */
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 30px;
+    border-radius: 30px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    font-weight: 500; /* Adjust weight as necessary */
+    font-size: 16px; /* Adjust size as necessary */
+}
+
+/* Hover state */
+.navbar button:hover {
+    background: linear-gradient(to right, #0c4eb1, #3468b6); /* Invert gradient */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
 h1{
     text-align: center;
     margin: 100px auto 50px;
     font-weight: 600;
+    font-size: 48px;
+}
+.document-count p {
+    margin-top: 20px;
+    font-size: 18px; /* Set the size as it fits your design */
+    color: #555; /* A softer color for less technical feel */
+    font-style: italic; /* Optional style */
 }
 form {
     width: 90%;
     max-width: 650px;
     margin: auto;
-    background: #434989;
+    background:  #d5d5d55e; 
     display: flex;
     align-items: center;
     border-radius: 24px;
     padding: 10px;
     box-sizing: border-box;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    border: 2px solid #060315;
 }
-
+.document-count {
+    margin-top: 20px;
+}
+.search-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 50px;
+}
 form textarea {
     flex-grow: 1;
     background: transparent;
-    color: #fff;
+    color: #0a0a0b;
     border: none;
     outline: none;
     resize: none;
-    padding: 10px; /* Uniform padding */
+    padding: 10px; 
     font-size: 18px;
     overflow-y: auto;
-    /* Removed line-height */
-    min-height: 42px;
-    height: 42px; /* Set a fixed height to control the size */
-    box-sizing: border-box; /* Include padding in the height calculation */
-}
+    min-height: 42px; 
+    height: 42px; 
+    box-sizing: border-box; 
+}*
 form textarea:focus {
     height: 42px;
 }
@@ -52,7 +117,7 @@ form button {
     align-items: center;
     justify-content: center;
     padding: 0;
-    width: 35px; /* Fixed width */
+    width: 45px; /* Fixed width */
     height: 30px; /* Match the fixed height of the textarea */
 }
 
@@ -63,7 +128,7 @@ form button svg {
 }
 
 ::placeholder{
-    color: #fff;
+    color: #303030;
     font-size: 18px;
 }
 #loading-animation {
