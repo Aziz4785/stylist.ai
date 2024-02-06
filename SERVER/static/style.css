@@ -4,32 +4,71 @@
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
-body{
-    background: #39297b;
-    color: #fff
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: #ffffff;
+    color: #040404;
+}
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    margin-top: 20px;
+}
+.navbar button {
+    padding: 10px 20px;
+    background-color: #312e51;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 30px;
 }
 h1{
     text-align: center;
     margin: 100px auto 50px;
     font-weight: 600;
+    font-size: 48px;
+}
+.document-count p {
+    margin-top: 20px;
+    font-size: 18px; /* Set the size as it fits your design */
+    color: #555; /* A softer color for less technical feel */
+    font-style: italic; /* Optional style */
 }
 form {
     width: 90%;
     max-width: 650px;
     margin: auto;
-    background: #434989;
+    background:  #e0e0e0; 
     display: flex;
     align-items: center;
     border-radius: 24px;
     padding: 10px;
     box-sizing: border-box;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
-
+.document-count {
+    margin-top: 20px;
+}
+.search-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 50px;
+}
 form textarea {
     flex-grow: 1;
     background: transparent;
-    color: #fff;
+    color: #0a0a0b;
     border: none;
     outline: none;
     resize: none;
@@ -63,7 +102,7 @@ form button svg {
 }
 
 ::placeholder{
-    color: #fff;
+    color: #303030;
     font-size: 18px;
 }
 #loading-animation {
