@@ -35,9 +35,19 @@ class MyApp(Flask):
 app = MyApp(__name__)
 csrf = CSRFProtect(app) 
 
+@app.after_request
+def apply_csp(response):
+    #https://flask.palletsprojects.com/en/2.3.x/security/#security-csp
+    response.headers["Content-Security-Policy"] = "default-src 'self'" #Tell the browser where it can load various types of resource from.
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' #Tells the browser to convert all HTTP requests to HTTPS, preventing man-in-the-middle (MITM) attacks.
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    return response
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/process', methods=['POST'])
 def process():
@@ -60,7 +70,7 @@ def process():
     metadata_card = MetaDataCard(extractors)
 
     user_input = request.form['query']
-
+    user_input = sanitize_input(user_input)
     metadata_card.generate_from_query(user_input)
     print("metadata of the user input : ")
     print(metadata_card)
@@ -99,7 +109,6 @@ def process():
     final_documents = filter_collection_By_Id("reference8",list_of_ids)
     json_output = json.dumps(final_documents, cls=MongoJsonEncoder)
     return json_output
-    return output_json
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) #tells Flask to listen on all network interfaces within the container, making it accessible through the Docker host
