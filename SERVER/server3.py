@@ -8,7 +8,7 @@ from META.metadata_card import *
 from META.metadata_matching_controller import *
 from META.metadata_extraction import *
 from META.metadata_matching import *
-
+from flask_wtf.csrf import CSRFProtect
 from ServerUtil import *
 import config_server
 
@@ -33,6 +33,7 @@ class MyApp(Flask):
             #self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
 
 app = MyApp(__name__)
+csrf = CSRFProtect(app) 
 
 @app.route('/')
 def index():
