@@ -17,7 +17,7 @@ db_name = "mydatabase"
 ```bash
 # at project root:
 
-docker-compose up server # add --build after "up" If you're running it for the first time or after modifying the server code
+docker-compose up  # add --build after "up" If you're running it for the first time or after modifying the server code
 #and wait ...
 ```
 ## Run the tests on server
