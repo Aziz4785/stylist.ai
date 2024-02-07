@@ -4,7 +4,7 @@ import sys
 import json
 from bson import ObjectId
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_wtf.csrf import CSRFProtect
 from ServerUtil import *
 from flask_limiter import Limiter
@@ -33,11 +33,17 @@ class MyApp(Flask):
             #self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
 
 app = MyApp(__name__)
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
 app.config.update(
     DEBUG=True,
     SECRET_KEY="secret_key_for_csrf",
 )
 csrf = CSRFProtect(app) 
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+) #https://flask.palletsprojects.com/en/2.3.x/deploying/proxy_fix/
 limiter = Limiter(app=app, key_func=lambda: request.headers.get('X-Real-IP') or get_remote_address())
 
 @app.after_request
@@ -85,5 +91,3 @@ def process():
     json_output = json.dumps(final_documents, cls=MongoJsonEncoder)
     return json_output
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True) #tells Flask to listen on all network interfaces within the container, making it accessible through the Docker host

@@ -102,12 +102,13 @@ form {
     margin-right: auto; /* Centralize the div but will be overridden for left-alignment */
     text-align: left;
     box-sizing: border-box;
-    color: #4f4f50;
+    color: #757575;
+    display: inline-block;
 }
 /* Additional style to align with the form's left edge */
 @media (min-width: 650px) { /* Adjust this to your actual breakpoint */
     #free-searches-available {
-        margin-left: calc((100% - 650px) / 2); /* This calculates the left margin based on the search form's width */
+        margin-left: calc(((100% - 650px) / 2) + 20px); /* This calculates the left margin based on the search form's width */
     }
 }
 form textarea {
@@ -188,6 +189,10 @@ form button svg {
     object-fit: cover; /* Cover ensures the image fills the container, could be contain if you want to see the whole image */
     border-radius: 5px;
 }
+
+#rate-limit-info {
+    display: inline;
+  }
 
 .item-container{
     position: relative;
