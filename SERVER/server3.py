@@ -44,7 +44,7 @@ limiter = Limiter(app=app, key_func=lambda: request.headers.get('X-Real-IP') or 
 def apply_csp(response):
     #https://flask.palletsprojects.com/en/2.3.x/security/#security-csp 
     #response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' www.askstyler.com;" #Tell the browser where it can load various types of resource from.
-    #response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' #Tells the browser to convert all HTTP requests to HTTPS, preventing man-in-the-middle (MITM) attacks.
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' #Tells the browser to convert all HTTP requests to HTTPS, preventing man-in-the-middle (MITM) attacks.
     response.headers['X-Content-Type-Options'] = 'nosniff'
     #response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return response
@@ -70,8 +70,7 @@ def process():
     set_of_ids_GPT4, set_of_ids_GPT3 = set(actual_ids[:10]),set(actual_ids[10:])
     correpsonding_items_gpt4 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT4)
     correpsonding_items_gpt3 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT3)
-    print("corredponsing items for gpt4 : ")
-    print(correpsonding_items_gpt4)
+    print(str(len(correpsonding_items_gpt4))+" items for gpt4 and "+str(len(correpsonding_items_gpt3))+" items for gpt3")
     gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, user_input, with_analysis=True)
     gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, user_input, with_analysis=True)
     print("chat gpt4 answer : ")

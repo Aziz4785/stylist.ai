@@ -89,17 +89,27 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     text-align: center;
     margin-bottom: 50px;
     margin-top: -70px; 
 }
-#rate-limit-info {
-    text-align: left; /* Align text to the left */
-    width: 100%; /* Ensure it spans the full width of its container */
-    margin-left: 0; /* Remove any automatic left margin or adjust as necessary */
-    padding-left: 20px; /* Add some padding if you want it a bit off the left edge */
-}
 
+#free-searches-available {
+    width: 90%; /* This should match the search form's width */
+    max-width: 650px; /* This should match the search form's max width */
+    margin-left: auto; /* This will be overridden by a calculated value */
+    margin-right: auto; /* Centralize the div but will be overridden for left-alignment */
+    text-align: left;
+    box-sizing: border-box;
+    color: #4f4f50;
+}
+/* Additional style to align with the form's left edge */
+@media (min-width: 650px) { /* Adjust this to your actual breakpoint */
+    #free-searches-available {
+        margin-left: calc((100% - 650px) / 2); /* This calculates the left margin based on the search form's width */
+    }
+}
 form textarea {
     flex-grow: 1;
     background: transparent;
