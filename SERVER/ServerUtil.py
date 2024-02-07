@@ -12,6 +12,10 @@ from META.metadata_card import *
 import pymongo
 import config_server
 import spacy
+from META.metadata_card import *
+from META.metadata_matching_controller import *
+from META.metadata_extraction import *
+from META.metadata_matching import *
 from nltk.tokenize import sent_tokenize
 openai.api_key = config_server.OPENAI_API_KEY
 os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
@@ -104,6 +108,41 @@ class MongoJsonEncoder(json.JSONEncoder):
         # Let the base class default method raise the TypeError
         return json.JSONEncoder.default(self, obj)
     
+def get_Ids_of_similiar_docs_from_emebdding(app,user_input):
+    extractors = {
+            "type": TypeExtractor(),
+            "composition": CompositionExtractor(),
+            "blackwhite": BlackWhiteExtractor(),
+            "otherColor": OtherColorExtractor(),
+            "gender": GenderExtractor()
+        }
+    matchers = {
+        "type": TypeMatcher(),
+        "composition": CompositionMatcher(),
+        "blackwhite": BlackWhiteMatcher(),
+        "otherColor": OtherColorMatcher(),
+        "gender": GenderMatcher()
+    }
+    matching_controller = MetadataMatchingController(matchers)
+
+    metadata_card = MetaDataCard(extractors)
+
+    metadata_card.generate_from_query(user_input)
+
+    separated_user_input = separate_sentence(user_input)
+    meta_filtered_docs=[]
+    k=60
+    while(len(meta_filtered_docs)<20 and k<1000):
+        separated_user_input=['','']
+        docs_with_score = get_similar_doc_for_separated_input(app,app.embedding, user_input,separated_user_input,k=k)
+        meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
+        #meta_filtered_docs is a list of (doc,score)
+        k*=2
+
+    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=30)
+    actual_ids= [pair[0] for pair in actual_ids_pairs]
+    return actual_ids
+
 def divide_into_tiny_chunks(app):
     print("dividing catalogue into tiny chunks  ...")
     hashtable={}

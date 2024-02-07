@@ -91,7 +91,15 @@ form {
     justify-content: center;
     text-align: center;
     margin-bottom: 50px;
+    margin-top: -70px; 
 }
+#rate-limit-info {
+    text-align: left; /* Align text to the left */
+    width: 100%; /* Ensure it spans the full width of its container */
+    margin-left: 0; /* Remove any automatic left margin or adjust as necessary */
+    padding-left: 20px; /* Add some padding if you want it a bit off the left edge */
+}
+
 form textarea {
     flex-grow: 1;
     background: transparent;

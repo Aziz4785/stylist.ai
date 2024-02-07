@@ -4,14 +4,13 @@ import sys
 import json
 from bson import ObjectId
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from META.metadata_card import *
-from META.metadata_matching_controller import *
-from META.metadata_extraction import *
-from META.metadata_matching import *
+
 from flask_wtf.csrf import CSRFProtect
 from ServerUtil import *
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import config_server
-
+from security_util import *
 os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
 
 
@@ -25,6 +24,7 @@ class MyApp(Flask):
         db = client[db_name]
         super(MyApp, self).__init__(import_name)
         self.config['catalogue_collection_name'] = "Catalogue1"
+        self.config["RATELIMIT_HEADERS_ENABLED"] = True #https://flask-limiter.readthedocs.io/en/stable/configuration.html
         if(self.config['catalogue_collection_name'] in db.list_collection_names()):
             self.catalogue = db[self.config['catalogue_collection_name']]
             self.hashtable = divide_into_tiny_chunks(self)
@@ -33,15 +33,20 @@ class MyApp(Flask):
             #self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
 
 app = MyApp(__name__)
+app.config.update(
+    DEBUG=True,
+    SECRET_KEY="secret_key_for_csrf",
+)
 csrf = CSRFProtect(app) 
+limiter = Limiter(app=app, key_func=lambda: request.headers.get('X-Real-IP') or get_remote_address())
 
 @app.after_request
 def apply_csp(response):
-    #https://flask.palletsprojects.com/en/2.3.x/security/#security-csp
-    response.headers["Content-Security-Policy"] = "default-src 'self'" #Tell the browser where it can load various types of resource from.
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' #Tells the browser to convert all HTTP requests to HTTPS, preventing man-in-the-middle (MITM) attacks.
+    #https://flask.palletsprojects.com/en/2.3.x/security/#security-csp 
+    #response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' www.askstyler.com;" #Tell the browser where it can load various types of resource from.
+    #response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains' #Tells the browser to convert all HTTP requests to HTTPS, preventing man-in-the-middle (MITM) attacks.
     response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    #response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return response
 
 @app.route('/')
@@ -50,46 +55,17 @@ def index():
 
 
 @app.route('/process', methods=['POST'])
+@limiter.limit("3 per day")
 def process():
-    extractors = {
-            "type": TypeExtractor(),
-            "composition": CompositionExtractor(),
-            "blackwhite": BlackWhiteExtractor(),
-            "otherColor": OtherColorExtractor(),
-            "gender": GenderExtractor()
-        }
-    matchers = {
-        "type": TypeMatcher(),
-        "composition": CompositionMatcher(),
-        "blackwhite": BlackWhiteMatcher(),
-        "otherColor": OtherColorMatcher(),
-        "gender": GenderMatcher()
-    }
-    matching_controller = MetadataMatchingController(matchers)
-
-    metadata_card = MetaDataCard(extractors)
+    print("we call /process ...")
 
     user_input = request.form['query']
     user_input = sanitize_input(user_input)
-    metadata_card.generate_from_query(user_input)
-    print("metadata of the user input : ")
-    print(metadata_card)
-    separated_user_input = separate_sentence(user_input)
-    meta_filtered_docs=[]
-    k=60
-    while(len(meta_filtered_docs)<20 and k<1000):
-        separated_user_input=['','']
-        docs_with_score = get_similar_doc_for_separated_input(app,app.embedding, user_input,separated_user_input,k=k)
-        meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
-        print("first 5 docs after meta filtering : ")
-        #meta_filtered_docs is a list of (doc,score)
-        print(meta_filtered_docs[:5])
-        k*=2
 
-    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=30)
-    actual_ids= [pair[0] for pair in actual_ids_pairs]
+    if not_valid(user_input):
+        return "input not valid"
 
-    
+    actual_ids = get_Ids_of_similiar_docs_from_emebdding(app,user_input)
 
     set_of_ids_GPT4, set_of_ids_GPT3 = set(actual_ids[:10]),set(actual_ids[10:])
     correpsonding_items_gpt4 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT4)

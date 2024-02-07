@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SmartStyle</title>
+        <title>Ask Styler</title>
         <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
@@ -11,6 +11,7 @@
         </div>
         <div class="search-container">
             <h1>ASK STYLER</h1>
+            <div id="rate-limit-info">3/3</div>
             <form id="search-form">
                 <textarea id="search-box" name="query" placeholder="Describe what you are looking for..." maxlength="400"></textarea>
                 <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
