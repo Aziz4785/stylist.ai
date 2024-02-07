@@ -21,7 +21,8 @@ openai.api_key = config_server.OPENAI_API_KEY
 os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
 # Load spaCy's English language model
 nlp = spacy.load("en_core_web_sm")
-nltk.download('punkt')
+if not nltk.data.find('tokenizers/punkt'):
+    nltk.download('punkt')
 
 def extract_Ids_from_text(text):
     """
@@ -292,6 +293,7 @@ def get_all_GPT3_response(context, question, with_analysis=False):
         sublist = context[i:i + 2]  # Get two elements
         gpt3_response = get_GPT3_response(sublist,question,with_analysis)
         final_response+=(" "+gpt3_response)
+    print("finished to generate all gpt3 answers ! ")
     return final_response
 
 def get_GPT3_response(context, question, with_analysis=False):
