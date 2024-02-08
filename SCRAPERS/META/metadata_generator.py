@@ -15,7 +15,7 @@ zalando_scraper_directory = os.path.abspath(os.path.join(os.path.dirname(__file_
 sys.path.append(zalando_scraper_directory)
 
 try:
-    import config
+    import config_server
 except ModuleNotFoundError:
     print("Failed to import config. Current sys.path:", sys.path) 
     raise

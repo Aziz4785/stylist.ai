@@ -1,248 +1,91 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
+/* General Resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+/* Body and Font Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
-    background: #ffffff;
-    color: #040404;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  line-height: 1.6;
 }
+
+/* Navbar */
 .navbar {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    margin-top: 20px;
-    position: sticky; /* or fixed */
-    top: 0; /* Stick to the top */
-    background: #ffffff; /* Or any other color to make it stand out */
-    z-index: 1000; /* Ensure it's above other content */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #fff;
 }
-/*.navbar button {
-    padding: 10px 20px;
-    background-color: #312e51;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-right: 30px;
-}*/
 
+/* Donate Button */
 .navbar button {
-    padding: 12px 25px; /* Slightly larger padding */
-    background: linear-gradient(to right, #0c4eb1, #3468b6); /* Gradient background */
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-right: 30px;
-    border-radius: 30px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-    font-weight: 500; /* Adjust weight as necessary */
-    font-size: 16px; /* Adjust size as necessary */
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-/* Hover state */
 .navbar button:hover {
-    background: linear-gradient(to right, #0c4eb1, #3468b6); /* Invert gradient */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
-h1{
-    text-align: center;
-    margin: 100px auto 50px;
-    font-weight: 600;
-    font-size: 48px;
-}
-.document-count p {
-    margin-top: 20px;
-    font-size: 18px; /* Set the size as it fits your design */
-    color: #555; /* A softer color for less technical feel */
-    font-style: italic; /* Optional style */
-}
-form {
-    width: 90%;
-    max-width: 650px;
-    margin: auto;
-    background:  #d5d5d55e; 
-    display: flex;
-    align-items: center;
-    border-radius: 24px;
-    padding: 10px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    border: 2px solid #060315;
-}
-.document-count {
-    margin-top: 20px;
-}
+
+/* Search Container */
 .search-container {
-    flex: 1;
-    display: flex;
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.search-container form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+}
+
+/* Search Box */
+#search-box {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Search Button */
+#search-form button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: #ddd;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-out;
+}
+
+#search-form button:hover {
+  background-color: #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 50px;
-    margin-top: -70px; 
-}
-
-#free-searches-available {
-    width: 90%; /* This should match the search form's width */
-    max-width: 650px; /* This should match the search form's max width */
-    margin-left: auto; /* This will be overridden by a calculated value */
-    margin-right: auto; /* Centralize the div but will be overridden for left-alignment */
-    text-align: left;
-    box-sizing: border-box;
-    color: #757575;
-    display: inline-block;
-}
-/* Additional style to align with the form's left edge */
-@media (min-width: 650px) { /* Adjust this to your actual breakpoint */
-    #free-searches-available {
-        margin-left: calc(((100% - 650px) / 2) + 20px); /* This calculates the left margin based on the search form's width */
-    }
-}
-form textarea {
-    flex-grow: 1;
-    background: transparent;
-    color: #0a0a0b;
-    border: none;
-    outline: none;
-    resize: none;
-    padding: 10px; 
-    font-size: 18px;
-    overflow-y: auto;
-    min-height: 42px; 
-    height: 42px; 
-    box-sizing: border-box; 
-}*
-form textarea:focus {
-    height: 42px;
-}
-form button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    width: 45px; /* Fixed width */
-    height: 30px; /* Match the fixed height of the textarea */
-}
-
-/* You might want to add this to ensure that the SVG scales with the button size */
-form button svg {
-    width: 100%;
-    height: 100%;
-}
-
-::placeholder{
-    color: #303030;
-    font-size: 18px;
-}
-#loading-animation {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-    margin: 20px auto 0; /* 20px top margin, auto horizontal margins, 0 bottom margin */
-    /* Rest of your styles */
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-#show-more-btn{
-    background: #ff3929;
-    color: #fff;
-    border: 0;
-    outline: 0;
-    padding: 10px 20px;
-    border-radius: 4px;
-    margin: 10px auto 100px;
-    cursor: pointer;
-    display: none;
-}
-#search-result{
-    width: 80%;
-    margin: 100px auto 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 40px;
-}
-
-#search-result img {
-    max-width: 100%; /* Ensure images are not wider than the container */
-    height: auto; /* Height is auto to maintain aspect ratio */
-    object-fit: cover; /* Cover ensures the image fills the container, could be contain if you want to see the whole image */
-    border-radius: 5px;
-}
-
-#rate-limit-info {
-    display: inline;
   }
 
-.item-container{
-    position: relative;
-    box-shadow: 0 0 14px rgba(0,0,0,0.3);
-}
-.carousel-container {
-    position: relative;
-    height: 300px; /* Fixed height for the carousel */
-    /* Other styles for your carousel container */
-}
-.carousel {
-    position: relative;
-    height: 200px; /* Example fixed height */
-    overflow: hidden; /* Hide parts of the image that exceed the container's dimensions */
-    display: flex;
-    align-items: center; /* Center images vertically if they don't fill the height */
-}
-.carousel-image {
-    max-width: 100%; /* Ensure images are not wider than the container */
-    max-height: 100%; /* Ensure images are not taller than the container */
-    object-fit: contain; /* Ensure full image is seen without clipping */
-    margin: auto; /* Center image within the container if it's smaller than the container */
-}
+  .navbar button {
+    margin-bottom: 1rem;
+  }
 
-.carousel-control {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    z-index: 10;
-    color: white;
-    font-size: 24px;
-    user-select: none;
-    background-color: rgba(0,0,0,0.5);
-    border: none;
-    padding: 10px;
-    transform: translateY(-50%);
-}
-
-.carousel-control.prev {
-    left: 0; /* Adjust this if necessary */
-}
-
-.carousel-control.next {
-    right: 0; /* Adjust this if necessary */
-}
-
-.carousel-control:hover {
-    background-color: rgba(0,0,0,0.8);
-}
-
-.carousel-control:hover {
-    background-color: rgba(0,0,0,0.8);
+  .search-container form {
+    grid-template-columns: 1fr;
+  }
 }

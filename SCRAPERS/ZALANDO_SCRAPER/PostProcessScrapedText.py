@@ -1,6 +1,6 @@
 import re
 import pymongo
-import config
+import config_server
 
 def remove_SeeEnvironementSpec(collection_name):
     db_uri = config.db_uri
@@ -24,7 +24,7 @@ def remove_SeeEnvironementSpec(collection_name):
     client.close()
         
 def reduce_image_width(collection_name):
-    db_uri = config.db_uri
+    db_uri = config_server.db_uri
     db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
@@ -78,7 +78,7 @@ def remove_reference(collection_name):
     # stopping at a space, comma, point, or the end of the string
     pattern = r"Reference: [^ ,.]*[ ,.]?"
 
-    db_uri = config.db_uri
+    db_uri = config_server.db_uri
     db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
@@ -98,8 +98,8 @@ def remove_reference(collection_name):
     client.close()
 
 def add_incremental_id(collection_name, last_id=0):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_server.db_uri
+    db_name = config_server.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -125,7 +125,7 @@ def post_process_json_files_in_folder(db_name, operations):
     :param db_name: Name of the MongoDB database.
     :param operations: A list of functions to be applied on each qualifying collection.
     """
-    client = pymongo.MongoClient(config.db_uri)
+    client = pymongo.MongoClient(config_server.db_uri)
     db = client[db_name]
     last_id = 3  # Starting ID in decimal
     for collection_name in db.list_collection_names():

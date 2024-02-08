@@ -2,7 +2,7 @@ from scraper_util.ScraperFactory import *
 from scraper_util.JsonWritingImpl import *
 import sys, os
 import argparse
-import config
+import config_server
 import random
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 

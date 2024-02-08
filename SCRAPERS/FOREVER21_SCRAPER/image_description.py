@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import sys
 
-import config
+import config_server
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ def describe_clothing_multi(name, brand,composition, description, size_fit,image
     """
     Generate a description from up to 3 images of the same product.
     """
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     maxtokens = 60
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -239,7 +239,7 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
     items_added_to_catalogue = 0
     items_added_to_reference = 0
 
-    db_uri = config.db_uri
+    db_uri = config_server.db_uri
     db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
@@ -271,7 +271,7 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
 def generate_Catalog_and_Reference(reference_name, catalogue_name):
     
     client = pymongo.MongoClient(config.db_uri)
-    db = client[config.db_name]
+    db = client[config_server.db_name]
 
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'

@@ -1,10 +1,10 @@
 import re
 import pymongo
-import config
+import config_server
 from urllib.parse import urlparse, parse_qs
 def remove_WashCold(collection_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_server.db_uri
+    db_name = config_server.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -31,7 +31,7 @@ def remove_WashCold(collection_name):
 
 def remove_CompleteTheLook(collection_name):
     db_uri = config.db_uri
-    db_name = config.db_name
+    db_name = config_server.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -50,8 +50,8 @@ def remove_CompleteTheLook(collection_name):
     client.close()
 
 def reduce_image_width(collection_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_server.db_uri
+    db_name = config_server.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -78,8 +78,8 @@ def reduce_image_width(collection_name):
     client.close()
 
 def add_incremental_id(collection_name, last_id=0):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_server.db_uri
+    db_name = config_server.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -98,7 +98,7 @@ def add_incremental_id(collection_name, last_id=0):
     return current_id
 
 def load_lastID_from_db():
-    db_uri = config.db_uri
+    db_uri = config_server.db_uri
     db_name = config.db_name
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -116,8 +116,8 @@ def load_lastID_from_db():
 
 def save_LastID(last_id):
     #last_id is in decimal
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_server.db_uri
+    db_name = config_server.db_name
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
     variables_util = db["variables_util"]
@@ -139,7 +139,7 @@ def post_process_json_files_in_folder(db_name, operations):
     :param db_name: Name of the MongoDB database.
     :param operations: A list of functions to be applied on each qualifying collection.
     """
-    client = pymongo.MongoClient(config.db_uri)
+    client = pymongo.MongoClient(config_server.db_uri)
     db = client[db_name]
     last_id = load_lastID_from_db()+1000 # Starting ID in decimal
     for collection_name in db.list_collection_names():
@@ -154,4 +154,4 @@ def post_process_json_files_in_folder(db_name, operations):
 
 operations = [add_incremental_id,reduce_image_width,remove_WashCold,remove_CompleteTheLook]
                     
-post_process_json_files_in_folder(config.db_name, operations)
+post_process_json_files_in_folder(config_server.db_name, operations)

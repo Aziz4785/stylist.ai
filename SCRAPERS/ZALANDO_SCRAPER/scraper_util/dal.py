@@ -1,9 +1,9 @@
 import pymongo
-import config
+import config_server
 
 def inReference(reference_name, href_to_check):
     db_uri = config.db_uri
-    db_name = config.db_name
+    db_name = config_server.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]

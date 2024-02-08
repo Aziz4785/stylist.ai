@@ -32,7 +32,7 @@ docker-compose up test # add --build after "up" If you're running it for the fir
 Before running the scraper, you need to create a config.py file in the ZALANDO_SCRAPER directory of the project.
 ```bash
 
-# Create a config.py file with this content
+# Create a config_server.py file with this content
 OPENAI_API_KEY = 'your-api-key'
 db_uri = "mongodb://localhost:27017/"
 db_name = "mydatabase"
