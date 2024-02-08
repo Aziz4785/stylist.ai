@@ -10,6 +10,8 @@ def process_line(link, type, gender, nbr_items):
     collection_name = config.collection_name_start_with + f"_{link.split('/')[-2]}"
     scraper = ScraperFactory.create_scraper(link, IncrementalJsonWritingStrategy(collection_name))
     data = scraper.scrape(nbr_items=nbr_items, type=type, gender=gender)
+    print("scraping report : ")
+    print(scraper.scraping_report)
 
 def divide_equally(number, nbr_of_parts):
     # Handle edge cases first
@@ -47,6 +49,7 @@ def main(nbr_items, link=None, item_type=None, gender=None):
                 type = parts[1]
                 gender = parts[2]
                 print("we will extract "+str(product_by_page[i])+" items from "+str(link))
+                print("and we will pu gender = "+str(gender))
                 print()
                 process_line(link, type, gender, product_by_page[i])
         

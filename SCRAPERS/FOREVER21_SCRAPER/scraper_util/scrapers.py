@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 #from translate import Translator
 from deep_translator import GoogleTranslator
-
+import config
 
 def add_hardcoded_metadata(product_data,type="-",gender="-"):
     if(type!="-"):
@@ -207,8 +207,9 @@ class Scraper:
         print(" in this part of page there is "+str(len(product_items))+" products we will iterate through them :")
         for item in product_items:
             href = item.get_attribute('href')
+            _id = item.get_attribute('_id')
             if href:
-                if not inReference("reference8",href):
+                if not inReference(config.reference_name,_id):
                     unique_links.add(href)
         print(" we finally extracted "+str(len(unique_links))+" products")
         return unique_links

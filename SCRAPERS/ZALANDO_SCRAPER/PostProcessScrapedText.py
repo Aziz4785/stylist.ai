@@ -129,13 +129,13 @@ def post_process_json_files_in_folder(db_name, operations):
     db = client[db_name]
     last_id = 3  # Starting ID in decimal
     for collection_name in db.list_collection_names():
-        if collection_name.startswith("data_"):
+        if collection_name.startswith(config.collection_name_start_with):
             for operation in operations:
                 if operation.__name__ == 'add_incremental_id':
                     last_id = operation(collection_name, last_id)
                 else:
                     operation(collection_name)
 
-operations = [add_incremental_id, remove_reference, remove_SeeEnvironementSpec,reduce_image_width,add_gender_to_collection]
+operations = [remove_reference, remove_SeeEnvironementSpec,reduce_image_width,add_gender_to_collection]
                     
-post_process_json_files_in_folder("mydatabase", operations)
+post_process_json_files_in_folder(config.db_name, operations)
