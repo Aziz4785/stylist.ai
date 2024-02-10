@@ -157,7 +157,7 @@ def divide_into_tiny_chunks(app):
             description_without_newlines = replace_double_newlines(item["visual description"])
             if(description_without_newlines not in hashtable):
                 hashtable[description_without_newlines] = set()
-            hashtable[description_without_newlines].add(item["id"])
+            hashtable[description_without_newlines].add(item["_id"])
 
         if("brand" in  item):
             brand = item["brand"]
@@ -167,12 +167,12 @@ def divide_into_tiny_chunks(app):
             details = item["details about that item"]
             if details not in hashtable:
                 hashtable[details] = set()
-            hashtable[details].add(item["id"])
+            hashtable[details].add(item["_id"])
         if("materials" in item):
             materials = item["materials"]
             if materials not in hashtable:
                 hashtable[materials] = set()
-            hashtable[materials].add(item["id"])
+            hashtable[materials].add(item["_id"])
 
         name_key = name +" "+brand
         if name_key not in hashtable:
@@ -180,13 +180,13 @@ def divide_into_tiny_chunks(app):
         if brand not in hashtable:
             hashtable[brand] = set()
 
-        hashtable[name_key].add(item["id"])
-        hashtable[brand].add(item["id"])
+        hashtable[name_key].add(item["_id"])
+        hashtable[brand].add(item["_id"])
 
         for sentence in sentences:
             if(sentence not in hashtable):
                 hashtable[sentence] = set()
-            hashtable[sentence].add(item["id"])
+            hashtable[sentence].add(item["_id"])
            
 
         
@@ -240,7 +240,7 @@ def replace_double_newlines(text):
 def convert_to_proper_string(items):
     formatted_string = ""
     for product in items:
-        formatted_string += f"id: {product['id']}\n"
+        formatted_string += f"_id: {product['_id']}\n"
         if('name of the product' in product):
             formatted_string += f"name of the product: '{product['name of the product']}'\n"
         if("brand" in product):
