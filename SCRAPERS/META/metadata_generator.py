@@ -190,7 +190,7 @@ def handle_garment_type(item, classifier):
     this function returns the type of the item using classifier
     """
     complete_description=""
-    if "type" not in item:
+    if "type" not in item or item["type"]=="null" or item["type"]=="":
         if "name of the product" in item :
             complete_description = item["name of the product"]+ ", "
         if "visual description" in item:
@@ -204,16 +204,11 @@ def handle_composition(item, classifier):
         this function returns the composition of the item using classifier
     """
     if("composition" not in item ):
-        if "details about that item" in item:
-            details = item["details about that item"]
-            details_parts = details.split('\n')
-            if len(details_parts) >= 2:
-                part1 = details_parts[0].strip()
-                classification = classifier.classify(part1)
-                return [('composition', classification)]
-            else:
-                classification = classifier.classify(details)
-                return [('composition', classification)]
+        if "materials" in item:
+            details = item["materials"]
+            classification = classifier.classify(details)
+            return [('composition', classification)]
+
     return [(None, None)]
 
 def handle_bw(item,classifier):
