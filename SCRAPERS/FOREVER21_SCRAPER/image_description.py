@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import sys
 
-import config
+import f21_config
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ def describe_clothing_multi(name, brand,composition, description, size_fit,image
     """
     Generate a description from up to 3 images of the same product.
     """
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=f21_config.OPENAI_API_KEY)
     maxtokens = 60
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -109,7 +109,7 @@ def generate_catalog_single_elem(entry):
     """
         catalogue elem has this format :
         {
-        "id": <id>,
+        "_id": <_id>,
         "gender": <gender>
         "type": <type>
         "name of the product : "", 
@@ -122,7 +122,7 @@ def generate_catalog_single_elem(entry):
     """
     images=entry.get("images")
 
-    id = entry.get("id")
+    _id = entry.get("_id")
     gender = entry.get("gender")
     type = entry.get("type")
     name = entry.get("name")
@@ -138,8 +138,8 @@ def generate_catalog_single_elem(entry):
     description = describe_clothing_multi(name, brand,composition, details, size_fit,images)
     #description = "test description"
     elem = {}
-    if id:
-        elem["id"] = id
+    if _id:
+        elem["_id"] = _id
     if gender:
         elem["gender"] = gender
     if type:
@@ -167,7 +167,7 @@ def generate_reference_single_elem(scraped_data_doc):
         scraped_url = scraped_data_doc['url']
 
     reference_elem = {
-        'id': scraped_data_doc['id'],
+        '_id': scraped_data_doc['_id'],
         'url': scraped_url,
         'images': images 
     }
@@ -177,14 +177,14 @@ def generate_reference_single_elem(scraped_data_doc):
 
 def iD_is_in_Catalogue(catalogue_name,id_to_check):
     #catalogue_name is the collection name
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = f21_config.db_uri
+    db_name = f21_config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
     collection = db[catalogue_name]
 
-    if collection.find_one({"id": id_to_check}):
+    if collection.find_one({"_id": id_to_check}):
         client.close()
         return True
     else:
@@ -193,8 +193,8 @@ def iD_is_in_Catalogue(catalogue_name,id_to_check):
 
 
 def add_to_Catalogue(catalogue_elem, catalogue_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = f21_config.db_uri
+    db_name = f21_config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -214,8 +214,8 @@ def add_to_Catalogue(catalogue_elem, catalogue_name):
         client.close()
 
 def add_to_Reference(reference_elem, reference_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = f21_config.db_uri
+    db_name = f21_config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -239,8 +239,8 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
     items_added_to_catalogue = 0
     items_added_to_reference = 0
 
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = f21_config.db_uri
+    db_name = f21_config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -248,8 +248,8 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
     scraped_data_length = scraped_data_collection.count_documents({})
     
     for scraped_data_doc in scraped_data_collection.find():
-        if "id" in scraped_data_doc:
-            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["id"]):
+        if "_id" in scraped_data_doc:
+            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["_id"]):
                 continue
 
         catalogue_elem = generate_catalog_single_elem(scraped_data_doc)
@@ -270,16 +270,15 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
 
 def generate_Catalog_and_Reference(reference_name, catalogue_name):
     
-    client = pymongo.MongoClient(config.db_uri)
-    db = client[config.db_name]
+    client = pymongo.MongoClient(f21_config.db_uri)
+    db = client[f21_config.db_name]
 
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
-        if collection_name.startswith(config.collection_name_start_with):
-            print(collection_name)
-            if collection_name in {"data_f21_mens-tops","data_f21_outerwear_coats-and-jackets","data_f21_sweater","data_f21_mens-shirts"}:
+        if collection_name.startswith(f21_config.collection_name_start_with):
+            if collection_name in {"data_f21_loungewear","data_f21_outerwear_coats-and-jackets","data_f21_rompers-jumpsuits","data_f21_sets"}:
                 print("Processing " + str(collection_name) + " ...")
                 convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
 
-generate_Catalog_and_Reference("reference8", "Catalogue1")
+generate_Catalog_and_Reference(f21_config.reference_name, "Catalogue1")

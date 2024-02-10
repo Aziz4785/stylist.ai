@@ -1,10 +1,10 @@
 import re
 import pymongo
-import config
+import config_zalando
 
 def remove_SeeEnvironementSpec(collection_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -24,8 +24,8 @@ def remove_SeeEnvironementSpec(collection_name):
     client.close()
         
 def reduce_image_width(collection_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -51,8 +51,8 @@ def reduce_image_width(collection_name):
     client.close()
 
 def add_gender_to_collection(collection_name):
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -78,8 +78,8 @@ def remove_reference(collection_name):
     # stopping at a space, comma, point, or the end of the string
     pattern = r"Reference: [^ ,.]*[ ,.]?"
 
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -97,25 +97,6 @@ def remove_reference(collection_name):
 
     client.close()
 
-def add_incremental_id(collection_name, last_id=0):
-    db_uri = config.db_uri
-    db_name = config.db_name
-
-    client = pymongo.MongoClient(db_uri)
-    db = client[db_name]
-    collection = db[collection_name]
-
-    current_id = last_id
-    for document in collection.find():
-        if isinstance(document, dict):
-            current_id += 1
-            hex_id = f"{current_id:06x}"  
-            document['id'] = "#I"+hex_id
-
-        collection.update_one({"_id": document["_id"]}, {"$set": document})
-
-    client.close()
-    return current_id
 
 def post_process_json_files_in_folder(db_name, operations):
     """
@@ -125,17 +106,17 @@ def post_process_json_files_in_folder(db_name, operations):
     :param db_name: Name of the MongoDB database.
     :param operations: A list of functions to be applied on each qualifying collection.
     """
-    client = pymongo.MongoClient(config.db_uri)
+    client = pymongo.MongoClient(config_zalando.db_uri)
     db = client[db_name]
     last_id = 3  # Starting ID in decimal
     for collection_name in db.list_collection_names():
-        if collection_name.startswith("data_"):
+        if collection_name.startswith(config_zalando.collection_name_start_with):
             for operation in operations:
                 if operation.__name__ == 'add_incremental_id':
                     last_id = operation(collection_name, last_id)
                 else:
                     operation(collection_name)
 
-operations = [add_incremental_id, remove_reference, remove_SeeEnvironementSpec,reduce_image_width,add_gender_to_collection]
+operations = [remove_reference, remove_SeeEnvironementSpec,reduce_image_width]
                     
-post_process_json_files_in_folder("mydatabase", operations)
+post_process_json_files_in_folder(config_zalando.db_name, operations)

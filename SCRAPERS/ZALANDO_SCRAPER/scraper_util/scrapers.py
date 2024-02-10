@@ -7,6 +7,22 @@ from selenium.webdriver.support import expected_conditions as EC
 #from translate import Translator
 from deep_translator import GoogleTranslator
 from .dal import *
+import sys
+import os
+import config_zalando
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+#from SCRAPERS.id_generator import *
+
+# Calculate the absolute path to the SCRAPER directory
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+scrapers_dir_path = os.path.abspath(os.path.join(current_script_path, '..', '..'))
+
+# Add the SCRAPER directory to the path if not already included
+if scrapers_dir_path not in sys.path:
+    sys.path.insert(0, scrapers_dir_path)
+
+# Now you should be able to import id_generator directly
+from id_generator import *
 class ProductPageScraper:
     """
     Class dedicated to scraping individual product pages.
@@ -16,7 +32,8 @@ class ProductPageScraper:
         self.cookies_accepted = False
         #self.translator = Translator(to_lang="en", from_lang="fr")
         self.translator = GoogleTranslator(source='fr', target='en')
-        
+        self.scraping_report = {}
+
     def handle_cookie_consent(self):
         if not self.cookies_accepted:
             try:
@@ -55,7 +72,6 @@ class ProductPageScraper:
         try:
             div_class = "_5qdMrS WzZ4iu _01vVuu _6GQ88b WdG8Bv"
             images = self.driver.find_elements(By.CSS_SELECTOR, f'div.{div_class.replace(" ", ".")} img')
-            print(f"Found {len(images)} images.")
         except Exception as e:
             print(f"Error occurred while searching for images: {e}")
             return []
@@ -126,33 +142,68 @@ class ProductPageScraper:
         return product_details_text
 
     def scrap_product_page(self, url):
-        product_data = {"url": url} #object to store in the json
+        product_data = {"url": url} #document to store in the mongod colleciton
         self.driver.get(url)
         time.sleep(2)
         
         self.handle_cookie_consent()
 
         product_brand = self.extract_brand(url)
-        if product_brand:
+        if product_brand and len(product_brand)>0:
            product_data["brand"] = product_brand
+           if("total_brands" not in self.scraping_report):
+               self.scraping_report["total_brands"]=0
+           self.scraping_report["total_brands"]+=1
+        else:
+            if("missing brands" not in self.scraping_report):
+               self.scraping_report["missing brands"]=0
+            self.scraping_report["missing brands"]+=1
+
         
         product_name = self.extract_name(url)
-        if product_name:
-           product_data["name"] = product_name
+        if product_name and len(product_name)>0:
+            product_data["name"] = product_name
+            if("total name" not in self.scraping_report):
+                self.scraping_report["total name"]=0
+            self.scraping_report["total name"]+=1
+        else:
+            if("missing name" not in self.scraping_report):
+                self.scraping_report["missing name"]=0
+            self.scraping_report["missing name"]+=1
+
+
         
         material_and_care_text = self.extract_material_and_care(url)
-        if material_and_care_text:
+        if material_and_care_text and len(material_and_care_text)>0:
             product_data["composition and care (fr)"] = material_and_care_text
             product_data["composition and care (en)"] = self.translator.translate(material_and_care_text)
+            if("total material" not in self.scraping_report):
+               self.scraping_report["total material"]=0
+            self.scraping_report["total material"]+=1
+        else:
+            if("missing material" not in self.scraping_report):
+               self.scraping_report["missing material"]=0
+            self.scraping_report["missing material"]+=1
        
         product_details_text = self.extract_details(url)
         if product_details_text:
             product_data["more details (fr)"] = product_details_text
             product_data["more details (en)"] = self.translator.translate(product_details_text)
+            if("total details" not in self.scraping_report):
+               self.scraping_report["total details"]=0
+            self.scraping_report["total details"]+=1
+        else:
+            if("missing details" not in self.scraping_report):
+               self.scraping_report["missing details"]=0
+            self.scraping_report["missing details"]+=1
 
         images = self.extract_images(url)
         if(len(images)>0):
             product_data["images"] = images
+        else:
+            if("missing images" not in self.scraping_report):
+               self.scraping_report["missing images"]=0
+            self.scraping_report["missing images"]+=1
 
         return product_data
 
@@ -183,7 +234,6 @@ class LuxeProductPageScraper(ProductPageScraper):
         try:
             div_class = "I7OI1O C3wGFf L5YdXz _0xLoFW _7ckuOK mROyo1 _5qdMrS"
             images = self.driver.find_elements(By.CSS_SELECTOR, f'div.{div_class.replace(" ", ".")} img')
-            print(f"Found {len(images)} images.")
         except Exception as e:
             print(f"Error occurred while searching for images: {e}")
             return []
@@ -191,7 +241,6 @@ class LuxeProductPageScraper(ProductPageScraper):
         srcs=[]
         try:
             srcs = [img.get_attribute('src') for img in images]
-            print("Image sources extracted successfully.")
         except Exception as e:
             print(f"Error occurred while extracting image sources: {e}")
 
@@ -230,9 +279,9 @@ class LuxeProductPageScraper(ProductPageScraper):
 #         return product_details_text
 
 def add_hardcoded_metadata(product_data,type="-",gender="-"):
-    if(type!="-"):
+    if(type!="-" and type is not None and type!="null"):
         product_data["type"]=type
-    if(gender!="-"):
+    if(gender!="-" and gender is not None and gender!="null"):
         product_data["gender"]=gender
     return product_data
   
@@ -246,6 +295,7 @@ class Scraper:
         self.cookies_accepted = False
         self.json_strategy = json_strategy
         self.product_page_scraper = ProductPageScraper(self.driver)
+        self.scraping_report = {}
 
     def extract_links_from_whole_page(self):
         unique_links = set()
@@ -260,9 +310,12 @@ class Scraper:
             links = div.find_elements(By.TAG_NAME, "a")
             for link in links:
                 href = link.get_attribute('href')
+                _id = generate_ID(href)
                 if href:
-                    if not inReference("reference8",href):
+                    if not inReference(config_zalando.reference_name,_id):
                         unique_links.add(href)
+                    else:
+                        print("item already in reference")
         
         return unique_links
     
@@ -322,9 +375,10 @@ class Scraper:
         all_unique_links = self.collect_links_from_pages(nbr_items=nbr_items)#len(all_unique_links) ~<= nbr_items
         for i, href in enumerate(all_unique_links):
             product_data = self.product_page_scraper.scrap_product_page(href)
+            product_data = add_id_to_document(product_data)
             product_data = add_hardcoded_metadata(product_data,type=type,gender=gender)
             self.json_strategy.write_json(product_data)
-
+        self.scraping_report=self.product_page_scraper.scraping_report
 
 
 class ModeScraper(Scraper):

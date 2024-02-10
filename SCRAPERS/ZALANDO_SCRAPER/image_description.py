@@ -18,7 +18,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import sys
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 #import ZALANDO_SCRAPER.config as config
-import config
+import config_zalando
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -40,7 +40,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
     """
     Generate a description from up to 3 images of the same product.
     """
-    client = openai.OpenAI(api_key=config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_zalando.OPENAI_API_KEY)
     # Check if images is not None and is a list
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -109,7 +109,7 @@ def generate_catalog_single_elem(entry):
     """
         catalogue elem has this format :
         {
-        "id": <id>,
+        "_id": <id>,
         "gender": <gender>
         "name of the product : "", 
         "brand" :, 
@@ -120,9 +120,8 @@ def generate_catalog_single_elem(entry):
         }
     """
     images=entry.get("images")
-    #encoded_images = encode_imagesURLS(images)
 
-    id = entry.get("id")
+    id = entry.get("_id")
     gender = entry.get("gender")
     name = entry.get("name")
     brand = entry.get("brand")
@@ -136,7 +135,7 @@ def generate_catalog_single_elem(entry):
     #description = "test description"
     elem = {}
     if id:
-        elem["id"] = id
+        elem["_id"] = id
     if gender:
         elem["gender"] = gender
     if name:
@@ -156,14 +155,14 @@ def generate_catalog_single_elem(entry):
 
 def iD_is_in_Catalogue(catalogue_name,id_to_check):
     #catalogue_name is the collection name
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
     collection = db[catalogue_name]
 
-    if collection.find_one({"id": id_to_check}):
+    if collection.find_one({"_id": id_to_check}):
         client.close()
         return True
     else:
@@ -178,8 +177,8 @@ def add_to_Catalogue(catalogue_elem, catalogue_name):
     :param catalogue_elem: The element to be added.
     :param filename: Name of the JSON file to which the element is added.
     """
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -195,8 +194,8 @@ def add_to_Catalogue(catalogue_elem, catalogue_name):
 def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, catalogue_name, reference_name):
     item_processed = 0
 
-    db_uri = config.db_uri
-    db_name = config.db_name
+    db_uri = config_zalando.db_uri
+    db_name = config_zalando.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -205,9 +204,11 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
 
     scraped_data_length = scraped_data_collection.count_documents({})
     for scraped_data_doc in scraped_data_collection.find():
-        if "id" in scraped_data_doc:
-            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["id"]):
+        if "_id" in scraped_data_doc:
+            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["_id"]):
                 continue
+        else:
+            print("doc without id !!!!! thats a problem")
         item_processed += 1
 
         # Check for 'images' key
@@ -224,7 +225,7 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
             scraped_url = scraped_data_doc['url']
 
         reference_elem = {
-            'id': scraped_data_doc['id'],
+            '_id': scraped_data_doc['_id'],
             'url': scraped_url,
             'images': images 
         }
@@ -237,15 +238,15 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
 
 def generate_Catalog_and_Reference(reference_name, catalogue_name):
     
-    client = pymongo.MongoClient(config.db_uri)
-    db = client[config.db_name]
+    client = pymongo.MongoClient(config_zalando.db_uri)
+    db = client[config_zalando.db_name]
 
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
-        if collection_name.startswith("data_"):
-            if collection_name in {"data_luxe-homme"}:
+        if collection_name.startswith(config_zalando.collection_name_start_with):
+            if collection_name in {"data_zalando_streetwear-homme","data_zalando_sport-homme"}:
                 print("Processing " + str(collection_name) + " ...")
                 convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
 
-generate_Catalog_and_Reference("reference8", "Catalogue1")
+generate_Catalog_and_Reference(config_zalando.reference_name, "Catalogue1")
