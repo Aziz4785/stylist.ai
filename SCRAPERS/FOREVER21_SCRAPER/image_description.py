@@ -134,9 +134,13 @@ def generate_catalog_single_elem(entry):
     if details:
         if details.strip()[-1] !='.':
             details+='.'
+    else:
+        details=""
 
     description = describe_clothing_multi(name, brand,composition, details, size_fit,images)
     #description = "test description"
+    if not description:
+        description=""
     elem = {}
     if _id:
         elem["_id"] = _id
@@ -150,7 +154,7 @@ def generate_catalog_single_elem(entry):
         elem["brand"] = brand
     if composition:
         elem["materials"] = composition
-    if description:
+    if(len(details)>0 or len(description)>0):
         elem["visual description"] = details + '\n' +description
     elem["source"] = "forever21"
     return elem
