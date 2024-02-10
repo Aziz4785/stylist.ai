@@ -9,13 +9,27 @@ from selenium.webdriver.support import expected_conditions as EC
 #from translate import Translator
 from deep_translator import GoogleTranslator
 import config
+import sys
+import os
+
+# Calculate the absolute path to the SCRAPER directory
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+scrapers_dir_path = os.path.abspath(os.path.join(current_script_path, '..', '..'))
+
+# Add the SCRAPER directory to the path if not already included
+if scrapers_dir_path not in sys.path:
+    sys.path.insert(0, scrapers_dir_path)
+
+# Now you should be able to import id_generator directly
+from id_generator import *
 
 def add_hardcoded_metadata(product_data,type="-",gender="-"):
-    if(type!="-"):
+    if(type!="-" and type is not None and type!="null"):
         product_data["type"]=type
-    if(gender!="-"):
+    if(gender!="-" and gender is not None and gender!="null"):
         product_data["gender"]=gender
     return product_data
+  
 
 class ProductPageScraper:
     """
@@ -26,7 +40,8 @@ class ProductPageScraper:
         self.cookies_accepted = False
         #self.translator = Translator(to_lang="en", from_lang="fr")
         self.translator = GoogleTranslator(source='fr', target='en')
-        
+        self.scraping_report = {}
+
     def handle_cookie_consent(self):
         if not self.cookies_accepted:
             try:
@@ -40,7 +55,6 @@ class ProductPageScraper:
                 print(f"Error handling cookie consent: {e}")
     
     def extract_brand(self,url):
-        print("we start by extracting brand")
         return "Forever 21"
     
     def extract_images(self,url):
@@ -164,28 +178,48 @@ class ProductPageScraper:
         #self.handle_cookie_consent()
 
         product_brand = self.extract_brand(url)
-        if product_brand:
+        if product_brand and len(product_brand)>0:
            product_data["brand"] = product_brand
         
         product_name = self.extract_name(url)
-        if product_name:
-           product_data["name"] = product_name
-        
+        if product_name and len(product_name)>0:
+            product_data["name"] = product_name
+        else:
+            if("missing name" not in self.scraping_report):
+                self.scraping_report["missing name"]=0
+            self.scraping_report["missing name"]+=1
+
         material_and_care_text = self.extract_material_and_care(url)
-        if material_and_care_text:
+        if material_and_care_text and len(material_and_care_text)>0:
             product_data["composition and care (en)"] = material_and_care_text
-       
+        else:
+            if("missing composition" not in self.scraping_report):
+                self.scraping_report["missing composition"]=0
+            self.scraping_report["missing composition"]+=1
+
         product_details_text = self.extract_details(url)
-        if product_details_text:
+        if product_details_text and len(product_details_text)>0:
             product_data["more details (en)"] = product_details_text
+        else:
+            if("missing details" not in self.scraping_report):
+                self.scraping_report["missing details"]=0
+            self.scraping_report["missing details"]+=1
 
         product_sizefit_text = self.extract_sizefit(url)
-        if product_sizefit_text:
+        if product_sizefit_text and len(product_sizefit_text)>0:
             product_data["size + fit (en)"] = product_sizefit_text
+        else:
+            if("missing fit" not in self.scraping_report):
+                self.scraping_report["missing fit"]=0
+            self.scraping_report["missing fit"]+=1
 
         images = self.extract_images(url)
         if(len(images)>0):
             product_data["images"] = images
+        else:
+            if("missing images" not in self.scraping_report):
+                self.scraping_report["missing images"]=0
+            self.scraping_report["missing images"]+=1
 
         return product_data
 
@@ -199,18 +233,21 @@ class Scraper:
         self.cookies_accepted = False
         self.writing_strategy = writing_strategy
         self.product_page_scraper = ProductPageScraper(self.driver)
+        self.scraping_report = {}
     
     def extract_links_from_page(self):
-        print("now, we will extract link from this part of page")
+        print("now, we will extract links from a certain part of the page")
         unique_links = set()
         product_items = self.driver.find_elements(By.CSS_SELECTOR, ".product-grid__item .product-tile__anchor")
-        print(" in this part of page there is "+str(len(product_items))+" products we will iterate through them :")
+        print(" in this part of the page there are "+str(len(product_items))+" products we will iterate through them :")
         for item in product_items:
             href = item.get_attribute('href')
-            _id = item.get_attribute('_id')
+            _id = generate_ID(href)
             if href:
                 if not inReference(config.reference_name,_id):
                     unique_links.add(href)
+                else:
+                    print("item already in reference")
         print(" we finally extracted "+str(len(unique_links))+" products")
         return unique_links
 
@@ -257,8 +294,8 @@ class Scraper:
             # Extract links from the current page
             all_unique_links.update(self.extract_links_from_page())
 
-            if not self.cookies_accepted:
-                self.accept_cookies()
+            #if not self.cookies_accepted:
+                #self.accept_cookies()
 
             if(len(all_unique_links) < nbr_items):
                 if not self.expand(nbr_of_times=k):
@@ -267,10 +304,9 @@ class Scraper:
             k*=2
 
         if(len(all_unique_links) > nbr_items ):
-            nbr_to_remove = len(all_unique_links)-nbr_items
             my_list = list(all_unique_links)
 
-            my_list = my_list[nbr_to_remove:]
+            my_list = my_list[:nbr_items]
 
             # Convert the list back to a set
             all_unique_links = set(my_list)
@@ -279,16 +315,14 @@ class Scraper:
         return all_unique_links
     
     def scrape(self, nbr_items=20,type="-",gender="-"):
-        print("we call scrape :")
         all_unique_links = self.collect_products_link(nbr_items=nbr_items) #len(all_unique_links) ~<= nbr_items
-        print("number of unique links collected : "+str(len(all_unique_links)))
-        print("here are the links : ")
-        print(all_unique_links)
         for i, href in enumerate(all_unique_links):
             print("we scrape product n° "+str(i))
             product_data = self.product_page_scraper.scrap_product_page(href)
+            product_data = add_id_to_document(product_data)
             product_data = add_hardcoded_metadata(product_data,type=type,gender=gender)
             self.writing_strategy.write(product_data)
+        self.scraping_report=self.product_page_scraper.scraping_report
 
 
 

@@ -9,6 +9,7 @@ from deep_translator import GoogleTranslator
 from .dal import *
 import sys
 import os
+import config_zalando
 #sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 #from SCRAPERS.id_generator import *
 
@@ -278,9 +279,9 @@ class LuxeProductPageScraper(ProductPageScraper):
 #         return product_details_text
 
 def add_hardcoded_metadata(product_data,type="-",gender="-"):
-    if(type!="-"):
+    if(type!="-" and type is not None and type!="null"):
         product_data["type"]=type
-    if(gender!="-"):
+    if(gender!="-" and gender is not None and gender!="null"):
         product_data["gender"]=gender
     return product_data
   
@@ -309,8 +310,9 @@ class Scraper:
             links = div.find_elements(By.TAG_NAME, "a")
             for link in links:
                 href = link.get_attribute('href')
+                _id = generate_ID(href)
                 if href:
-                    if not inReference("reference8",href):
+                    if not inReference(config_zalando.reference_name,_id):
                         unique_links.add(href)
                     else:
                         print("item already in reference")
@@ -376,7 +378,7 @@ class Scraper:
             product_data = add_id_to_document(product_data)
             product_data = add_hardcoded_metadata(product_data,type=type,gender=gender)
             self.json_strategy.write_json(product_data)
-
+        self.scraping_report=self.product_page_scraper.scraping_report
 
 
 class ModeScraper(Scraper):
