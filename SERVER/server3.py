@@ -67,7 +67,7 @@ def process():
 
     user_input = request.form['query']
     user_input = sanitize_input(user_input)
-
+    user_input = preprocess_input(user_input)
     if not_valid(user_input):
         return "input not valid"
 

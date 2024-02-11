@@ -7,6 +7,7 @@ import re
 import openai
 import os
 import nltk
+from deep_translator import GoogleTranslator
 from common_variables import *
 from META.metadata_card import *
 import pymongo
@@ -295,6 +296,10 @@ def get_all_GPT3_response(context, question, with_analysis=False):
         final_response+=(" "+gpt3_response)
     print("finished to generate all gpt3 answers ! ")
     return final_response
+
+def preprocess_input(user_input):
+    translator = GoogleTranslator(source='auto', target='en')
+    return translator.translate(user_input)
 
 def get_GPT3_response(context, question, with_analysis=False):
     # Your OpenAI API key
