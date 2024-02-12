@@ -32,10 +32,10 @@ class OpenAIClient:
         self.api_key = Config.get_OPENAI_api_key()
         self.client = openai.OpenAI(api_key=self.api_key)
 
-    def query(self, prompt, model="gpt-3.5-turbo", max_tokens=60):
+    def query(self, prompt, model="gpt-3.5-turbo-0125", max_tokens=60):
         return self.client.Completion.create(model=model, prompt=prompt, max_tokens=max_tokens)
 
-    def chat_query(self, messages, model="gpt-3.5-turbo", max_tokens=60,temperature=-1,top_p=-1):
+    def chat_query(self, messages, model="gpt-3.5-turbo-0125", max_tokens=60,temperature=-1,top_p=-1):
         if(temperature>0 and top_p >0):
             return self.client.chat.completions.create(
             model=model,
