@@ -25,6 +25,27 @@ nlp = spacy.load("en_core_web_sm")
 if not nltk.data.find('tokenizers/punkt'):
     nltk.download('punkt')
 
+def beautify_id(number):
+    formatted_string = f"#I{number:04d}"
+    return formatted_string
+
+def set_to_hashmap(input_set):
+    input_list = list(input_set)
+    hashmap = {number: beautify_id(index) for index, number in enumerate(input_list)}
+    return hashmap
+
+def extract_small_Ids_from_text(text):
+    """
+    Extract the pattern '#I' followed by exactly 4  alphanumeric characters,
+    and excludes cases where '#I' is followed by more than 6  alphanumeric characters.
+    """
+    if text is None:
+        return []
+    
+    pattern = r"#I[0-9A-Za-z]{4}(?![0-9A-Za-z])"
+    matches = re.findall(pattern, text)
+    return matches
+
 def extract_Ids_from_text(text):
     """
     Extract the pattern '#I' followed by exactly 6  alphanumeric characters,
@@ -36,6 +57,11 @@ def extract_Ids_from_text(text):
     pattern = r"#I[0-9A-Za-z]{6}(?![0-9A-Za-z])"
     matches = re.findall(pattern, text)
     return matches
+
+def convert_to_catalgoue_ids(list_of_indexes, index_id_map):
+    # Retrieve the values of the elements in the list from the dictionary
+    values_list = [index_id_map[element] for element in list_of_indexes if element in index_id_map]
+    return values_list
 
 def remove_outer_quotes(text):
     if text is None:
@@ -51,7 +77,7 @@ def filter_collection_By_Id(collection_name,list_of_ids):
     filtered_docs=[]
 
     for entry in mongodb_collection.find():
-        if entry['id'] in list_of_ids:
+        if entry['_id'] in list_of_ids:
             filtered_docs.append(entry)
 
     return filtered_docs
@@ -83,7 +109,7 @@ def find_product_by_id_in_collection(collection_name, product_id):
 
     product_list = mongodb_collection.find()
     for product in product_list:
-        if product['id'] == product_id:
+        if product['_id'] == product_id:
             return product
         
     return None
@@ -130,7 +156,8 @@ def get_Ids_of_similiar_docs_from_emebdding(app,user_input):
     metadata_card = MetaDataCard(extractors)
 
     metadata_card.generate_from_query(user_input)
-
+    print("the metadata card :")
+    print(metadata_card)
     separated_user_input = separate_sentence(user_input)
     meta_filtered_docs=[]
     k=60
@@ -238,10 +265,10 @@ def get_Ids_from_hashmap(list_of_docList,hashtable,set_sizes):
 def replace_double_newlines(text):
     return text.replace("\n\n", "\n")
 
-def convert_to_proper_string(items):
+def convert_to_proper_string(items, id_index_map):
     formatted_string = ""
     for product in items:
-        formatted_string += f"_id: {product['_id']}\n"
+        formatted_string += f"_id: {id_index_map[product['_id']]}\n"
         if('name of the product' in product):
             formatted_string += f"name of the product: '{product['name of the product']}'\n"
         if("brand" in product):
@@ -254,11 +281,11 @@ def convert_to_proper_string(items):
             formatted_string += f"visual description: '{description}'\n\n"
     return formatted_string
 
-def get_chatgpt_response(context, question, with_analysis=False):
+def get_chatgpt_response(context, question, id_index_map, with_analysis=False):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     print("getting chatgpt4 response...")
     if not isinstance(context, str):
-        context = convert_to_proper_string(context)
+        context = convert_to_proper_string(context, id_index_map)
 
     analysis = " Return only the corresponding IDs, nothing else"
     if(with_analysis):
@@ -275,8 +302,7 @@ user input:
 Begin your response by listing IDs of the specific clothing items that 100% match the user input , do not include IDs of clothes that don't match the user input
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
-    print("prompt : ")
-    print(prompt)
+
     try:
         response = client.chat.completions.create(
             model="gpt-4",  
@@ -287,25 +313,30 @@ Begin your response by listing IDs of the specific clothing items that 100% matc
     except Exception as e:
         return str(e)
     
-def get_all_GPT3_response(context, question, with_analysis=False):
+def get_all_GPT3_response(context, question, id_index_map, with_analysis=False):
      # Process every two elements in the context
     final_response=""
     for i in range(0, len(context), 2):
         sublist = context[i:i + 2]  # Get two elements
-        gpt3_response = get_GPT3_response(sublist,question,with_analysis)
+        gpt3_response = get_GPT3_response(sublist,question,id_index_map,with_analysis)
         final_response+=(" "+gpt3_response)
     print("finished to generate all gpt3 answers ! ")
     return final_response
+
+def invert_dict(input_dict):
+    # Invert the dictionary by swapping its keys and values
+    inverted_dict = {value: key for key, value in input_dict.items()}
+    return inverted_dict
 
 def preprocess_input(user_input):
     translator = GoogleTranslator(source='auto', target='en')
     return translator.translate(user_input)
 
-def get_GPT3_response(context, question, with_analysis=False):
+def get_GPT3_response(context, question, id_index_map, with_analysis=False):
     # Your OpenAI API key
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     if not isinstance(context, str):
-        context = convert_to_proper_string(context)
+        context = convert_to_proper_string(context,id_index_map)
 
     analysis = " Return only the corresponding IDs, nothing else"
     if(with_analysis):
@@ -322,8 +353,7 @@ criteria:
 Please provide a response that strictly lists the IDs of the clothing items meeting this exact criterion, without mentioning or including the IDs of any items that do not.
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
-    print("prompt : ")
-    print(prompt)
+
     try:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo-0125",  

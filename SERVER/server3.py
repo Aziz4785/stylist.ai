@@ -41,7 +41,7 @@ app.config.update(
     SECRET_KEY="secret_key_for_csrf",
 )
 csrf = CSRFProtect(app) 
-app.wsgi_app = ProxyFix(
+app.wsgi_app = ProxyFix( 
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 ) #https://flask.palletsprojects.com/en/2.3.x/deploying/proxy_fix/
 limiter = Limiter(app=app, key_func=lambda: request.headers.get('X-Real-IP') or get_remote_address())
@@ -63,7 +63,7 @@ def index():
 @app.route('/process', methods=['POST'])
 @limiter.limit("3 per day")
 def process():
-    print("we call /process ...")
+    print("we call /process ...", file=sys.stdout)
 
     user_input = request.form['query']
     user_input = sanitize_input(user_input)
@@ -74,20 +74,26 @@ def process():
     actual_ids = get_Ids_of_similiar_docs_from_emebdding(app,user_input)
 
     set_of_ids_GPT4, set_of_ids_GPT3 = set(actual_ids[:10]),set(actual_ids[10:])
+
+    id_index_map_gpt4 = set_to_hashmap(set_of_ids_GPT4) #key is an id of catalogue and value is a formatted index for example : #I0046
+    id_index_map_gpt3 = set_to_hashmap(set_of_ids_GPT3)
+    index_id_map_GPT4 = invert_dict(id_index_map_gpt4)
+    index_id_map_GPT3 = invert_dict(id_index_map_gpt3)
+
     correpsonding_items_gpt4 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT4)
     correpsonding_items_gpt3 = filter_collection_By_Id(app.config['catalogue_collection_name'],set_of_ids_GPT3)
     print(str(len(correpsonding_items_gpt4))+" items for gpt4 and "+str(len(correpsonding_items_gpt3))+" items for gpt3")
-    gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, user_input, with_analysis=True)
-    gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, user_input, with_analysis=True)
-    print("chat gpt4 answer : ")
+    gpt4_answer = get_chatgpt_response(correpsonding_items_gpt4, user_input, id_index_map_gpt4, with_analysis=True)
+    gpt3_answer = get_all_GPT3_response(correpsonding_items_gpt3, user_input, id_index_map_gpt3, with_analysis=True)
+    print("chat gpt4 answer : ", file=sys.stdout)
     print(gpt4_answer)
-    print("gpt3 ANSWER :")
+    print("gpt3 ANSWER :", file=sys.stdout)
     print(gpt3_answer)
-    list_of_ids = extract_Ids_from_text(gpt4_answer)
-    list_of_ids.extend(extract_Ids_from_text(gpt3_answer))
-    print("list of ids = ")
+    list_of_ids = convert_to_catalgoue_ids(extract_small_Ids_from_text(gpt4_answer),index_id_map_GPT4)
+    list_of_ids.extend(convert_to_catalgoue_ids(extract_small_Ids_from_text(gpt3_answer),index_id_map_GPT3))
+    print("list of ids = ", file=sys.stdout)
     print(list_of_ids)
-    final_documents = filter_collection_By_Id("reference8",list_of_ids)
+    final_documents = filter_collection_By_Id(config_server.reference_name,list_of_ids)
     json_output = json.dumps(final_documents, cls=MongoJsonEncoder)
     return json_output
 
