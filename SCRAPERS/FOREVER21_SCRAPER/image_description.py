@@ -253,8 +253,17 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
     
     for scraped_data_doc in scraped_data_collection.find():
         if "_id" in scraped_data_doc:
-            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["_id"]):
-                continue
+            doc_in_catalogue = db[catalogue_name].find_one({'_id': scraped_data_doc["_id"]})
+            if doc_in_catalogue:
+                if "visual description" in doc_in_catalogue and doc_in_catalogue["visual description"]!="":
+                    continue
+                else:
+                    print("we found a doc that is already in catalgoue and its description is empty ..")
+                    temp_elem = generate_catalog_single_elem(scraped_data_doc)
+                    if("visual description" in temp_elem):
+                        doc_in_catalogue["visual description"] = temp_elem["visual description"]
+                        db[catalogue_name].update_one({"_id": doc_in_catalogue["_id"]}, {"$set": doc_in_catalogue})
+                    continue
 
         catalogue_elem = generate_catalog_single_elem(scraped_data_doc)
         if(add_to_Catalogue(catalogue_elem, catalogue_name)):
@@ -280,9 +289,8 @@ def generate_Catalog_and_Reference(reference_name, catalogue_name):
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
         if collection_name.startswith(f21_config.collection_name_start_with):
-            if collection_name in {"data_f21_loungewear","data_f21_outerwear_coats-and-jackets","data_f21_rompers-jumpsuits","data_f21_sets"}:
-                print("Processing " + str(collection_name) + " ...")
-                convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
+            print("Processing " + str(collection_name) + " ...")
+            convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
 
 generate_Catalog_and_Reference(f21_config.reference_name, "Catalogue1")
