@@ -326,7 +326,7 @@ Please provide a response that strictly lists the IDs of the clothing items meet
     print(prompt)
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",  
+            model="gpt-3.5-turbo-0125",  
             messages=[{"role": "system", "content": "You are a helpful assistant."}, 
                       {"role": "user", "content": prompt}]
         )
@@ -417,7 +417,7 @@ def extract_feature_words_from_query(query):
     #extract keywords from query
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {"role": "system", "content": "You are a garment analysis assistant. Your task is to identify and extract the most important features of the garment. Base your decision solely on the description provided. If the description does not explicitly mention a particular feature, respond with 'unknown'."},
             {"role": "user", "content": "do you have some vintage dark colored jacket for women? "},

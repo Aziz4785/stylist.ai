@@ -13,6 +13,7 @@ class TestIndividualExtractors(unittest.TestCase):
     
     def test_material_from_query(self):
         test_cases = [
+            ("a tshirt where the name of the brand is written on the back", {"unknown"},{"unknown"}),
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", {"unknown"},{"unknown"}),
             ("an item for men (but not trousers/pants) with the norwegian flag on it",{"unknown"},{"unknown"}),
             ("a tshirt where the name of the brand is written in big", {"unknown"},{"unknown"}),
@@ -90,6 +91,7 @@ class TestIndividualExtractors(unittest.TestCase):
         # List of pairs (description, expected garment type)
         print("testing black white extractor")
         test_cases = [
+            ("a tshirt where the name of the brand is written on the back", "unknown"),
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", ["unknown","unknown"]),
             ("an item for men (but not trousers/pants) with the norwegian flag on it",["unknown","yes"]),
             ("a tshirt where the name of the brand is written in big", ["unknown","unknown"]),
@@ -169,6 +171,7 @@ class TestIndividualExtractors(unittest.TestCase):
         print()
         # List of pairs (description, expected garment type)
         test_cases = [
+            ("a tshirt where the name of the brand is written on the back", "unknown"),
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", "unknown"),
             ("an item for men (but not trousers/pants) with the norwegian flag on it","yes"),
             ("a tshirt where the name of the brand is written in big", "unknown"),
@@ -247,6 +250,7 @@ class TestIndividualExtractors(unittest.TestCase):
         print("testing gender...")
         print()
         test_cases = [
+            ("a tshirt where the name of the brand is written on the back", "unknown"),
             ("a tshirt/pull or something similar where the colors on it are separated by horizontal lines", "unknown"),
             ("an item for men (but not trousers/pants) with the norwegian flag on it","men"),
             ("a tshirt where the name of the brand is written in big", "unknown"),
@@ -354,10 +358,10 @@ class TestIndividualExtractors(unittest.TestCase):
                 self.assertTrue(result==expected)
 
 if __name__ == '__main__':
-    suite = unittest.TestSuite()
-    suite.addTest(TestIndividualExtractors('test_colorblackwhite'))
-    runner = unittest.TextTestRunner()
-    runner.run(suite)
+    # suite = unittest.TestSuite()
+    # suite.addTest(TestIndividualExtractors('test_colorblackwhite'))
+    # runner = unittest.TextTestRunner()
+    # runner.run(suite)
 
     #if you want to run all the tests, uncomment this and comment all the block above:
-    #unittest.main()
+    unittest.main()
