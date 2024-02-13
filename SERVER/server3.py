@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify , render_template
 import os
 import sys
-from flask import current_app as app
 import json
 from bson import ObjectId
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

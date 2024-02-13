@@ -9,7 +9,7 @@ RUN pip install -r requirements.txt
 #download NLTK data during the build : 
 RUN python -m nltk.downloader punkt
 
-#EXPOSE 5000
+EXPOSE 5000
 
 # Set a default command, for example, starting the server.
 #for development
