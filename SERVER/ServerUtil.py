@@ -166,17 +166,21 @@ def get_Ids_of_similiar_docs_from_emebdding(app,user_input):
     metadata_card.generate_from_query(user_input)
     print("the metadata card :")
     print(metadata_card)
-    separated_user_input = separate_sentence(user_input)
+    #separated_user_input = separate_sentence(user_input)
     meta_filtered_docs=[]
     k=60
-    while(len(meta_filtered_docs)<20 and k<1000):
+    print("first")
+    while(len(meta_filtered_docs)<25 and k<500):
         separated_user_input=['','']
-        docs_with_score = get_similar_doc_for_separated_input(app,app.embedding, user_input,separated_user_input,k=k)
+        docs_with_score = get_similar_doc_for_separated_input(app.embedding, user_input,separated_user_input,k=k)
+        print("we get "+str(len(docs_with_score))+" similar docs to "+str(user_input))
         meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
+        print("after meta filtering them we have only "+str(len(meta_filtered_docs)))
+        print("if it is less than 25 we do the operation again")
         #meta_filtered_docs is a list of (doc,score)
         k*=2
 
-    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=30)
+    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,metadata_card,matching_controller,k=30)
     actual_ids= [pair[0] for pair in actual_ids_pairs]
     return actual_ids
 
@@ -242,6 +246,9 @@ def convert_to_proper_string(items, id_index_map):
             formatted_string += f"name of the product: '{product['name of the product']}'\n"
         if("brand" in product):
             formatted_string += f"brand: '{product['brand']}'\n"
+        if("materials" in product):
+            composition = replace_double_newlines(product['materials'])
+            formatted_string += f"composition: '{composition}'\n"
         if('details about that item' in product):
             details = replace_double_newlines(product['details about that item'])
             formatted_string += f"details about that item: '{details}'\n"
@@ -271,7 +278,9 @@ user input:
 Begin your response by listing IDs of the specific clothing items that 100% match the user input , do not include IDs of clothes that don't match the user input
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
-
+    print("gpt4 prompt : ")
+    print(prompt)
+    print()
     try:
         response = client.chat.completions.create(
             model="gpt-4",  
@@ -286,6 +295,7 @@ def get_all_GPT3_response(context, question, id_index_map, with_analysis=False):
      # Process every two elements in the context
     final_response=""
     for i in range(0, len(context), 2):
+        print("request to gpt3 ..")
         sublist = context[i:i + 2]  # Get two elements
         gpt3_response = get_GPT3_response(sublist,question,id_index_map,with_analysis)
         final_response+=(" "+gpt3_response)
@@ -338,7 +348,7 @@ def is_single_word(s):
     return len(words) == 1 and words[0] != ""
 
 
-def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input,k):
+def get_similar_doc_for_separated_input(correpsonding_embedding, user_input,separated_user_input,k):
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k)
         print("top 6 docs for "+user_input+ " : ")
@@ -358,19 +368,29 @@ def filter_docs(app,docs_with_score,metadata_card,matching_controller):
     return docs that match the metadata_card
     """
     filtered_docs = []
+    ids_of_elem = []
     for doc, score in docs_with_score:
         if(doc.page_content in app.hashtable):
             ids_of_elem = app.hashtable[doc.page_content]
-        elif(doc.page_content in app.hashtable_small_chunks):
-            ids_of_elem = app.hashtable_small_chunks[doc.page_content]
+        #elif(doc.page_content in app.hashtable_small_chunks):
+            #ids_of_elem = app.hashtable_small_chunks[doc.page_content]
         else:
             print("ERROR IN HASHTABLE ")
         for id_of_elem in ids_of_elem:
-            json_elem = find_product_by_id_in_collection(app.config['catalogue_collection_name'],id_of_elem)
-            if(matching_controller.meta_match(json_elem, metadata_card)):
+            if(is_meta_match(id_of_elem,metadata_card,matching_controller)):
                 filtered_docs.append((doc,score))
                 break
     return filtered_docs
+
+def is_meta_match(id_of_elem,metadata_card,matching_controller):
+    """
+    return true is the element of id_of_elem match the metadatacard
+    """
+    json_elem = find_product_by_id_in_collection(config_server.catalogue_name,id_of_elem)
+    if(matching_controller.meta_match(json_elem, metadata_card)):
+        return True
+    else:
+        return False
 
 def chunk_sentence(s, chunk_size=4, slide=2):
     # Split the sentence into words
@@ -393,10 +413,11 @@ def chunk_sentence(s, chunk_size=4, slide=2):
 
     return chunks
 
-def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=30):
+def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,metadata_card,matching_controller,k=30):
     sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
-    print("20 first sorted docs : ")
-    print(sorted_docs[:20])
+    print("now we are getting the Ids of top k docs with the best score ")
+    print("10 first sorted docs : ")
+    print(sorted_docs[:10])
     res =[]
     visited_ids=set()
     for elem,score in sorted_docs:
@@ -404,7 +425,7 @@ def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=30):
             id_set = hashtable[elem.page_content]
             pair_list = create_list_of_pairs(id_set,score)
             for pair in pair_list:
-                if(pair[0] not in visited_ids):
+                if(pair[0] not in visited_ids and is_meta_match(pair[0] ,metadata_card,matching_controller)):
                     res.append(pair)
                 visited_ids.add(pair[0])
     return res
