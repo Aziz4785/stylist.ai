@@ -27,9 +27,8 @@ class MyApp(Flask):
         self.config["RATELIMIT_HEADERS_ENABLED"] = True #https://flask-limiter.readthedocs.io/en/stable/configuration.html
         if(self.config['catalogue_collection_name'] in db.list_collection_names()):
             self.catalogue = db[self.config['catalogue_collection_name']]
-            self.hashtable = divide_into_tiny_chunks(self)
-            #self.hashtable_small_chunks = divide_description_into_smaller_chunks(self)
-            self.embedding = create_embedding(self.hashtable.keys())
+            self.hashtable = load_hashtable("hashtable")
+            self.embedding = load_embeddings()
             #self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
 
 app = MyApp(__name__)

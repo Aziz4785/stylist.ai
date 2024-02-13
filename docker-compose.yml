@@ -4,15 +4,7 @@ services:
   mongodb:
     image: mongo
     healthcheck:
-      test:
-        [
-          "CMD",
-          "mongo",
-          "--quiet",
-          "127.0.0.1/test",
-          "--eval",
-          "'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'",
-        ]
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand('ping').ok ? quit(0) : quit(1)"]
       interval: 10s
       timeout: 10s
       retries: 5
@@ -35,29 +27,6 @@ services:
       - mongodb
     networks:
       - mynetwork
-
-  # test:
-  #   build: ./SERVER
-  #   #image: ghcr.io/aziz4785/smartstyle-test:v0.1
-  #   volumes:
-  #     - ./SERVER:/server
-  #   command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
-  #   depends_on:
-  #     - mongodb
-  #   networks:
-  #     - mynetwork
-
-  # apache:
-  #   image: httpd:2.4
-  #   volumes:
-  #     - ./my-httpd.conf:/usr/local/apache2/conf/httpd.conf
-  #     - ./my-apache.conf:/usr/local/apache2/conf/apache.conf
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - server
-  #   networks:
-  #     - mynetwork
 
   nginx:
     image: nginx:alpine

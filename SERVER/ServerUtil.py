@@ -6,6 +6,7 @@ from bson import ObjectId
 import re
 import openai
 import os
+import pickle
 import nltk
 from deep_translator import GoogleTranslator
 from common_variables import *
@@ -92,6 +93,13 @@ def create_embedding(catalogue_chunks):
     print("done")
     return docsearch
 
+def load_embeddings(file_name="faiss_embedding", embeddings=OpenAIEmbeddings()):
+    if os.path.exists(file_name):
+        return FAISS.load_local(file_name, embeddings)
+    else:
+        print(f"File {file_name} not found.")
+        return None
+
 def extract_sentences(paragraph):
     sentences = sent_tokenize(paragraph)
     return sentences
@@ -172,56 +180,17 @@ def get_Ids_of_similiar_docs_from_emebdding(app,user_input):
     actual_ids= [pair[0] for pair in actual_ids_pairs]
     return actual_ids
 
-def divide_into_tiny_chunks(app):
-    print("dividing catalogue into tiny chunks  ...")
-    hashtable={}
-    for item in app.catalogue.find():
-        brand= ""
-        name= ""
-        details= ""
-        sentences= []
-        if("visual description" in item):
-            sentences = extract_sentences(item["visual description"])
-            description_without_newlines = replace_double_newlines(item["visual description"])
-            if(description_without_newlines not in hashtable):
-                hashtable[description_without_newlines] = set()
-            hashtable[description_without_newlines].add(item["_id"])
-
-        if("brand" in  item):
-            brand = item["brand"]
-        if("name of the product" in item):
-            name = item["name of the product"]+", "
-        if("details about that item" in item):
-            details = item["details about that item"]
-            if details not in hashtable:
-                hashtable[details] = set()
-            hashtable[details].add(item["_id"])
-        if("materials" in item):
-            materials = item["materials"]
-            if materials not in hashtable:
-                hashtable[materials] = set()
-            hashtable[materials].add(item["_id"])
-
-        name_key = name +" "+brand
-        if name_key not in hashtable:
-            hashtable[name_key] = set()
-        if brand not in hashtable:
-            hashtable[brand] = set()
-
-        hashtable[name_key].add(item["_id"])
-        hashtable[brand].add(item["_id"])
-
-        for sentence in sentences:
-            if(sentence not in hashtable):
-                hashtable[sentence] = set()
-            hashtable[sentence].add(item["_id"])
-           
-
-        
-    print("done")
-    return hashtable
 
 
+def load_hashtable(filename):
+    try:
+        with open(filename, 'rb') as file:
+            data = pickle.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"No such file: '{filename}'")
+        return None
+    
 def get_similar_doc_from_embedding(docsearch,query,k=10):
     print("getting "+str(k)+" most similar docs for query : "+str(query))
     docs = docsearch.similarity_search_with_score(query,k)
