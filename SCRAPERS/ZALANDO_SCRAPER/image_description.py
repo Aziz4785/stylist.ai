@@ -184,6 +184,7 @@ def add_to_Catalogue(catalogue_elem, catalogue_name):
 
     client.close()
 
+
 def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, catalogue_name, reference_name):
     item_processed = 0
 
