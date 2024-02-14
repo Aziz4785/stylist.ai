@@ -26,7 +26,7 @@ def describe_clothing_multi(name, brand,composition, description, size_fit,image
     """
     Generate a description from up to 3 images of the same product.
     """
-    client = openai.OpenAI(api_key=f21_config.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=f21_config.OPENAI_API_KEY, organization=f21_config.organization_id)
     maxtokens = 60
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -280,7 +280,7 @@ def generate_Catalog_and_Reference(reference_name, catalogue_name):
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
         if collection_name.startswith(f21_config.collection_name_start_with):
-            if collection_name in {"data_f21_loungewear","data_f21_outerwear_coats-and-jackets","data_f21_rompers-jumpsuits","data_f21_sets"}:
+            if collection_name in {"data_f21_top_graphic-tops", "data_f21_top_blouses-sweatshirts-hoodies", "data_f21_top_blouses", "data_f21_swimwear_all", "data_f21_sweater", "data_f21_mens_sets", "data_f21_mens_loungewear_sleepwear", "data_f21_mens-tops", "data_f21_mens-tees-tanks-graphic", "data_f21_mens-sweatshirts-hoodies", "data_f21_mens-shirts", "data_f21_mens-jackets-and-coats", "data_f21_mens-bottom-swim", "data_f21_mens-bottom-shorts", "data_f21_mens-bottom-denim", "data_f21_mens-bottom"}:
                 print("Processing " + str(collection_name) + " ...")
                 convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  

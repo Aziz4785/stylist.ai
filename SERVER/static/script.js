@@ -44,7 +44,7 @@ function mockApiCall(query) {
         };
 
         // Parse the JSON response and pass along rate limit info
-        return response.json().then(data => ({ data, rateLimitInfo }));
+        return response.json().then(data => ({ data, rateLimitInfo })Globalsomme_dotation);
     });
 }
 

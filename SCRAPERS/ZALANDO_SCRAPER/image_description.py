@@ -1,24 +1,17 @@
 # Importing libraries
 import base64
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-import json
-import requests
-import os
 import logging
 import math
-import pymongo
-from openai import OpenAI
-import openai
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-import sys
-#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-#import ZALANDO_SCRAPER.config as config
+import pymongo
+import requests
+
+import openai
+
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# import ZALANDO_SCRAPER.config as config
 import config_zalando
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -40,7 +33,7 @@ def describe_clothing_multi(name, brand, infos_from_site, images):
     """
     Generate a description from up to 3 images of the same product.
     """
-    client = openai.OpenAI(api_key=config_zalando.OPENAI_API_KEY)
+    client = openai.OpenAI(api_key=config_zalando.OPENAI_API_KEY, organization=config_zalando.organization_id)
     # Check if images is not None and is a list
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -244,7 +237,8 @@ def generate_Catalog_and_Reference(reference_name, catalogue_name):
     for collection_name in db.list_collection_names():
         # Check if the collection name starts with 'data_'
         if collection_name.startswith(config_zalando.collection_name_start_with):
-            if collection_name in {"data_zalando_streetwear-homme","data_zalando_sport-homme"}:
+            if collection_name in {"data_zalando_streetwear-femme","data_zalando_sport-femme", "data_zalando_mode-femme"
+                , "data_zalando_luxe-femme", "data_zalando_chaussures-femme"}:
                 print("Processing " + str(collection_name) + " ...")
                 convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
