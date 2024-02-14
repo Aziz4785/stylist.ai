@@ -198,10 +198,20 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
     scraped_data_length = scraped_data_collection.count_documents({})
     for scraped_data_doc in scraped_data_collection.find():
         if "_id" in scraped_data_doc:
-            if iD_is_in_Catalogue(catalogue_name, scraped_data_doc["_id"]):
-                continue
+            doc_in_catalogue = db[catalogue_name].find_one({'_id': scraped_data_doc["_id"]})
+            if doc_in_catalogue:
+                if "visual description" in doc_in_catalogue and doc_in_catalogue["visual description"]!="":
+                    continue
+                else:
+                    print("we found a doc that is already in catalgoue and its description is empty ..")
+                    temp_elem = generate_catalog_single_elem(scraped_data_doc)
+                    if("visual description" in temp_elem):
+                        doc_in_catalogue["visual description"] = temp_elem["visual description"]
+                        db[catalogue_name].update_one({"_id": doc_in_catalogue["_id"]}, {"$set": doc_in_catalogue})
+                    continue
         else:
             print("doc without id !!!!! thats a problem")
+        
         item_processed += 1
 
         # Check for 'images' key
@@ -241,6 +251,8 @@ def generate_Catalog_and_Reference(reference_name, catalogue_name):
                 , "data_zalando_luxe-femme", "data_zalando_chaussures-femme"}:
                 print("Processing " + str(collection_name) + " ...")
                 convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
+            print("Processing " + str(collection_name) + " ...")
+            convert_Collection_to_Catalog_and_Reference(collection_name, catalogue_name, reference_name)
  
 
 generate_Catalog_and_Reference(config_zalando.reference_name, "Catalogue1")

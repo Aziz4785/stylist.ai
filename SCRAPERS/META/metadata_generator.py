@@ -32,10 +32,10 @@ class OpenAIClient:
         self.api_key = Config.get_OPENAI_api_key()
         self.client = openai.OpenAI(api_key=self.api_key)
 
-    def query(self, prompt, model="gpt-3.5-turbo", max_tokens=60):
+    def query(self, prompt, model="gpt-3.5-turbo-0125", max_tokens=60):
         return self.client.Completion.create(model=model, prompt=prompt, max_tokens=max_tokens)
 
-    def chat_query(self, messages, model="gpt-3.5-turbo", max_tokens=60,temperature=-1,top_p=-1):
+    def chat_query(self, messages, model="gpt-3.5-turbo-0125", max_tokens=60,temperature=-1,top_p=-1):
         if(temperature>0 and top_p >0):
             return self.client.chat.completions.create(
             model=model,
@@ -105,10 +105,10 @@ class BWClassifier(ClassifierService):
             {"role": "system", "content": "You are a smart assistant. hen given a description of a garment, determine if it contains the colors black and/or white. Respond with 'Black: Yes', 'White: Yes', 'Black: No', 'White: No', or 'Unknown' for each color. If there is no indication or if you are not sure, return 'Unknown'. Your response should be in a format that is easy to parse using Python."},
             {"role": "user", "content": "Here is a garment description: " +description}
             ]
-        
+        print("sending api request")
         response = self.api_client.chat_query(messages,temperature=0.7,top_p=1)
         raw_answer = response.choices[0].message.content.lower().strip()
-        
+        print("response received")
         return extract_blackwhite(raw_answer)
 
 class CompositionClassifier(ClassifierService):
@@ -148,16 +148,21 @@ class JsonProcessor:
         """
         handle_item is a function that return the classification (type or composition or color etc..) of the item
         """
+        i=0
         for item in self.collection.find():
+            if(i%30<3):
+                print("handling item ...")
             keyvalues = handle_item(item, classifier)
             if(keyvalues):
+                i+=1
+                if(i%30<3):
+                    print(str(i)+" items processed")
                 for key, value in keyvalues:
                     if key and value:
                         if isinstance(value, set):
                             item[key] = ', '.join(map(str, value))
                         else:
                             item[key] = value
-
                         self.collection.update_one({"_id": item["_id"]}, {"$set": item})
             else:       
                 print("handle_item returns null")
@@ -194,8 +199,10 @@ def handle_garment_type(item, classifier):
         if "name of the product" in item :
             complete_description = item["name of the product"]+ ", "
         if "visual description" in item:
-            classification = classifier.classify(complete_description +item["visual description"])
-            return [('type', classification)]
+            complete_description += item["visual description"]
+
+        classification = classifier.classify(complete_description)
+        return [('type', classification)]
     return [(None, None)]
 
 def handle_composition(item, classifier):
@@ -203,17 +210,23 @@ def handle_composition(item, classifier):
         item is a catalog element
         this function returns the composition of the item using classifier
     """
+    print("checking if composition not in item")
     if("composition" not in item ):
+        print("checking if materials not in item")
         if "materials" in item:
             details = item["materials"]
+            print("classifying")
             classification = classifier.classify(details)
             return [('composition', classification)]
 
     return [(None, None)]
 
 def handle_bw(item,classifier):
+    print("checking if contains_black not in item")
     if("contains_black" not in item and 'contains_white' not in item):
+        print("checking if visual description in item")
         if "visual description" in item:
+            print("classifyingg bw api")
             bw_list = classifier.classify(item["visual description"])
             return [('contains_black', bw_list[0]),('contains_white' , bw_list[1])]
     return [(None, None)]
@@ -224,6 +237,7 @@ def handle_otherColor(item,classifier):
             if item['contains_black'] == "no" and item['contains_white']=="no":
                 return [("contains_other_color", "yes")]
         if "visual description" in item:
+            print("classifyingg other color api")
             answer = classifier.classify(item["visual description"])
             return [("contains_other_color", answer)]
     return [(None, None)]

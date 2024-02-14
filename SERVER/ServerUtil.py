@@ -6,6 +6,7 @@ from bson import ObjectId
 import re
 import openai
 import os
+import pickle
 import nltk
 from deep_translator import GoogleTranslator
 from common_variables import *
@@ -25,6 +26,27 @@ nlp = spacy.load("en_core_web_sm")
 if not nltk.data.find('tokenizers/punkt'):
     nltk.download('punkt')
 
+def beautify_id(number):
+    formatted_string = f"#I{number:04d}"
+    return formatted_string
+
+def set_to_hashmap(input_set):
+    input_list = list(input_set)
+    hashmap = {number: beautify_id(index) for index, number in enumerate(input_list)}
+    return hashmap
+
+def extract_small_Ids_from_text(text):
+    """
+    Extract the pattern '#I' followed by exactly 4  alphanumeric characters,
+    and excludes cases where '#I' is followed by more than 6  alphanumeric characters.
+    """
+    if text is None:
+        return []
+    
+    pattern = r"#I[0-9A-Za-z]{4}(?![0-9A-Za-z])"
+    matches = re.findall(pattern, text)
+    return matches
+
 def extract_Ids_from_text(text):
     """
     Extract the pattern '#I' followed by exactly 6  alphanumeric characters,
@@ -36,6 +58,11 @@ def extract_Ids_from_text(text):
     pattern = r"#I[0-9A-Za-z]{6}(?![0-9A-Za-z])"
     matches = re.findall(pattern, text)
     return matches
+
+def convert_to_catalgoue_ids(list_of_indexes, index_id_map):
+    # Retrieve the values of the elements in the list from the dictionary
+    values_list = [index_id_map[element] for element in list_of_indexes if element in index_id_map]
+    return values_list
 
 def remove_outer_quotes(text):
     if text is None:
@@ -51,7 +78,7 @@ def filter_collection_By_Id(collection_name,list_of_ids):
     filtered_docs=[]
 
     for entry in mongodb_collection.find():
-        if entry['id'] in list_of_ids:
+        if entry['_id'] in list_of_ids:
             filtered_docs.append(entry)
 
     return filtered_docs
@@ -65,6 +92,13 @@ def create_embedding(catalogue_chunks):
     docsearch = FAISS.from_texts(catalogue_chunks, embeddings)
     print("done")
     return docsearch
+
+def load_embeddings(file_name="faiss_embedding", embeddings=OpenAIEmbeddings()):
+    if os.path.exists(file_name):
+        return FAISS.load_local(file_name, embeddings)
+    else:
+        print(f"File {file_name} not found.")
+        return None
 
 def extract_sentences(paragraph):
     sentences = sent_tokenize(paragraph)
@@ -83,7 +117,7 @@ def find_product_by_id_in_collection(collection_name, product_id):
 
     product_list = mongodb_collection.find()
     for product in product_list:
-        if product['id'] == product_id:
+        if product['_id'] == product_id:
             return product
         
     return None
@@ -130,71 +164,37 @@ def get_Ids_of_similiar_docs_from_emebdding(app,user_input):
     metadata_card = MetaDataCard(extractors)
 
     metadata_card.generate_from_query(user_input)
-
-    separated_user_input = separate_sentence(user_input)
+    print("the metadata card :")
+    print(metadata_card)
+    #separated_user_input = separate_sentence(user_input)
     meta_filtered_docs=[]
     k=60
-    while(len(meta_filtered_docs)<20 and k<1000):
+    print("first")
+    while(len(meta_filtered_docs)<25 and k<500):
         separated_user_input=['','']
-        docs_with_score = get_similar_doc_for_separated_input(app,app.embedding, user_input,separated_user_input,k=k)
+        docs_with_score = get_similar_doc_for_separated_input(app.embedding, user_input,separated_user_input,k=k)
+        print("we get "+str(len(docs_with_score))+" similar docs to "+str(user_input))
         meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
+        print("after meta filtering them we have only "+str(len(meta_filtered_docs)))
+        print("if it is less than 25 we do the operation again")
         #meta_filtered_docs is a list of (doc,score)
         k*=2
 
-    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,k=30)
+    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,metadata_card,matching_controller,k=30)
     actual_ids= [pair[0] for pair in actual_ids_pairs]
     return actual_ids
 
-def divide_into_tiny_chunks(app):
-    print("dividing catalogue into tiny chunks  ...")
-    hashtable={}
-    for item in app.catalogue.find():
-        brand= ""
-        name= ""
-        details= ""
-        sentences= []
-        if("visual description" in item):
-            sentences = extract_sentences(item["visual description"])
-            description_without_newlines = replace_double_newlines(item["visual description"])
-            if(description_without_newlines not in hashtable):
-                hashtable[description_without_newlines] = set()
-            hashtable[description_without_newlines].add(item["_id"])
-
-        if("brand" in  item):
-            brand = item["brand"]
-        if("name of the product" in item):
-            name = item["name of the product"]+", "
-        if("details about that item" in item):
-            details = item["details about that item"]
-            if details not in hashtable:
-                hashtable[details] = set()
-            hashtable[details].add(item["_id"])
-        if("materials" in item):
-            materials = item["materials"]
-            if materials not in hashtable:
-                hashtable[materials] = set()
-            hashtable[materials].add(item["_id"])
-
-        name_key = name +" "+brand
-        if name_key not in hashtable:
-            hashtable[name_key] = set()
-        if brand not in hashtable:
-            hashtable[brand] = set()
-
-        hashtable[name_key].add(item["_id"])
-        hashtable[brand].add(item["_id"])
-
-        for sentence in sentences:
-            if(sentence not in hashtable):
-                hashtable[sentence] = set()
-            hashtable[sentence].add(item["_id"])
-           
-
-        
-    print("done")
-    return hashtable
 
 
+def load_hashtable(filename):
+    try:
+        with open(filename, 'rb') as file:
+            data = pickle.load(file)
+            return data
+    except FileNotFoundError:
+        print(f"No such file: '{filename}'")
+        return None
+    
 def get_similar_doc_from_embedding(docsearch,query,k=10):
     print("getting "+str(k)+" most similar docs for query : "+str(query))
     docs = docsearch.similarity_search_with_score(query,k)
@@ -238,14 +238,17 @@ def get_Ids_from_hashmap(list_of_docList,hashtable,set_sizes):
 def replace_double_newlines(text):
     return text.replace("\n\n", "\n")
 
-def convert_to_proper_string(items):
+def convert_to_proper_string(items, id_index_map):
     formatted_string = ""
     for product in items:
-        formatted_string += f"_id: {product['_id']}\n"
+        formatted_string += f"_id: {id_index_map[product['_id']]}\n"
         if('name of the product' in product):
             formatted_string += f"name of the product: '{product['name of the product']}'\n"
         if("brand" in product):
             formatted_string += f"brand: '{product['brand']}'\n"
+        if("materials" in product):
+            composition = replace_double_newlines(product['materials'])
+            formatted_string += f"composition: '{composition}'\n"
         if('details about that item' in product):
             details = replace_double_newlines(product['details about that item'])
             formatted_string += f"details about that item: '{details}'\n"
@@ -254,11 +257,11 @@ def convert_to_proper_string(items):
             formatted_string += f"visual description: '{description}'\n\n"
     return formatted_string
 
-def get_chatgpt_response(context, question, with_analysis=False):
+def get_chatgpt_response(context, question, id_index_map, with_analysis=False):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     print("getting chatgpt4 response...")
     if not isinstance(context, str):
-        context = convert_to_proper_string(context)
+        context = convert_to_proper_string(context, id_index_map)
 
     analysis = " Return only the corresponding IDs, nothing else"
     if(with_analysis):
@@ -275,8 +278,9 @@ user input:
 Begin your response by listing IDs of the specific clothing items that 100% match the user input , do not include IDs of clothes that don't match the user input
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
-    print("prompt : ")
+    print("gpt4 prompt : ")
     print(prompt)
+    print()
     try:
         response = client.chat.completions.create(
             model="gpt-4",  
@@ -287,25 +291,31 @@ Begin your response by listing IDs of the specific clothing items that 100% matc
     except Exception as e:
         return str(e)
     
-def get_all_GPT3_response(context, question, with_analysis=False):
+def get_all_GPT3_response(context, question, id_index_map, with_analysis=False):
      # Process every two elements in the context
     final_response=""
     for i in range(0, len(context), 2):
+        print("request to gpt3 ..")
         sublist = context[i:i + 2]  # Get two elements
-        gpt3_response = get_GPT3_response(sublist,question,with_analysis)
+        gpt3_response = get_GPT3_response(sublist,question,id_index_map,with_analysis)
         final_response+=(" "+gpt3_response)
     print("finished to generate all gpt3 answers ! ")
     return final_response
+
+def invert_dict(input_dict):
+    # Invert the dictionary by swapping its keys and values
+    inverted_dict = {value: key for key, value in input_dict.items()}
+    return inverted_dict
 
 def preprocess_input(user_input):
     translator = GoogleTranslator(source='auto', target='en')
     return translator.translate(user_input)
 
-def get_GPT3_response(context, question, with_analysis=False):
+def get_GPT3_response(context, question, id_index_map, with_analysis=False):
     # Your OpenAI API key
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     if not isinstance(context, str):
-        context = convert_to_proper_string(context)
+        context = convert_to_proper_string(context,id_index_map)
 
     analysis = " Return only the corresponding IDs, nothing else"
     if(with_analysis):
@@ -322,11 +332,10 @@ criteria:
 Please provide a response that strictly lists the IDs of the clothing items meeting this exact criterion, without mentioning or including the IDs of any items that do not.
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
-    print("prompt : ")
-    print(prompt)
+
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",  
+            model="gpt-3.5-turbo-0125",  
             messages=[{"role": "system", "content": "You are a helpful assistant."}, 
                       {"role": "user", "content": prompt}]
         )
@@ -339,7 +348,7 @@ def is_single_word(s):
     return len(words) == 1 and words[0] != ""
 
 
-def get_similar_doc_for_separated_input(app,correpsonding_embedding, user_input,separated_user_input,k):
+def get_similar_doc_for_separated_input(correpsonding_embedding, user_input,separated_user_input,k):
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k)
         print("top 6 docs for "+user_input+ " : ")
@@ -359,19 +368,29 @@ def filter_docs(app,docs_with_score,metadata_card,matching_controller):
     return docs that match the metadata_card
     """
     filtered_docs = []
+    ids_of_elem = []
     for doc, score in docs_with_score:
         if(doc.page_content in app.hashtable):
             ids_of_elem = app.hashtable[doc.page_content]
-        elif(doc.page_content in app.hashtable_small_chunks):
-            ids_of_elem = app.hashtable_small_chunks[doc.page_content]
+        #elif(doc.page_content in app.hashtable_small_chunks):
+            #ids_of_elem = app.hashtable_small_chunks[doc.page_content]
         else:
             print("ERROR IN HASHTABLE ")
         for id_of_elem in ids_of_elem:
-            json_elem = find_product_by_id_in_collection(app.config['catalogue_collection_name'],id_of_elem)
-            if(matching_controller.meta_match(json_elem, metadata_card)):
+            if(is_meta_match(id_of_elem,metadata_card,matching_controller)):
                 filtered_docs.append((doc,score))
                 break
     return filtered_docs
+
+def is_meta_match(id_of_elem,metadata_card,matching_controller):
+    """
+    return true is the element of id_of_elem match the metadatacard
+    """
+    json_elem = find_product_by_id_in_collection(config_server.catalogue_name,id_of_elem)
+    if(matching_controller.meta_match(json_elem, metadata_card)):
+        return True
+    else:
+        return False
 
 def chunk_sentence(s, chunk_size=4, slide=2):
     # Split the sentence into words
@@ -394,10 +413,11 @@ def chunk_sentence(s, chunk_size=4, slide=2):
 
     return chunks
 
-def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=30):
+def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,metadata_card,matching_controller,k=30):
     sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
-    print("20 first sorted docs : ")
-    print(sorted_docs[:20])
+    print("now we are getting the Ids of top k docs with the best score ")
+    print("10 first sorted docs : ")
+    print(sorted_docs[:10])
     res =[]
     visited_ids=set()
     for elem,score in sorted_docs:
@@ -405,7 +425,7 @@ def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,k=30):
             id_set = hashtable[elem.page_content]
             pair_list = create_list_of_pairs(id_set,score)
             for pair in pair_list:
-                if(pair[0] not in visited_ids):
+                if(pair[0] not in visited_ids and is_meta_match(pair[0] ,metadata_card,matching_controller)):
                     res.append(pair)
                 visited_ids.add(pair[0])
     return res
@@ -417,7 +437,7 @@ def extract_feature_words_from_query(query):
     #extract keywords from query
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {"role": "system", "content": "You are a garment analysis assistant. Your task is to identify and extract the most important features of the garment. Base your decision solely on the description provided. If the description does not explicitly mention a particular feature, respond with 'unknown'."},
             {"role": "user", "content": "do you have some vintage dark colored jacket for women? "},

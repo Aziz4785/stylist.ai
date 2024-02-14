@@ -12,7 +12,8 @@ RUN python -m nltk.downloader punkt
 EXPOSE 5000
 
 # Set a default command, for example, starting the server.
-#CMD ["python", "wsgi.py"] #development
+#for development
+#CMD ["python", "-u", "main.py"] 
 
 # for production : Use Gunicorn to serve the Flask app. Adjust the number of workers and threads as necessary.
 CMD ["gunicorn", "-w","4","-b", "0.0.0.0:5000", "server3:app","--timeout", "120"]
