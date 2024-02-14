@@ -238,7 +238,6 @@ def add_to_Reference(reference_elem, reference_name):
     finally:
         client.close()
 
-
 def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, catalogue_name, reference_name):
     items_added_to_catalogue = 0
     items_added_to_reference = 0
