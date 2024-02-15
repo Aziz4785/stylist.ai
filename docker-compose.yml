@@ -4,10 +4,11 @@ services:
   mongodb:
     image: mongo
     healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand('ping').ok ? quit(0) : quit(1)"]
       interval: 10s
       timeout: 10s
       retries: 5
+      start_period: 40s
     volumes:
       - mongodb_data:/data/db
     ports:
@@ -18,6 +19,8 @@ services:
   server:
     build: ./SERVER
     #image: ghcr.io/aziz4785/smartstyle-server:v0.1
+    #environment: IF YOU WANT TO ALLOW PRINT
+      #PYTHONUNBUFFERED: "1"
     volumes:
       - ./SERVER:/server
     ports:
@@ -26,29 +29,6 @@ services:
       - mongodb
     networks:
       - mynetwork
-
-  # test:
-  #   build: ./SERVER
-  #   #image: ghcr.io/aziz4785/smartstyle-test:v0.1
-  #   volumes:
-  #     - ./SERVER:/server
-  #   command: ["sh", "-c", "python -m unittest /server/tests/test_embedding_catalog1.py"]
-  #   depends_on:
-  #     - mongodb
-  #   networks:
-  #     - mynetwork
-
-  # apache:
-  #   image: httpd:2.4
-  #   volumes:
-  #     - ./my-httpd.conf:/usr/local/apache2/conf/httpd.conf
-  #     - ./my-apache.conf:/usr/local/apache2/conf/apache.conf
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - server
-  #   networks:
-  #     - mynetwork
 
   nginx:
     image: nginx:alpine

@@ -40,7 +40,7 @@ def main(nbr_items, link=None, item_type=None, gender=None):
     if link:
         process_line(link, item_type, gender, nbr_items)
     else:
-        with open("FOREVER21_SCRAPER/forever21_links", "r") as file:
+        with open("./forever21_links", "r") as file:
             lines = file.readlines()  
             product_by_page = divide_equally(nbr_items,len(lines))
         for i,line in enumerate(lines):

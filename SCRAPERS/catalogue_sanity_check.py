@@ -19,7 +19,7 @@ def IDinReference(id):
     db = client[db_name]
     collection = db[config_server.reference_name]
 
-    found = collection.find_one({"id": id})
+    found = collection.find_one({"_id": id})
     client.close()
     return bool(found)
 
@@ -30,7 +30,7 @@ def getLinkFromReference(id):
     link = None
 
     for entry in mongodb_collection.find():
-        if entry['id'] == id:
+        if entry['_id'] == id:
             link = entry["url"]
             break
 
@@ -88,6 +88,10 @@ def sanity_check():
     elem_without_type = 0
     nbr_None_links =0
     elem_without_gender = 0
+    elem_without_composition=0
+    elem_without_contains_other_color = 0
+    elem_without_visual_description = 0
+    elem_without_name=0
     nbr_items_by_gender = {}
     nbr_broken_links={}
     nbr_items_by_type={}
@@ -100,31 +104,48 @@ def sanity_check():
         i+=1
         if(i%50==0):
             print(str(i*100/total_docs)+" %")
-        if "id" not in item:
+        if "_id" not in item:
             item_without_id +=1
         else:
-            id = item["id"]
+            id = item["_id"]
             if IDinReference(id):
                 link = getLinkFromReference(id)
                 if link == None:
                     nbr_None_links +=1
-                elif isBrokenLink(link,item["source"],driver):
-                    nbr_broken_links[item["source"]] = nbr_broken_links.get(item["source"], 0) + 1
-                    if(item["source"] not in broken_links):
-                        broken_links[item["source"]]= set()
-                    broken_links[item["source"]].add(link)
+                # elif isBrokenLink(link,item["source"],driver):
+                #     nbr_broken_links[item["source"]] = nbr_broken_links.get(item["source"], 0) + 1
+                #     if(item["source"] not in broken_links):
+                #         broken_links[item["source"]]= set()
+                #     broken_links[item["source"]].add(link)
                 else:
                     item_type = item.get("type")
                     if item_type is not None:
                         nbr_items_by_type[item_type] = nbr_items_by_type.get(item_type, 0) + 1
                     else:
                         elem_without_type+=1
+                        print(str(item.get("_id"))+" without type")
                     
                     item_gender = item.get("gender")
                     if item_gender is not None:
                         nbr_items_by_gender[item_gender] = nbr_items_by_gender.get(item_gender, 0) + 1
                     else:
                         elem_without_gender+=1
+
+                    composition = item.get("composition")
+                    if composition is None:
+                        elem_without_composition+=1
+
+                    name = item.get("name of the product")
+                    if name is None:
+                        elem_without_name+=1
+
+                    contains_other_color = item.get("contains_other_color")
+                    if contains_other_color is None:
+                        elem_without_contains_other_color+=1
+
+                    visual_description = item.get("visual description")
+                    if visual_description is None:
+                        elem_without_visual_description+=1
             else:
                 elem_without_reference+=1
 
@@ -144,7 +165,15 @@ def sanity_check():
     print(nbr_items_by_type)
     print("nbr_items_by_gender")
     print(nbr_items_by_gender)
-    print("Do you want to fix broken links ? ")
+    
+    print("elem_without_composition")
+    print(elem_without_composition)
+    print("elem_without_contains_other_color")
+    print(elem_without_contains_other_color)
+    print("elem_without_visual_description")
+    print(elem_without_visual_description)
+    print("elem_without_name :")
+    print(elem_without_name)
     driver.quit()
 
     with open('broken_links.pickle', 'wb') as handle:
@@ -252,4 +281,5 @@ def main():
             print("Invalid choice. Please choose a number between 1 and 3.")
 
 if __name__ == "__main__":
-    main()
+    #main()
+    sanity_check()

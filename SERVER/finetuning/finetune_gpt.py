@@ -13,7 +13,7 @@ def finetunemodel(datapath):
 
   fine_tune_response  = client.fine_tuning.jobs.create(
     training_file=file_id, 
-    model="gpt-3.5-turbo"
+    model="gpt-3.5-turbo-0125"
   )
   print("fine_tune_response")
   print(fine_tune_response)

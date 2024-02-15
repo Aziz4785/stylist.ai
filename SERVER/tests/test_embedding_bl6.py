@@ -34,7 +34,7 @@ def compute_precision(actual_id_set,expected_id_set):
 def extract_id_from_response(data):
     ans = []
     for elem in data:
-        ans.append(elem['id'])
+        ans.append(elem['_id'])
     return ans
 
 

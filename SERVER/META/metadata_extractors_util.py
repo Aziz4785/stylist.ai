@@ -14,7 +14,7 @@ def gpt35_type_output(description):
         api_key=config_server.OPENAI_API_KEY,
     )
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {"role": "system", "content": "You are a helpful assistant. Your primary task is to categorize garments strictly based on their description. Only if a garment type (or any specific garment-related terms) are explicitly mentioned in the description, identify its category. For any description that does not explicitly state the garment type, you must classify it as 'unknown', regardless of any implied or suggestive details in the description."},
             {"role": "user", "content": prompt}
@@ -193,7 +193,7 @@ def gpt35_bw_ouput(query):
 
     # raw_answer = response.choices[0].text.lower().strip()
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {"role": "system", "content": """You are a garment analysis assistant. You will receive a garment description and Your task is to determine whether that garment contains the color black or white. Base your decision solely on the description provided. If the presence of black or white is not explicitly mentionned, respond with 'unknown'."""},
             {"role": "user", "content": "a 100% cotton blue shirt"},
@@ -223,7 +223,7 @@ def gpt35_bw_ouput(query):
 def gpt35_gender_ouput(query):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {"role": "system", "content": "You are a garment analysis assistant. Your task is to determine whether a given garment description is for men, women, or is unknown. Base your decision solely on the description provided. If the description explicitly mentions a gender, categorize accordingly. Otherwise, respond with 'unknown'."},
             {"role": "user", "content": query}
@@ -237,7 +237,7 @@ def gpt35_gender_ouput(query):
 def gpt35_composition_output(query):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=[
             {
                 "role": "system", 
