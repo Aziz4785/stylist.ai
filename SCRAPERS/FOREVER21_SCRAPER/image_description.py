@@ -17,11 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import sys
 
-<<<<<<< HEAD
-import config_server
-=======
 import f21_config
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -30,11 +26,8 @@ def describe_clothing_multi(name, brand,composition, description, size_fit,image
     """
     Generate a description from up to 3 images of the same product.
     """
-<<<<<<< HEAD
-    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
-=======
+
     client = openai.OpenAI(api_key=f21_config.OPENAI_API_KEY, organization=f21_config.organization_id)
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
     maxtokens = 60
     if images and isinstance(images, list):
         images = images[:3]  # Use a maximum of 3 images
@@ -250,13 +243,8 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
     items_added_to_catalogue = 0
     items_added_to_reference = 0
 
-<<<<<<< HEAD
-    db_uri = config_server.db_uri
-    db_name = config.db_name
-=======
     db_uri = f21_config.db_uri
     db_name = f21_config.db_name
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
