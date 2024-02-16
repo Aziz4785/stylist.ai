@@ -7,13 +7,13 @@ zalando_scraper_directory = os.path.abspath(os.path.join(os.path.dirname(__file_
 sys.path.append(zalando_scraper_directory)
 
 try:
-    import config_server
+    import config
 except ModuleNotFoundError:
     print("Failed to import config. Current sys.path:", sys.path)  
     raise
 
 
-db_uri = config_server.db_uri
+db_uri = config.db_uri
 db_name = config.db_name
 
 class IncrementalJsonWritingStrategy(JsonWritingStrategy):

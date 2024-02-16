@@ -1,4 +1,4 @@
-import config_server
+import config
 import pymongo
 import requests
 from selenium import webdriver
@@ -12,21 +12,21 @@ import sys,os
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 def IDinReference(id):
-    db_uri = config_server.db_uri
+    db_uri = config.db_uri
     db_name = config.db_name
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
-    collection = db[config_server.reference_name]
+    collection = db[config.reference_name]
 
     found = collection.find_one({"_id": id})
     client.close()
     return bool(found)
 
 def getLinkFromReference(id):
-    client = pymongo.MongoClient(config_server.db_uri)
+    client = pymongo.MongoClient(config.db_uri)
     db = client[config.db_name]
-    mongodb_collection = db[config_server.reference_name]
+    mongodb_collection = db[config.reference_name]
     link = None
 
     for entry in mongodb_collection.find():
@@ -80,8 +80,8 @@ def isBrokenLink(link,source,driver):
         return False
 
 def sanity_check():
-    client = pymongo.MongoClient(config_server.db_uri)
-    db = client[config_server.db_name]
+    client = pymongo.MongoClient(config.db_uri)
+    db = client[config.db_name]
     catalogue = db[config.catalogue_name]
     item_without_id = 0
     elem_without_reference = 0
@@ -197,14 +197,14 @@ def fix_zalando_links(list_of_links):
     deleted_docs =0
     deleted_docs2 =0
     for link in list_of_links:
-        deleted_docs = delete_documents_by_link(config_server.catalogue_name, link)
-        deleted_docs2 = delete_documents_by_link(config_server.reference_name, link)
+        deleted_docs = delete_documents_by_link(config.catalogue_name,link)
+        deleted_docs2 = delete_documents_by_link(config.reference_name,link)
     if(deleted_docs ==0 and deleted_docs2==0):
         print("links already fixed")
         return 0
-    client = pymongo.MongoClient(config_server.db_uri)
-    db = client[config_server.db_name]
-    collection = db[config_server.reference_name]
+    client = pymongo.MongoClient(config.db_uri)
+    db = client[config.db_name]  
+    collection = db[config.reference_name] 
     total_documents_before_fix = collection.count_documents({})
     number_of_links = str(len(list_of_links)) 
     command = ['python', 'ZALANDO_SCRAPER/zalando.py', number_of_links]
@@ -220,11 +220,11 @@ def fix_zalando_links(list_of_links):
 
 def fix_forever21_links(list_of_links):
     for link in list_of_links:
-        delete_documents_by_link(config_server.catalogue_name, link)
-        delete_documents_by_link(config_server.reference_name, link)
-    client = pymongo.MongoClient(config_server.db_uri)
-    db = client[config_server.db_name]
-    collection = db[config_server.reference_name]
+        delete_documents_by_link(config.catalogue_name,link)
+        delete_documents_by_link(config.reference_name,link)
+    client = pymongo.MongoClient(config.db_uri)
+    db = client[config.db_name]  
+    collection = db[config.reference_name] 
     total_documents_before_fix = collection.count_documents({})
     number_of_links = str(len(list_of_links)) 
     command = ['python', 'FOREVER21_SCRAPER/forever21.py', number_of_links]

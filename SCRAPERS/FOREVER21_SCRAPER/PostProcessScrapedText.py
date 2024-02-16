@@ -2,8 +2,6 @@ import re
 import pymongo
 import f21_config
 from urllib.parse import urlparse, parse_qs
-
-
 def remove_WashCold(collection_name):
     db_uri = f21_config.db_uri
     db_name = f21_config.db_name
@@ -12,10 +10,10 @@ def remove_WashCold(collection_name):
     db = client[db_name]
     collection = db[collection_name]
 
-    pattern1 = "Machine wash cold"
-    pattern2 = "Hand wash cold"
-    pattern3 = "- Machine wash cold"
-    pattern4 = "- Hand wash cold"
+    pattern1 =  "Machine wash cold"
+    pattern2 =  "Hand wash cold"
+    pattern3 =  "- Machine wash cold"
+    pattern4 =  "- Hand wash cold"
     # Iterate through the documents in the collection
     for document in collection.find():
         if isinstance(document, dict):
@@ -25,11 +23,11 @@ def remove_WashCold(collection_name):
                     document[key] = document[key].replace(pattern4, "")
                     document[key] = document[key].replace(pattern1, "")
                     document[key] = document[key].replace(pattern2, "")
-
+                    
             collection.update_one({"_id": document["_id"]}, {"$set": document})
 
     client.close()
-
+        
 
 def remove_CompleteTheLook(collection_name):
     db_uri = f21_config.db_uri
@@ -50,7 +48,6 @@ def remove_CompleteTheLook(collection_name):
             collection.update_one({"_id": document["_id"]}, {"$set": document})
 
     client.close()
-
 
 def reduce_image_width(collection_name):
     db_uri = f21_config.db_uri
@@ -83,7 +80,7 @@ def reduce_image_width(collection_name):
 
 def post_process_json_files_in_folder(db_name, operations):
     """
-    Performs given operations on collections in the specified database
+    Performs given operations on collections in the specified database 
     where the collection name starts with 'data_'.
 
     :param db_name: Name of the MongoDB database.
@@ -100,6 +97,6 @@ def post_process_json_files_in_folder(db_name, operations):
                     operation(collection_name)
 
 
-operations = [reduce_image_width, remove_WashCold, remove_CompleteTheLook]
-
+operations = [reduce_image_width,remove_WashCold,remove_CompleteTheLook]
+                    
 post_process_json_files_in_folder(f21_config.db_name, operations)

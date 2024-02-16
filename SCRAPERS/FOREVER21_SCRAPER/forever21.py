@@ -3,7 +3,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from scraper_util.ScraperFactory import ScraperFactory
 from scraper_util.WritingImpl import IncrementalWritingStrategy
 import requests
-import config_server
+import config
 import argparse
 import random
 

@@ -26,7 +26,6 @@ def describe_clothing_multi(name, brand,composition, description, size_fit,image
     """
     Generate a description from up to 3 images of the same product.
     """
-
     client = openai.OpenAI(api_key=f21_config.OPENAI_API_KEY, organization=f21_config.organization_id)
     maxtokens = 60
     if images and isinstance(images, list):
@@ -283,7 +282,6 @@ def convert_Collection_to_Catalog_and_Reference(scraped_data_collection_name, ca
 
 def generate_Catalog_and_Reference(reference_name, catalogue_name):
     
-
     client = pymongo.MongoClient(f21_config.db_uri)
     db = client[f21_config.db_name]
 
