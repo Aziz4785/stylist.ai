@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ask Styler</title>
-        <link rel="stylesheet" href="/static/style.css">
-    </head>
-    <body>
-        <div class="navbar">
-            <button>Donate</button>
-        </div>
-        <div class="search-container">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Styler</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <!-- Improved form accessibility -->
+        <form id="donate-form" action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="B8Z2A8YE8AFF8">
+            <button type="submit" title="Donate with PayPal" aria-label="Donate with PayPal">
+                <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" alt="Donate with PayPal button">
+            </button>
+        </form>
+    </header>
+    <main>
+        <section class="search-container">
             <h1>ASK STYLER</h1>
-            <div id="free-searches-available">Free searches available:<div id="rate-limit-info"> 3/3</div></div>
-            <form id="search-form">
-                <textarea id="search-box" name="query" placeholder="Describe what you are looking for..." maxlength="400"></textarea>
-                <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />  
-                <button type="submit">
-                    <svg width="30px" height="30px" viewBox="0 -6.5 38 38" ...>
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                        <g id="SVGRepo_iconCarrier"> <title>right-arrow</title> <desc>Created with Sketch.</desc> <g id="icons" stroke="none" stroke-width="1" fill="#040404" fill-rule="nonzero"> <g id="ui-gambling-website-lined-icnos-casinoshunter" transform="translate(-1511.000000, -158.000000)" fill="#000000" fill-rule="nonzero"> <g id="1" transform="translate(1350.000000, 120.000000)"> <path d="M187.812138,38.5802109 L198.325224,49.0042713 L198.41312,49.0858421 C198.764883,49.4346574 198.96954,49.8946897 199,50.4382227 L198.998248,50.6209428 C198.97273,51.0514917 198.80819,51.4628128 198.48394,51.8313977 L198.36126,51.9580208 L187.812138,62.4197891 C187.031988,63.1934036 185.770571,63.1934036 184.990421,62.4197891 C184.205605,61.6415481 184.205605,60.3762573 184.990358,59.5980789 L192.274264,52.3739093 L162.99947,52.3746291 C161.897068,52.3746291 161,51.4850764 161,50.3835318 C161,49.2819872 161.897068,48.3924345 162.999445,48.3924345 L192.039203,48.3917152 L184.990421,41.4019837 C184.205605,40.6237427 184.205605,39.3584519 184.990421,38.5802109 C185.770571,37.8065964 187.031988,37.8065964 187.812138,38.5802109 Z" id="right-arrow"> </path> </g> </g> </g> </g>
-                    </svg>
-                </button> 
+            <!-- Semantic HTML and improved accessibility -->
+            <div id="free-searches-available">Free searches available: <span id="rate-limit-info">{{ searches_left }}/100</span></div>
+            <form id="search-form" aria-label="Search Form">
+                <textarea id="search-box" name="query" placeholder="Describe what you are looking for..." maxlength="400" aria-label="Search query"></textarea>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <button type="submit" aria-label="Submit search">Search</button>
             </form>
-            <div class="document-count">
-                <p>Explore our collection of over 652 fashion favorites!</p>
-            </div>
-        </div>
-        <div id="loading-animation" style="display: none;"></div>
-        <div id="search-result"></div>
-        <button id="show-more-btn">Show more</button>
-        <script src="/static/script.js"></script>
-    </body>
+            <p class="document-count">Explore our collection of over 1700 fashion favorites!</p>
+        </section>
+        <div id="loading-animation" aria-live="polite" style="display: none;"></div>
+        <div id="search-result" aria-live="polite"></div>
+        <button id="show-more-btn" style="display: none;">Show more</button>
+    </main>
+    <footer class="footer">
+        <p>Contact us at <a href="mailto:askstyler1@gmail.com">askstyler1@gmail.com</a></p>
+    </footer>
+    <script src="/static/script.js"></script>
+</body>
 </html>
