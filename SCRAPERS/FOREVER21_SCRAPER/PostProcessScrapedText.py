@@ -1,8 +1,9 @@
 import re
 import pymongo
-
 import f21_config
 from urllib.parse import urlparse, parse_qs
+
+
 def remove_WashCold(collection_name):
     db_uri = f21_config.db_uri
     db_name = f21_config.db_name
@@ -11,10 +12,10 @@ def remove_WashCold(collection_name):
     db = client[db_name]
     collection = db[collection_name]
 
-    pattern1 =  "Machine wash cold"
-    pattern2 =  "Hand wash cold"
-    pattern3 =  "- Machine wash cold"
-    pattern4 =  "- Hand wash cold"
+    pattern1 = "Machine wash cold"
+    pattern2 = "Hand wash cold"
+    pattern3 = "- Machine wash cold"
+    pattern4 = "- Hand wash cold"
     # Iterate through the documents in the collection
     for document in collection.find():
         if isinstance(document, dict):
@@ -24,20 +25,15 @@ def remove_WashCold(collection_name):
                     document[key] = document[key].replace(pattern4, "")
                     document[key] = document[key].replace(pattern1, "")
                     document[key] = document[key].replace(pattern2, "")
-                    
+
             collection.update_one({"_id": document["_id"]}, {"$set": document})
 
     client.close()
-        
+
 
 def remove_CompleteTheLook(collection_name):
-<<<<<<< HEAD
-    db_uri = config.db_uri
-    db_name = config_server.db_name
-=======
     db_uri = f21_config.db_uri
     db_name = f21_config.db_name
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -55,14 +51,10 @@ def remove_CompleteTheLook(collection_name):
 
     client.close()
 
+
 def reduce_image_width(collection_name):
-<<<<<<< HEAD
-    db_uri = config_server.db_uri
-    db_name = config_server.db_name
-=======
     db_uri = f21_config.db_uri
     db_name = f21_config.db_name
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
 
     client = pymongo.MongoClient(db_uri)
     db = client[db_name]
@@ -88,76 +80,16 @@ def reduce_image_width(collection_name):
             collection.update_one({'_id': document['_id']}, {'$set': {'images': updated_images}})
     client.close()
 
-<<<<<<< HEAD
-def add_incremental_id(collection_name, last_id=0):
-    db_uri = config_server.db_uri
-    db_name = config_server.db_name
-
-    client = pymongo.MongoClient(db_uri)
-    db = client[db_name]
-    collection = db[collection_name]
-
-    current_id = last_id
-    for document in collection.find():
-        if isinstance(document, dict):
-            current_id += 1
-            hex_id = f"{current_id:06x}"  
-            document['id'] = "#I"+hex_id
-
-        collection.update_one({"_id": document["_id"]}, {"$set": document})
-
-    client.close()
-    return current_id
-
-def load_lastID_from_db():
-    db_uri = config_server.db_uri
-    db_name = config.db_name
-    client = pymongo.MongoClient(db_uri)
-    db = client[db_name]
-    variables_util = db["variables_util"]
-
-    # Check if the collection exists
-    if "variables_util" in db.list_collection_names():
-        last_id_doc = variables_util.find_one({}, {'lastID': 1})
-        if last_id_doc and 'lastID' in last_id_doc:
-            return int(last_id_doc['lastID'])
-        else:
-            return 3
-    else:
-        return 3
-
-def save_LastID(last_id):
-    #last_id is in decimal
-    db_uri = config_server.db_uri
-    db_name = config_server.db_name
-    client = pymongo.MongoClient(db_uri)
-    db = client[db_name]
-    variables_util = db["variables_util"]
-
-    existing_id = load_lastID_from_db()
-
-    # Check if the new last_id is greater than the existing one
-    if last_id > existing_id:
-        variables_util.update_one({}, {'$set': {'lastID': last_id}}, upsert=True)
-    else:
-        raise ValueError("New last_id must be greater than the existing last_id.")
-    
-=======
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
 
 def post_process_json_files_in_folder(db_name, operations):
     """
-    Performs given operations on collections in the specified database 
+    Performs given operations on collections in the specified database
     where the collection name starts with 'data_'.
 
     :param db_name: Name of the MongoDB database.
     :param operations: A list of functions to be applied on each qualifying collection.
     """
-<<<<<<< HEAD
-    client = pymongo.MongoClient(config_server.db_uri)
-=======
     client = pymongo.MongoClient(f21_config.db_uri)
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37
     db = client[db_name]
     for collection_name in db.list_collection_names():
         if collection_name.startswith(f21_config.collection_name_start_with):
@@ -168,10 +100,6 @@ def post_process_json_files_in_folder(db_name, operations):
                     operation(collection_name)
 
 
-operations = [reduce_image_width,remove_WashCold,remove_CompleteTheLook]
-                    
-<<<<<<< HEAD
-post_process_json_files_in_folder(config_server.db_name, operations)
-=======
+operations = [reduce_image_width, remove_WashCold, remove_CompleteTheLook]
+
 post_process_json_files_in_folder(f21_config.db_name, operations)
->>>>>>> 1675d6534603dcba84caa870be40482a1a54da37

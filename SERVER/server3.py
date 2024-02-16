@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 import os
 import sys
 import json
@@ -24,6 +24,7 @@ class MyApp(Flask):
         client = pymongo.MongoClient(db_uri)
         print("List of databases:", client.list_database_names())
         db = client[db_name]
+        self.search_counts_collection = db['search_counts']
         super(MyApp, self).__init__(import_name)
         self.config['catalogue_collection_name'] = "Catalogue1"
         self.config[
@@ -60,11 +61,25 @@ def apply_csp(response):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    ip_address = request.remote_addr  # Get the IP address of the user
+    max_searches_per_day = 100  # Set the max number of searches allowed per day
+
+    # Find the document for the current user's IP address
+    search_count = app.search_counts_collection.find_one({'ip': ip_address})
+
+    if search_count:
+        # If a document exists, calculate the remaining searches
+        searches_left = max_searches_per_day - search_count.get('count', 0)
+    else:
+        # If no document exists for the IP, the user has all their searches left
+        searches_left = max_searches_per_day
+
+    # Render the template with the number of searches left
+    return render_template('index.html', searches_left=searches_left)
 
 
 @app.route('/process', methods=['POST'])
-@limiter.limit("3 per day")
+@limiter.limit("10 per day")
 def process():
     print("we call /process ...", file=sys.stdout)
 
@@ -105,4 +120,21 @@ def process():
     print(list_of_ids)
     final_documents = filter_collection_By_Id(config_server.reference_name, list_of_ids)
     json_output = json.dumps(final_documents, cls=MongoJsonEncoder)
-    return json_output
+    ip_address = request.remote_addr  # Get user's IP address
+    search_count = app.search_counts_collection.find_one({'ip': ip_address})
+
+    if search_count is None:
+        # If this IP is making its first search, create a new document for it.
+        new_count = 100
+        app.search_counts_collection.insert_one({'ip': ip_address, 'count': 1})
+        searches_left = 99
+    else:
+        # Increment the search count and update the document.
+        new_count = search_count['count'] + 1
+        app.search_counts_collection.update_one({'ip': ip_address}, {'$set': {'count': new_count}})
+        searches_left = 100 - new_count
+
+    # Limit searches to 100 per IP per day
+    if new_count > 100:
+        return jsonify({'error': 'Search limit reached'}), 429
+    return jsonify({'result': final_documents, 'searches_left': searches_left})
