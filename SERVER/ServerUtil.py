@@ -8,6 +8,8 @@ import openai
 import os
 import pickle
 import nltk
+import logging
+logging.basicConfig(level=logging.CRITICAL)
 from deep_translator import GoogleTranslator
 from common_variables import *
 from META.metadata_card import *
@@ -19,6 +21,8 @@ from META.metadata_matching_controller import *
 from META.metadata_extraction import *
 from META.metadata_matching import *
 from nltk.tokenize import sent_tokenize
+
+
 openai.api_key = config_server.OPENAI_API_KEY
 os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
 # Load spaCy's English language model
@@ -85,19 +89,19 @@ def filter_collection_By_Id(collection_name,list_of_ids):
 
      
 def create_embedding(catalogue_chunks):
-    print("creating embedding ...")
+    logging.info("creating embedding ...")
     if(catalogue_chunks is None or len(catalogue_chunks)==0):
         return None
     embeddings = OpenAIEmbeddings()
     docsearch = FAISS.from_texts(catalogue_chunks, embeddings)
-    print("done")
+    logging.info("done")
     return docsearch
 
 def load_embeddings(file_name="faiss_embedding", embeddings=OpenAIEmbeddings()):
     if os.path.exists(file_name):
         return FAISS.load_local(file_name, embeddings)
     else:
-        print(f"File {file_name} not found.")
+        logging.info(f"File {file_name} not found.")
         return None
 
 def extract_sentences(paragraph):
@@ -123,7 +127,7 @@ def find_product_by_id_in_collection(collection_name, product_id):
     return None
 
 # def divide_description_into_smaller_chunks(app):
-#     print("dividing catalogue into 4 words chunks ...")
+#     logging.info("dividing catalogue into 4 words chunks ...")
 #     hashtable={}
 #     for item in app.catalogue.find():
 #         sentences= []
@@ -135,7 +139,7 @@ def find_product_by_id_in_collection(collection_name, product_id):
 #                 if(chunk not in hashtable):
 #                     hashtable[chunk] = set()
 #                 hashtable[chunk].add(item["id"])  
-#     print("done")
+#     logging.info("done")
 #     return hashtable
 class MongoJsonEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -164,23 +168,22 @@ def get_Ids_of_similiar_docs_from_emebdding(app,user_input):
     metadata_card = MetaDataCard(extractors)
 
     metadata_card.generate_from_query(user_input)
-    print("the metadata card :")
-    print(metadata_card)
+    logging.info("the metadata card :")
+    logging.info(metadata_card)
     #separated_user_input = separate_sentence(user_input)
     meta_filtered_docs=[]
     k=60
-    print("first")
     while(len(meta_filtered_docs)<25 and k<500):
         separated_user_input=['','']
         docs_with_score = get_similar_doc_for_separated_input(app.embedding, user_input,separated_user_input,k=k)
-        print("we get "+str(len(docs_with_score))+" similar docs to "+str(user_input))
+        logging.info("we get "+str(len(docs_with_score))+" similar docs to "+str(user_input))
         meta_filtered_docs = filter_docs(app,docs_with_score,metadata_card,matching_controller)
-        print("after meta filtering them we have only "+str(len(meta_filtered_docs)))
-        print("if it is less than 25 we do the operation again")
+        logging.info("after meta filtering them we have only "+str(len(meta_filtered_docs)))
+        logging.info("if it is less than 25 we do the operation again")
         #meta_filtered_docs is a list of (doc,score)
         k*=2
 
-    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,metadata_card,matching_controller,k=30)
+    actual_ids_pairs = get_topK_uniqueIds_from_docs(app.hashtable,meta_filtered_docs,metadata_card,matching_controller,k=35)
     actual_ids= [pair[0] for pair in actual_ids_pairs]
     return actual_ids
 
@@ -192,11 +195,11 @@ def load_hashtable(filename):
             data = pickle.load(file)
             return data
     except FileNotFoundError:
-        print(f"No such file: '{filename}'")
+        #logging.info(f"No such file: '{filename}'")
         return None
     
 def get_similar_doc_from_embedding(docsearch,query,k=10):
-    print("getting "+str(k)+" most similar docs for query : "+str(query))
+    #logging.info("getting "+str(k)+" most similar docs for query : "+str(query))
     docs = docsearch.similarity_search_with_score(query,k)
     #docs is a list of (doc, score)
     return docs
@@ -216,21 +219,17 @@ def get_Ids_from_hashmap(list_of_docList,hashtable,set_sizes):
     list_of_sets = [set() for _ in range(n)]
     all_Ids =set()
     if(n==1):
-        print("we need to return list containing only one set of size (+-) 20 ")
+        logging.info("we need to return list containing only one set of size (+-) 20 ")
     for i in range(n):
         for item in list_of_docList[i]:
             content =  item.page_content
             if content in hashtable:
                 if(len(list_of_sets[i])<set_sizes[i]):
-                    if(len(hashtable[content])>7):
-                        print("there are more than 7 ids having : "+str(content))
                     new_ids = hashtable[content].difference(all_Ids)
                     if(new_ids is not None):
                         list_of_sets[i] = list_of_sets[i].union(new_ids)
-                else:
-                    print("we stop adding Ids because we reached the maximum")
             else:
-                print(f"ERROR! no id found in hashtable for content: {content}")
+                logging.info(f"ERROR! no id found in hashtable for content: {content}")
         all_Ids.union(list_of_sets[i])
 
     return list_of_sets
@@ -259,7 +258,7 @@ def convert_to_proper_string(items, id_index_map):
 
 def get_chatgpt_response(context, question, id_index_map, with_analysis=False):
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
-    print("getting chatgpt4 response...")
+    logging.info("getting chatgpt4 response...")
     if not isinstance(context, str):
         context = convert_to_proper_string(context, id_index_map)
 
@@ -278,28 +277,50 @@ user input:
 Begin your response by listing IDs of the specific clothing items that 100% match the user input , do not include IDs of clothes that don't match the user input
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
-    print("gpt4 prompt : ")
-    print(prompt)
-    print()
+    #logging.info("gpt4 prompt : ")
+    #logging.info(prompt)
+    #logging.info()
     try:
         response = client.chat.completions.create(
             model="gpt-4",  
             messages=[{"role": "system", "content": "You specialize in fashion and apparel, offering personalized clothing recommendations based on user input."}, 
                       {"role": "user", "content": prompt}]
         )
+        logging.info("got response from gpt4..")
         return response.choices[0].message.content
     except Exception as e:
+        logging.info("expection occured in gpt4 answer")
         return str(e)
     
 def get_all_GPT3_response(context, question, id_index_map, with_analysis=False):
-     # Process every two elements in the context
+     # Process every three elements in the context
     final_response=""
-    for i in range(0, len(context), 2):
-        print("request to gpt3 ..")
-        sublist = context[i:i + 2]  # Get two elements
-        gpt3_response = get_GPT3_response(sublist,question,id_index_map,with_analysis)
+    logging.info("get_all_GPT3_response ..")
+    for i in range(0, len(context), 10):
+        logging.info("request to gpt3 ..")
+        sublist = context[i:i + 10]  # Get two elements
+        #gpt3_response = get_GPT3_response(sublist,question,id_index_map,with_analysis)
+        gpt3_response = get_GPT4_response0125(sublist,question,id_index_map,with_analysis)
         final_response+=(" "+gpt3_response)
-    print("finished to generate all gpt3 answers ! ")
+    logging.info("finished to generate all gpt3 answers ! ")
+    return final_response
+
+def save_query(user_query):
+    client = pymongo.MongoClient(config_server.db_uri)
+    db = client[config_server.db_name]
+    collection = db["queries"]
+    data = {"query":user_query}
+    collection.insert_one(data)
+
+def get_all_GPT4_response(context, question, id_index_map, with_analysis=False):
+    final_response=""
+    logging.info("get_all_GPT4_response ..")
+    for i in range(0, len(context), 10):
+        logging.info("request to gpt4 ..")
+        sublist = context[i:i + 10]  
+        gpt4_response = get_chatgpt_response(sublist,question,id_index_map,with_analysis)
+        final_response+=(" "+gpt4_response)
+    logging.info("finished to generate all gpt4 answers ! ")
     return final_response
 
 def invert_dict(input_dict):
@@ -311,6 +332,41 @@ def preprocess_input(user_input):
     translator = GoogleTranslator(source='auto', target='en')
     return translator.translate(user_input)
 
+def get_GPT4_response0125(context, question, id_index_map, with_analysis=False):
+    client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
+    if not isinstance(context, str):
+        context = convert_to_proper_string(context, id_index_map)
+
+    analysis = " Return only the corresponding IDs, nothing else"
+    if(with_analysis):
+        analysis = " Follow this with an analysis of the list and description to ensure the recommendations are highly relevant and specific to the described needs."
+
+    custom_template3 = """"Here is a list of clothes (each associated with an ID), first identify and list the clothing items from the list that perfectly align with the user input. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
+
+List of Clothes:
+{context}
+
+user input:
+"{question}"
+
+Begin your response by listing IDs of the specific clothing items that 100% match the user input , do not include IDs of clothes that don't match the user input
+"""
+    prompt = custom_template3.format(context=context, question=question, analysis=analysis)
+    #logging.info("gpt4 prompt : ")
+    #logging.info(prompt)
+    #logging.info()
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4-0125-preview",  
+            messages=[{"role": "system", "content": "You specialize in fashion and apparel, offering personalized clothing recommendations based on user input."}, 
+                      {"role": "user", "content": prompt}]
+        )
+        logging.info("got response from gpt4..")
+        return response.choices[0].message.content
+    except Exception as e:
+        logging.info("expection occured in gpt4 answer")
+        return str(e)
+    
 def get_GPT3_response(context, question, id_index_map, with_analysis=False):
     # Your OpenAI API key
     client = openai.OpenAI(api_key=config_server.OPENAI_API_KEY)
@@ -321,21 +377,21 @@ def get_GPT3_response(context, question, id_index_map, with_analysis=False):
     if(with_analysis):
         analysis = " Follow this with an analysis of the list and description to ensure the recommendations are highly relevant and specific to the described needs."
     
-    custom_template3 = """"From the following list of clothes, each with a unique ID, identify and list only the IDs of the clothing items that precisely meet the specified criteria. It is crucial to exclude any IDs of items that do not match the criteria. Treat any shade of a specified color as meeting the color requirement unless a specific shade is explicitly required. Black and white should not be considered as shades of other colors. Your response should only include the IDs of the items that are a 100% match.
+    custom_template3 = """"Here is a list of clothes (each associated with an ID), first identify and list the clothing items from the list that perfectly align with the user input. Treat any shade of a specified color as meeting the color requirement unless the description explicitly demands a specific shade. Do not consider black or white as a shade of another color. Please include their IDs for easy reference.
 
 List of Clothes:
 {context}
 
-criteria:
+user input:
 "{question}"
 
-Please provide a response that strictly lists the IDs of the clothing items meeting this exact criterion, without mentioning or including the IDs of any items that do not.
+Begin your response by listing IDs of the specific clothing items that 100% match the user input , and explain why, do not include IDs of clothes that don't match the user input.  Your response should only include the IDs of the items that are a 100% match
 """
     prompt = custom_template3.format(context=context, question=question, analysis=analysis)
 
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo-0125",  
+            model="gpt-4-0125-preview",  
             messages=[{"role": "system", "content": "You are a helpful assistant."}, 
                       {"role": "user", "content": prompt}]
         )
@@ -351,15 +407,15 @@ def is_single_word(s):
 def get_similar_doc_for_separated_input(correpsonding_embedding, user_input,separated_user_input,k):
     if(separated_user_input[0]!='' and separated_user_input[1]!=''):
         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,k)
-        print("top 6 docs for "+user_input+ " : ")
-        print(docs_with_score[:7])
+        logging.info("top 6 docs for "+user_input+ " : ")
+        logging.info(docs_with_score[:7])
         docs2_with_score = get_similar_doc_from_embedding(correpsonding_embedding,separated_user_input[1],k)
-        print("top 6 docs for "+separated_user_input[1]+ " : ")
-        print(docs2_with_score[:7])
+        logging.info("top 6 docs for "+separated_user_input[1]+ " : ")
+        logging.info(docs2_with_score[:7])
         docs_with_score.extend(docs2_with_score)
         return docs_with_score
     else:
-        print("the input cant be separated ...")
+        logging.info("the input cant be separated ...")
         docs_with_score = get_similar_doc_from_embedding(correpsonding_embedding,user_input,2*k) #get the best k docs
         return docs_with_score
 
@@ -375,7 +431,7 @@ def filter_docs(app,docs_with_score,metadata_card,matching_controller):
         #elif(doc.page_content in app.hashtable_small_chunks):
             #ids_of_elem = app.hashtable_small_chunks[doc.page_content]
         else:
-            print("ERROR IN HASHTABLE ")
+            logging.info("ERROR IN HASHTABLE ")
         for id_of_elem in ids_of_elem:
             if(is_meta_match(id_of_elem,metadata_card,matching_controller)):
                 filtered_docs.append((doc,score))
@@ -415,9 +471,9 @@ def chunk_sentence(s, chunk_size=4, slide=2):
 
 def get_topK_uniqueIds_from_docs(hashtable,meta_filtered_docs,metadata_card,matching_controller,k=30):
     sorted_docs = sorted(meta_filtered_docs, key=lambda pair: pair[1])
-    print("now we are getting the Ids of top k docs with the best score ")
-    print("10 first sorted docs : ")
-    print(sorted_docs[:10])
+    logging.info("now we are getting the Ids of top k docs with the best score ")
+    logging.info("10 first sorted docs : ")
+    logging.info(sorted_docs[:10])
     res =[]
     visited_ids=set()
     for elem,score in sorted_docs:

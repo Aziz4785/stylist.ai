@@ -19,7 +19,7 @@ services:
   server:
     build: ./SERVER
     #image: ghcr.io/aziz4785/smartstyle-server:v0.1
-    #environment: IF YOU WANT TO ALLOW PRINT
+    #environment: #IF YOU WANT TO ALLOW PRINT
       #PYTHONUNBUFFERED: "1"
     volumes:
       - ./SERVER:/server

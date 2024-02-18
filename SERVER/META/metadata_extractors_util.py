@@ -53,7 +53,7 @@ def gpt35_composition_ouput(query):
         temperature=0.5,
         )
     
-   # print("raw result from gpt : ")
+   # logging.info("raw result from gpt : ")
     return response.choices[0].text.lower().strip()
 
 

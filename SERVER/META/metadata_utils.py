@@ -17,7 +17,7 @@ def extract_blackwhite(text):
     if "black" in words:
         index_black = words.index("black")
         for word in words[index_black + 1:]:
-            #print("word after black : "+word)
+            #logging.info("word after black : "+word)
             if word in ["yes", "no"]:
                 mylist[0] = word
                 break
