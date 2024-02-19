@@ -12,7 +12,7 @@ class TypeMatcher(IMetadataMatcher):
         return True if metadata_card and json_elem match on type
         """
         if json_elem is None:
-            print("error in is_type_match ")
+            logging.info("error in is_type_match ")
             return False
         
         if "type" not in json_elem:

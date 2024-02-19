@@ -65,7 +65,8 @@ docker cp dump askstyler-mongodb-1:/dump
 #get inside the mongo container :
 docker exec -it <container id> bash
 #then :
-mongorestore --uri "mongodb://localhost:27017/" /dump
+#without auth : mongorestore --uri "mongodb://localhost:27017/" /dump 
+mongorestore --uri "mongodb://askstyler:Styler_12345@localhost:27017/" /dump
 
 ```
 ## Export the mongodatabase (from container to local machine)
@@ -89,4 +90,10 @@ docker login ghcr.io --username Aziz4785 --password <password>
 docker-compose build
 docker tag <image name>:latest ghcr.io/aziz4785/<image name>:<tag you want to put>
 docker push ghcr.io/aziz4785/<image name>:<tag you want to put>
+```
+## reset a docker volume
+```bash
+docker-compose down
+docker volume ls #to find the volume name
+docker volume rm <volume name>
 ```
