@@ -3,6 +3,11 @@ version: '3.8'
 services:
   mongodb:
     image: mongo
+    container_name: mongodb
+    command: ["--auth"] #https://www.mongodb.com/community/forums/t/docker-compose-authentication-doesnt-register/174875/3
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=askstyler
+      - MONGO_INITDB_ROOT_PASSWORD=Styler_12345
     healthcheck:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand('ping').ok ? quit(0) : quit(1)"]
       interval: 10s
@@ -11,6 +16,7 @@ services:
       start_period: 40s
     volumes:
       - mongodb_data:/data/db
+      #- ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"
     networks:
@@ -18,7 +24,7 @@ services:
 
   server:
     build: ./SERVER
-    #image: ghcr.io/aziz4785/smartstyle-server:v0.1
+    #image: ghcr.io/aziz4785/smartstyle-server:v0.6.2
     #environment: #IF YOU WANT TO ALLOW PRINT
       #PYTHONUNBUFFERED: "1"
     volumes:

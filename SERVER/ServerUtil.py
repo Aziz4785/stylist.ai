@@ -101,7 +101,7 @@ def load_embeddings(file_name="faiss_embedding", embeddings=OpenAIEmbeddings()):
     if os.path.exists(file_name):
         return FAISS.load_local(file_name, embeddings)
     else:
-        logging.info(f"File {file_name} not found.")
+        logging.critical(f"File {file_name} not found.")
         return None
 
 def extract_sentences(paragraph):

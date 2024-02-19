@@ -17,11 +17,8 @@ os.environ["OPENAI_API_KEY"] = config_server.OPENAI_API_KEY
 class MyApp(Flask):
     
     def __init__(self, import_name):
-        db_uri = config_server.db_uri
-        db_name = config_server.db_name
-        client = pymongo.MongoClient(db_uri)
-        logging.info("List of databases:", client.list_database_names())
-        db = client[db_name]
+        client = pymongo.MongoClient(config_server.db_uri)
+        db = client[config_server.db_name]
         super(MyApp, self).__init__(import_name)
         self.config["RATELIMIT_HEADERS_ENABLED"] = True #https://flask-limiter.readthedocs.io/en/stable/configuration.html
         if(config_server.catalogue_name in db.list_collection_names()):
@@ -29,6 +26,8 @@ class MyApp(Flask):
             self.hashtable = load_hashtable("hashtable")
             self.embedding = load_embeddings()
             #self.embedding_of_small_chunks = create_embedding(self.hashtable_small_chunks.keys())
+        else:
+            logging.critical("catalogue not in db")
 
 app = MyApp(__name__)
 app.config.update(
@@ -104,4 +103,4 @@ def process():
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}")
         logging.info("error occured ..")
-        return jsonify({"error": "An unexpected error occurred"}), 500
+        return jsonify({"error": f"An unexpected error occurred"}), 500
